@@ -1,4 +1,5 @@
 package primitives;
+<<<<<<< HEAD
 /**
  * This class will reperesent point
  *
@@ -61,4 +62,8 @@ public class Point {
 
     @Override
     public  Sring toString(){ return xyz.toString()}
+=======
+
+public class Point {
+>>>>>>> initial commit
 }
