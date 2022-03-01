@@ -44,7 +44,7 @@ public class Vector extends Point {
      * @return result of scale
      */
     public Vector scale(double rhs) {
-        return xyz.scale(rhs);
+        return new Vector(xyz.scale(rhs));
     }
 
     /**

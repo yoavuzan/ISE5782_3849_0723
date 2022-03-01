@@ -5,24 +5,23 @@ import java.util.List;
 import primitives.*;
 import static primitives.Util.*;
 
-public class Triangle implements Geometry {
+public class Triangle extends Polygon {
 
 
-    public  Triangle(List<Point> vertices){
-        if (vertices.length > 3)
-            throw new IllegalArgumentException("A triangle can't have more than 3 vertices");
+    public  Triangle(Point... vertices){
         super(vertices);
     }
-
-    public Point getQ1() {
-        return q1;
+    List<Point> getTrungle()
+    {
+        //need to check
+        return this.vertices;
     }
 
-    public Point getQ2() {
-        return q2;
-    }
-
-    public Point getQ3() {
-        return q3;
+    @Override
+    public String toString() {
+        return "Triangle{" +
+                "vertices=" + vertices +
+                ", plane=" + plane +
+                '}';
     }
 }
