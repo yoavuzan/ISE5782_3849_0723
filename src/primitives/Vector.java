@@ -26,32 +26,30 @@ public class Vector extends Point {
                 + xyz.d2 * xyz.d2
                 + xyz.d3 * xyz.d3;
     }
-
-    /**
-     *
-     * @param other
-     * @return
-     */
-    public Vector add(Vector other) {
-        return  new Vector(xyz.add(other.xyz));
-}
-
-    /**
-     * Scale (multiply) floating point triad by a number into a new triad where each
-     * number is multiplied by the number
-     *
-     * @param rhs right handle side operand for scaling
-     * @return result of scale
-     */
-    public Vector scale(double rhs) {
-        return xyz.scale(rhs);
-    }
-
     /**
      * @return length of vector
      */
     public double length() {
         return Math.sqrt(lengthSquared());
+    }
+
+    /**
+     * adding two vectors
+     * @param other vector
+     * @return new vector
+     */
+    public Vector add(Vector other) {
+        return new Vector(xyz.add(other.xyz));
+    }
+
+    /**
+     * Scale (multiply) floating point triad by a number into a new triad where each
+     * number is multiplied by the number
+     * @param rhs right handle side operand for scaling
+     * @return result of scale
+     */
+    public Vector scale(double rhs) {
+        return xyz.scale(rhs);
     }
 
     /**
