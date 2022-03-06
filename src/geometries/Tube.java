@@ -1,4 +1,15 @@
 package geometries;
 
-public class Tube {
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
+
+public class Tube implements Geometry {
+     Ray  axisRay;
+     Double radius;
+
+    @Override
+    public Vector getNormal(Point point) {
+        return null;
+    }
 }
