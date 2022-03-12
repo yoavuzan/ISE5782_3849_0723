@@ -5,6 +5,7 @@ import primitives.Ray;
 import primitives.Vector;
 
 public class Tube implements Geometry {
+
      Ray  axisRay;
      Double radius;
 

@@ -74,6 +74,8 @@ public class Vector extends Point {
      * @link https://www.mathsisfun.com/algebra/vectors-cross-product.html
      */
     public Vector crossProduct(Vector other) {
+        //return the normal vector
+
         double ax = xyz.d1;
         double ay = xyz.d2;
         double az = xyz.d3;
@@ -86,7 +88,7 @@ public class Vector extends Point {
         double cy = az * bx - ax * bz;
         double cz = ax * by - ay * bx;
 
-        return new Vector(cx, cy, cz);
+        return new Vector(cx, cy, cz);//normal vector
     }
 
     /**
