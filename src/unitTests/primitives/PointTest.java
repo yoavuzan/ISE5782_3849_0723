@@ -1,10 +1,26 @@
 package unitTests.primitives;
+import org.junit.jupiter.api.Test;
+import primitives.Double3;
 import primitives.Point;
 import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
-
+/**
+ * Unit tests for primitives.Point class
+ * @author Yoav Uzan and Yaniv Bartov
+ */
 class PointTest {
+
+    @Test
+    public void testConstructor() {
+        // ============ Equivalence Partitions Tests ==============
+        // TC01: Correct concave quadrangular with vertices in correct order
+        try {
+            new Point(2,3,3);
+        } catch (IllegalArgumentException e) {
+            fail("Failed constructing a correct Point");
+        }
+    }
 
     @org.junit.jupiter.api.Test
     void add()
