@@ -6,7 +6,6 @@ package primitives;
  * @author Yoav uzan and yaniv bartov
  */
 public class Point {
-
     final Double3 xyz;
 
     /**
@@ -77,7 +76,6 @@ public class Point {
     public double distance(Point other) {
         return Math.sqrt(distanceSquared(other));
     }
-
 
     @Override
     public boolean equals(Object obj) {
