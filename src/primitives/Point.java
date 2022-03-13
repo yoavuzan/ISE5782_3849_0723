@@ -14,7 +14,7 @@ public class Point {
      *
      * @param xyz Double3 value for x,z,z axis
      */
-    public Point(Double3 xyz) {
+    Point(Double3 xyz) {
         this.xyz = xyz;
     }
 

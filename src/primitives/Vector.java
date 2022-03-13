@@ -1,5 +1,12 @@
 package primitives;
 
+
+/**
+ * This class will reperesent vector
+ *
+ * @author Yoav uzan and yaniv bartov
+ */
+
 public class Vector extends Point {
 
     /**
@@ -7,15 +14,23 @@ public class Vector extends Point {
      *
      * @param xyz head of vector starting from origin Point(0.0.0)
      */
-    public Vector(Double3 xyz) {
+     Vector(Double3 xyz) {
         super(xyz);
         if (xyz.equals(Double3.ZERO)) {
             throw new IllegalArgumentException("Vector(0,0,0) is not allowed");
         }
     }
 
-    public Vector(double x, double y, double z) {
+    /**
+     * @param x
+     * @param y
+     * @param z
+     */
+    public Vector(double x, double y, double z)
+    {
         this(new Double3(x, y, z));
+        if (x==0 && y==0 && z==0)
+            throw new IllegalArgumentException("Vector(0,0,0) is not allowed");
     }
 
     /**
@@ -93,13 +108,17 @@ public class Vector extends Point {
 
     /**
      *
-     * @return
+     * @return Normalize vector
      */
     public Vector normalize() {
         double len = length();
         return new Vector(xyz.reduce(len));
     }
 
+    /**
+     * @param obj
+     * @return if is equals
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
@@ -109,6 +128,9 @@ public class Vector extends Point {
         return super.equals(other);
     }
 
+    /**
+     * @return the point of vector
+     */
     @Override
     public String toString() { return "->" + super.toString(); }
 
