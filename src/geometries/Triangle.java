@@ -8,22 +8,20 @@ import static primitives.Util.*;
 
 
 /**
- * This class will reperesent Polygon
+ * This class will represent Polygon
  *
- * @author Yoav uzan and yaniv bartov
+ * @author Yoav Uzan and Yaniv Bar-tov
  */
 public class Triangle extends Polygon {
 
     /**
+     * constructor new triangle with vertices
      * @param vertices
      */
     public Triangle(Point... vertices) {
         super(vertices);
     }
 
-    /**
-     * @return string with all parm of Triangle
-     */
     @Override
     public String toString() {
         return "Triangle{" +

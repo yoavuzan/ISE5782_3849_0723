@@ -9,17 +9,17 @@ package primitives;
 public class Ray {
 
     private final Point point;
-    private final Vector derction;
+    private final Vector direction;
 
     /**
      * constractor new  Ray
      *
      * @param point    of beganing
-     * @param derction of vector
+     * @param direction of vector
      */
-    public Ray(Point point, Vector derction) {
+    public Ray(Point point, Vector direction) {
         this.point = point;
-        this.derction = derction.normalize();
+        this.direction = direction.normalize();
     }
 
     /**
@@ -32,8 +32,8 @@ public class Ray {
     /**
      * @return get the vector of ray
      */
-    public Vector getDerction() {
-        return derction;
+    public Vector getDirection() {
+        return direction;
     }
 
     public boolean equals(Object obj) {
@@ -41,11 +41,11 @@ public class Ray {
         if (obj == null) return false;
         if (!(obj instanceof Ray)) return false;
         Ray other = (Ray) obj;
-        return point.equals(other.point) && derction.equals(other.derction);
+        return point.equals(other.point) && direction.equals(other.direction);
     }
 
     @Override
     public String toString() {
-        return point.toString() + " " + derction.toString();
+        return point.toString() + " " + direction.toString();
     }
 }

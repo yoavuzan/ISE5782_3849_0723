@@ -5,7 +5,7 @@ import primitives.*;
 import static primitives.Util.*;
 
 /**
- * This class will reperesent sphere
+ * This class will represent sphere
  *
  * @author Yoav uzan and yaniv bartov
  */
@@ -15,7 +15,7 @@ public class Sphere implements Geometry {
     final private Double radius;
 
     /**
-     * constractor
+     * build new Sphere with center and radius
      *
      * @param center center
      * @param radius radius

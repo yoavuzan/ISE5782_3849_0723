@@ -6,16 +6,18 @@ import static primitives.Util.*;
 /**
  * This class will represent tube
  *
- * @author Yoav uzan and yaniv bartov
+ * @author Yoav uzan and Yaniv Bar-tov
  */
 
 public class Clyinder extends Tube {
+
     final private double height;
 
     /**
      * constaractor
      * @param axisRay //Ray that goes through the height of tube
      * @param radius  /Radius of tube
+     * @param height  /height of tube
      */
     public Clyinder(Ray axisRay, double radius, double height) {
         super(axisRay, radius);
@@ -37,6 +39,7 @@ public class Clyinder extends Tube {
      * @param point The point to evaluate the normal at.
      * @return The normal vector of the plane.
      */
+
     @Override
     public Vector getNormal(Point point) {
         double t = axisRay.getDirection().dotProduct(point.subtract(axisRay.getPoint()));

@@ -9,5 +9,10 @@ import primitives.*;
  * @author Yoav uzan and yaniv bartov
  */
 public interface Geometry {
+    /**
+     * get normal of all geometry
+     * @param point
+     * @return normal
+     */
     Vector getNormal(Point point);
 }
