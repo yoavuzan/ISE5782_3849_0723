@@ -1,32 +1,31 @@
 package geometries;
 
 import primitives.*;
+import static primitives.Util.*;
+
 /**
- * This class will reperesent tube
+ * This class will represent tube
  *
- * @author Yoav uzan and Yaniv Bartov
+ * @author Yoav uzan and yaniv bartov
  */
 
 public class Clyinder extends Tube {
-    double height;
+    final private double height;
 
     /**
-     * constractor of clyinder
-     *
-     * @param axisRay Ray that goes through the height of tube
-     * @param radius  Radius of tube
-     * @param height  height of clyinder
+     * constaractor
+     * @param axisRay //Ray that goes through the height of tube
+     * @param radius  /Radius of tube
      */
     public Clyinder(Ray axisRay, double radius, double height) {
         super(axisRay, radius);
         this.height = height;
     }
 
-
     /**
      * Returns the height of the Cylinder
      *
-     * @return The height of the Cylinder.
+     * @return the height of the Cylinder.
      */
     public double getHeight() {
         return height;
@@ -38,19 +37,15 @@ public class Clyinder extends Tube {
      * @param point The point to evaluate the normal at.
      * @return The normal vector of the plane.
      */
-
     @Override
     public Vector getNormal(Point point) {
+        double t = axisRay.getDirection().dotProduct(point.subtract(axisRay.getPoint()));
         //checks if point is on base of cylinder (bottom circle)
-        if (point.distance(axisRay.getPoint()) <= radius)
-            return axisRay.getVector();
-
-        //if point is not on bottom, find the center of the top base.
-        Point topCenter = axisRay.getPoint().add(axisRay.getVector().scale(height));
+        if(isZero(t))
+            return axisRay.getDirection();
         //checks if point is on the other base of cylinder (top circle)
-        if (point.distance(topCenter) <= radius)
-            return axisRay.getVector();
-
+        if(isZero(t-height))
+            return axisRay.getDirection();
         //if point is not on either base, call parent getNormal() to find normal of point on side of cylinder
         return super.getNormal(point);
     }
