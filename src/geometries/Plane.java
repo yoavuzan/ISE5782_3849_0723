@@ -1,8 +1,6 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Vector;
-
+import primitives.*;
 
 /**
  * This class will reperesent plane
@@ -10,8 +8,8 @@ import primitives.Vector;
  * @author Yoav uzan and yaniv bartov
  */
 public class Plane implements Geometry{
-    final Point q0;
-    final Vector normal;
+    final private Point q0;
+    final private Vector normal;
 
     /**
      * TODO explanations here
@@ -55,7 +53,5 @@ public class Plane implements Geometry{
     public Vector getNormal(Point point) {
         return normal;
     }
-
-
 }
 

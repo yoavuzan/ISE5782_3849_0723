@@ -1,7 +1,7 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
+
 
 /**
  * This interface will reperesent Geometry

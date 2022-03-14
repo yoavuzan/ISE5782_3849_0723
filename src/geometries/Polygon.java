@@ -15,7 +15,6 @@ public class Polygon implements Geometry {
     /**
      * List of polygon's vertices
      */
-
     protected List<Point> vertices;
     /**
      * Associated plane in which the polygon lays

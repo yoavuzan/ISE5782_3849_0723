@@ -50,10 +50,8 @@ class PointTest {
         Point p2 = new Point(1,4,6);
 
         // ============ Equivalence Partitions Tests ==============
-        double newDistanceSquered=25;
         //TC01: Test that the result of substract is proper
-        assertEquals(p1.distanceSquared(p2),newDistanceSquered,"distanceSquared got wrong result ");
-
+        assertEquals(p1.distanceSquared(p2),25d,"distanceSquared got wrong result ");
     }
 
     @org.junit.jupiter.api.Test
@@ -62,8 +60,7 @@ class PointTest {
         Point p2 = new Point(1,4,6);
 
         // ============ Equivalence Partitions Tests ==============
-        double newDistanceSquered=5;
         //TC01: Test that the result of substract is proper
-        assertEquals(p1.distance(p2),newDistanceSquered,"distance() got wrong result ");
+        assertEquals(p1.distance(p2),5d,"distance() got wrong result ");
     }
 }

@@ -47,6 +47,7 @@ public class VectorTest {
         vector1 = vector1.subtract(vector2);
         assertEquals(vector1,vector3, "substruct() got wrong result ");
     }
+
     /**
      * Test method for {@link primitives.Vector#scale(double)}.
      */
@@ -61,6 +62,7 @@ public class VectorTest {
         // TC02: Test to check if throw exception
         assertThrows(IllegalArgumentException.class, () -> v1.scale(0), "scale() for 0 does not throw an exception");
     }
+
     @Test
     public void dotProductTest() {
         Vector vector1 = new Vector(1, 0, 0);
@@ -102,6 +104,4 @@ public class VectorTest {
         //TC01: Test to check if  the result of length is proper
         assertEquals(vector1.length(), 3d, "length() is not what it should be");
     }
-
-
 }
