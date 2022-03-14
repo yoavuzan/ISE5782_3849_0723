@@ -1,12 +1,11 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
 
 /**
  * This interface will reperesent Geometry
  *
- * @author Yoav uzan and yaniv bartov
+ * @author Yoav Uzan and Yaniv Bar-Tov
  */
 public interface Geometry {
     Vector getNormal(Point point);

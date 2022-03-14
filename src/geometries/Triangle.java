@@ -3,6 +3,7 @@ package geometries;
 import java.util.List;
 
 import primitives.*;
+
 import static primitives.Util.*;
 
 
@@ -14,22 +15,13 @@ import static primitives.Util.*;
 public class Triangle extends Polygon {
 
     /**
-     *
      * @param vertices
      */
-    public  Triangle(Point... vertices){
+    public Triangle(Point... vertices) {
         super(vertices);
     }
 
-
-    List<Point> getTrungle()
-    {
-        //need to check
-        return this.vertices;
-    }
-
     /**
-     *
      * @return string with all parm of Triangle
      */
     @Override

@@ -29,7 +29,7 @@ public class Tube implements Geometry {
     /**
      * Returns the axis ray
      *
-     * @return The axisRay is being returned.
+     * @return The axis ray is being returned.
      */
     public Ray getAxisRay() {
         return axisRay;

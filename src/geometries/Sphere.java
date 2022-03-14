@@ -1,7 +1,8 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
+
+import static primitives.Util.*;
 
 /**
  * This class will reperesent sphere
@@ -20,9 +21,9 @@ public class Sphere implements Geometry {
      * @param radius radius
      */
     public Sphere(Point center, double radius) {
-        this.center = center;
-        if (radius <= 0)
+        if (alignZero(radius) <= 0)
             throw new IllegalArgumentException("radius must be bigger then zero");
+        this.center = center;
         this.radius = radius;
     }
 
@@ -45,7 +46,7 @@ public class Sphere implements Geometry {
     }
 
     @Override
-    public Vector getNormal(Point point){
-        Vector normal=point.subtract(center).normalize();
-        return normal;}
+    public Vector getNormal(Point point) {
+        return point.subtract(center).normalize();
+    }
 }

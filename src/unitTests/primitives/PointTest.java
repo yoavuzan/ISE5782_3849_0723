@@ -28,7 +28,7 @@ class PointTest {
         Point p1 = new Point(1,2,3);
         // ============ Equivalence Partitions Tests ==============
         Vector v=new Vector(1,2,3);
-        Point newP=new Point(2,4,6);
+        Point newP=new Point(2,4,6);// the result
         //TC01: Test that the result of add is proper
         assertEquals(newP,p1.add(v),"add() got wrong result ");
 
@@ -49,10 +49,8 @@ class PointTest {
         Point p1 = new Point(1,1,2);
         Point p2 = new Point(1,4,6);
 
-        // ============ Equivalence Partitions Tests ==============
-        double newDistanceSquered=25;
         //TC01: Test that the result of substract is proper
-        assertEquals(p1.distanceSquared(p2),newDistanceSquered,"distanceSquared got wrong result ");
+        assertEquals(p1.distanceSquared(p2),25,"distanceSquared got wrong result ");
 
     }
 

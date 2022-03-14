@@ -2,9 +2,9 @@ package primitives;
 
 
 /**
- * This class will reperesent vector
+ * This class will reperesent tube
  *
- * @author Yoav uzan and yaniv bartov
+ * @author Yoav uzan and Yaniv Bartov
  */
 
 public class Vector extends Point {
@@ -14,7 +14,7 @@ public class Vector extends Point {
      *
      * @param xyz head of vector starting from origin Point(0.0.0)
      */
-     Vector(Double3 xyz) {
+    Vector(Double3 xyz) {
         super(xyz);
         if (xyz.equals(Double3.ZERO)) {
             throw new IllegalArgumentException("Vector(0,0,0) is not allowed");
@@ -22,33 +22,29 @@ public class Vector extends Point {
     }
 
     /**
-     * @param x
-     * @param y
-     * @param z
+     * constractor of vector with 3 kord
+     * @param x kord
+     * @param y kord
+     * @param z kord
      */
-    public Vector(double x, double y, double z)
-    {
+    public Vector(double x, double y, double z) {
         this(new Double3(x, y, z));
-        if (x==0 && y==0 && z==0)
-            throw new IllegalArgumentException("Vector(0,0,0) is not allowed");
     }
 
     /**
-     * @return length Squared
+     * @return length of Squared
      */
     public double lengthSquared() {
-        return xyz.d1 * xyz.d1
-                + xyz.d2 * xyz.d2
-                + xyz.d3 * xyz.d3;
+        return dotProduct(this);
     }
 
     /**
-     *
      * @param other
-     * @return
+     * vector plus vector
+     * @return the result of add tow vector
      */
     public Vector add(Vector other) {
-        return  new Vector(xyz.add(other.xyz));
+        return new Vector(xyz.add(other.xyz));
     }
 
     /**
@@ -84,9 +80,9 @@ public class Vector extends Point {
 
     /**
      * cross product between two vectors (vectorial product)
+     *
      * @param other other the right vector of U.V
      * @return the vector resulting from the cross product (Right-hand rule)
-     * @link https://www.mathsisfun.com/algebra/vectors-cross-product.html
      */
     public Vector crossProduct(Vector other) {
         //return the normal vector
@@ -107,31 +103,24 @@ public class Vector extends Point {
     }
 
     /**
-     *
-     * @return Normalize vector
+     * @return the normalized vector
      */
     public Vector normalize() {
-        double len = length();
-        return new Vector(xyz.reduce(len));
+        return new Vector(xyz.reduce(length()));
     }
 
-    /**
-     * @param obj
-     * @return if is equals
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
         if (!(obj instanceof Point)) return false;
-        Point other = (Point)obj;
+        Point other = (Point) obj;
         return super.equals(other);
     }
 
-    /**
-     * @return the point of vector
-     */
     @Override
-    public String toString() { return "->" + super.toString(); }
+    public String toString() {
+        return "->" + super.toString();
+    }
 
 }

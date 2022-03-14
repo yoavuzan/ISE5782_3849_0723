@@ -3,6 +3,7 @@ package geometries;
 import java.util.List;
 
 import primitives.*;
+
 import static primitives.Util.*;
 
 /**
@@ -16,12 +17,12 @@ public class Polygon implements Geometry {
      * List of polygon's vertices
      */
 
-    protected List<Point> vertices;
+    protected final List<Point> vertices;
     /**
      * Associated plane in which the polygon lays
      */
-    protected Plane plane;
-    private int size;
+    protected final Plane plane;
+    private final int size;
 
     /**
      * Polygon constructor based on vertices list. The list must be ordered by edge
@@ -48,11 +49,13 @@ public class Polygon implements Geometry {
         if (vertices.length < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         this.vertices = List.of(vertices);
+        size = vertices.length;
+
         // Generate the plane according to the first three vertices and associate the
         // polygon with this plane.
         // The plane holds the invariant normal (orthogonal unit) vector to the polygon
         plane = new Plane(vertices[0], vertices[1], vertices[2]);
-        if (vertices.length == 3)
+        if (size == 3)
             return; // no need for more tests for a Triangle.java
 
         Vector n = plane.getNormal();
@@ -82,11 +85,10 @@ public class Polygon implements Geometry {
             if (positive != (edge1.crossProduct(edge2).dotProduct(n) > 0))
                 throw new IllegalArgumentException("All vertices must be ordered and the polygon must be convex");
         }
-        size = vertices.length;
     }
 
     @Override
     public Vector getNormal(Point point) {
-        return plane.getNormal(null);
+        return plane.getNormal();
     }
-    }
+}

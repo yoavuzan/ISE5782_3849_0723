@@ -1,22 +1,21 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
-
+import primitives.*;
 /**
  * This class will reperesent tube
  *
- * @author Yoav uzan and yaniv bartov
+ * @author Yoav uzan and Yaniv Bartov
  */
 
-public class Clyinder  extends Tube {
+public class Clyinder extends Tube {
     double height;
 
     /**
-     * constaractor
-     * @param axisRay //Ray that goes through the height of tube
-     * @param radius  /Radius of tube
+     * constractor of clyinder
+     *
+     * @param axisRay Ray that goes through the height of tube
+     * @param radius  Radius of tube
+     * @param height  height of clyinder
      */
     public Clyinder(Ray axisRay, double radius, double height) {
         super(axisRay, radius);
@@ -39,6 +38,7 @@ public class Clyinder  extends Tube {
      * @param point The point to evaluate the normal at.
      * @return The normal vector of the plane.
      */
+
     @Override
     public Vector getNormal(Point point) {
         //checks if point is on base of cylinder (bottom circle)
