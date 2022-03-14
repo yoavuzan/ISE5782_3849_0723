@@ -4,6 +4,12 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+/**
+ * This class will reperesent tube
+ *
+ * @author Yoav uzan and yaniv bartov
+ */
+
 public class Clyinder  extends Tube {
     double height;
 
