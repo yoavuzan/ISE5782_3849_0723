@@ -11,6 +11,7 @@ public class Tube implements Geometry {
 
     final protected Ray axisRay;
     final protected Double radius;
+
     /**
      * A constructor
      *
@@ -60,10 +61,7 @@ public class Tube implements Geometry {
         if (t == 0) {
             return p0p.normalize();
         }
-
         v = v.scale(t);
-        Point o = axisRay.getPoint().add(v);
-        Vector o_p = point.subtract(o);
-        return o_p.normalize();
+        return point.subtract(axisRay.getPoint().add(v)).normalize();//op= point-(P0+v)
     }
 }

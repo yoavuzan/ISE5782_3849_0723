@@ -39,6 +39,7 @@ public class Clyinder extends Tube {
      */
     @Override
     public Vector getNormal(Point point) {
+        // t=v*(P-P0)
         double t = axisRay.getDirection().dotProduct(point.subtract(axisRay.getPoint()));
         //checks if point is on base of cylinder (bottom circle)
         if(isZero(t))
