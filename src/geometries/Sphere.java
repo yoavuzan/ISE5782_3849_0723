@@ -1,10 +1,11 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Vector;
+import primitives.*;
+
+import static primitives.Util.*;
 
 /**
- * This class will reperesent sphere
+ * This class will represent sphere
  *
  * @author Yoav uzan and yaniv bartov
  */
@@ -14,15 +15,15 @@ public class Sphere implements Geometry {
     final private Double radius;
 
     /**
-     * constractor
+     * build new Sphere with center and radius
      *
      * @param center center
      * @param radius radius
      */
     public Sphere(Point center, double radius) {
-        this.center = center;
-        if (radius <= 0)
+        if (alignZero(radius) <= 0)
             throw new IllegalArgumentException("radius must be bigger then zero");
+        this.center = center;
         this.radius = radius;
     }
 
@@ -45,7 +46,7 @@ public class Sphere implements Geometry {
     }
 
     @Override
-    public Vector getNormal(Point point){
-        Vector normal=point.subtract(center).normalize();
-        return normal;}
+    public Vector getNormal(Point point) {
+        return point.subtract(center).normalize();
+    }
 }

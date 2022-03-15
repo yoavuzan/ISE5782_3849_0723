@@ -6,7 +6,8 @@ package primitives;
  * @author Yoav uzan and yaniv bartov
  */
 public class Point {
-    final Double3 xyz;
+
+ protected  final Double3 xyz;
 
     /**
      * primary constructor for Point
@@ -28,12 +29,8 @@ public class Point {
         xyz = new Double3(x, y, z);
     }
 
-    public Double3 getXyz() {
-        return xyz;
-    }
-
     /**
-     * add vetctor to point
+     * add vector to point
      *
      * @param vector
      * @return the new point
@@ -54,24 +51,19 @@ public class Point {
 
     /**
      * @param other
-     * @return d = ((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1) + (z2 - z1)*(z2 - z1))
+     * @return The distance from point to point
      */
     public double distanceSquared(Point other) {
-        double x1 = xyz.d1;
-        double y1 = xyz.d2;
-        double z1 = xyz.d3;
+        double dx = xyz.d1 - other.xyz.d1;
+        double dy = xyz.d2 - other.xyz.d2;
+        double dz = xyz.d3 - other.xyz.d3;
 
-        double x2 = other.xyz.d1;
-        double y2 = other.xyz.d2;
-        double z2 = other.xyz.d3;
-
-        return ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1) + (z2 - z1) * (z2 - z1));
+        return dx * dx + dy * dy + dz * dz;
     }
 
     /**
      * @param other
-     * @return d = Sqrt (lengthSquare)
-     * @link https://www.engineeringtoolbox.com/distance-relationship-between-two-points-d_1854.html
+     * @return distance = Sqrt of lengthSquare method
      */
     public double distance(Point other) {
         return Math.sqrt(distanceSquared(other));

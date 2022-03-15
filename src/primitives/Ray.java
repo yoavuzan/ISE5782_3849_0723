@@ -5,53 +5,47 @@ package primitives;
  *
  * @author Yoav uzan and yaniv bartov
  */
+
 public class Ray {
 
-    final Point point;
-    final Vector direction;
+    private final Point point;
+    private final Vector direction;
 
     /**
+     * constractor new  Ray
      *
-     * @param point
-     * @param vector
+     * @param point    of beganing
+     * @param direction of vector
      */
-    public Ray(Point point, Vector vector){
-        this.point=point;
-        this.direction=vector.normalize();
+    public Ray(Point point, Vector direction) {
+        this.point = point;
+        this.direction = direction.normalize();
     }
 
     /**
-     * @return Point
+     * @return get the point of ray
      */
     public Point getPoint() {
         return point;
     }
 
     /**
-     *
-     * @return vector
+     * @return get the vector of ray
      */
     public Vector getDirection() {
         return direction;
     }
 
-    /**
-     *
-     * @param obj
-     * @return if the obj equals to parm.
-     */
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
         if (!(obj instanceof Ray)) return false;
-        Ray other = (Ray)obj;
-        return point.equals(other.point)&&direction.equals(other.direction);
+        Ray other = (Ray) obj;
+        return point.equals(other.point) && direction.equals(other.direction);
     }
 
-    /**
-     *
-     * @return string of parm
-     */
     @Override
-    public String toString() { return point.toString()+" "+direction.toString(); }
+    public String toString() {
+        return point.toString() + " " + direction.toString();
+    }
 }

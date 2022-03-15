@@ -1,57 +1,62 @@
 package geometries;
 
-import primitives.*;
+import primitives.Point;
+import primitives.Vector;
 
 /**
  * This class will reperesent plane
  *
  * @author Yoav uzan and yaniv bartov
  */
-public class Plane implements Geometry{
-    final private Point q0;
-    final private Vector normal;
+public class Plane implements Geometry {
+    final Point point;
+    final Vector normal;
 
     /**
      * TODO explanations here
-     * @param q0
+     *
+     * @param point
      * @param normal vector for the normal (will bwe normalized automatically)
      */
-    public Plane(Point q0, Vector normal) {
-        this.q0 = q0;
+    public Plane(Point point, Vector normal) {
+        this.point = point;
         this.normal = normal.normalize();
     }
 
-    public Plane(Point p1, Point p2, Point p3) {
-        q0 =p1;
+    /**
+     * @param point1
+     * @param point2
+     * @param point3
+     * @throws IllegalArgumentException when all three points are co-lined
+     */
+    public Plane(Point point1, Point point2, Point point3) {
+        point = point1;
 
-        Vector U = p2.subtract(p1);
-        Vector V = p3.subtract(p1);
+        Vector U = point2.subtract(point1);
+        Vector V = point3.subtract(point1);
 
         Vector N = U.crossProduct(V);
         //right hand rule
-        normal = N.normalize();;
+        normal = N.normalize();
     }
 
-    public Point getQ0() {
-        return q0;
+    public Point getPoint() {
+        return point;
     }
 
     /**
-     * getter for _normal field
-     * @return
+     * getter for normal vector
+     *
+     * @return the normal
      */
     public Vector getNormal() {
         return normal;
     }
 
-    /**
-     * implementation of getNormal from Geometry
-     * @param point
-     * @return
-     */
     @Override
     public Vector getNormal(Point point) {
         return normal;
     }
+
 }
 

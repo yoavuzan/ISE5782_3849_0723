@@ -2,6 +2,8 @@ package geometries;
 
 import primitives.*;
 
+import static primitives.Util.alignZero;
+
 /**
  * This class will reperesent tube
  *
@@ -13,14 +15,14 @@ public class Tube implements Geometry {
     final protected Double radius;
 
     /**
-     * A constructor
+     *  constructor new tube with axis ray and radius
      *
      * @param axisRay //Ray that goes through the height of tube
      * @param radius  /Radius of tube
      */
     public Tube(Ray axisRay, double radius) {
         this.axisRay = axisRay;
-        if (radius <= 0)
+        if (alignZero(radius) <= 0)
             throw new IllegalArgumentException("radius must be bigger then zero");
         this.radius = radius;
     }
@@ -28,7 +30,7 @@ public class Tube implements Geometry {
     /**
      * Returns the axis ray
      *
-     * @return The axisRay is being returned.
+     * @return The axis ray is being returned.
      */
     public Ray getAxisRay() {
         return axisRay;
@@ -42,6 +44,7 @@ public class Tube implements Geometry {
     public double getRadius() {
         return radius;
     }
+
     /**
      * get normal of point on tube
      *
