@@ -29,4 +29,9 @@ public class Triangle extends Polygon {
                 ", plane=" + plane +
                 '}';
     }
+
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
+    }
 }

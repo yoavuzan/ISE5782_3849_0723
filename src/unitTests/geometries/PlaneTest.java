@@ -41,7 +41,7 @@ void TestPlane(){
 
 
     /**
-     * Test getNormal method
+     * Test method for {@link geometries.Plane#getNormal(primitives.Point)}.
      */
     @Test
     void testGetNormal() {

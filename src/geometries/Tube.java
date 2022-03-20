@@ -2,11 +2,12 @@ package geometries;
 
 import primitives.*;
 
+import java.util.List;
+
 import static primitives.Util.alignZero;
 
 /**
  * This class will reperesent tube
- *
  * @author Yoav uzan and yaniv bartov
  */
 public class Tube implements Geometry {
@@ -66,5 +67,10 @@ public class Tube implements Geometry {
         }
         v = v.scale(t);
         return point.subtract(axisRay.getPoint().add(v)).normalize();//op= point-(P0+v)
+    }
+
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
     }
 }

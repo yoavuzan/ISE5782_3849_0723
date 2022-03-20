@@ -1,7 +1,10 @@
 package geometries;
 
 import primitives.Point;
+import primitives.Ray;
 import primitives.Vector;
+
+import java.util.List;
 
 /**
  * This class will reperesent plane
@@ -34,10 +37,7 @@ public class Plane implements Geometry {
 
         Vector U = point2.subtract(point1);
         Vector V = point3.subtract(point1);
-
-        Vector N = U.crossProduct(V);
-        //right hand rule
-        normal = N.normalize();
+        normal = U.crossProduct(V).normalize();
     }
 
     public Point getPoint() {
@@ -58,5 +58,9 @@ public class Plane implements Geometry {
         return normal;
     }
 
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
+    }
 }
 

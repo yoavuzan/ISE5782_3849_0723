@@ -8,7 +8,7 @@ import primitives.*;
  *
  * @author Yoav uzan and yaniv bartov
  */
-public interface Geometry {
+public interface Geometry extends Intersectable {
     /**
      * get normal of all geometry
      * @param point

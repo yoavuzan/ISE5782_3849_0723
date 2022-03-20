@@ -2,6 +2,8 @@ package geometries;
 
 import primitives.*;
 
+import java.util.List;
+
 import static primitives.Util.*;
 
 /**
@@ -48,5 +50,10 @@ public class Sphere implements Geometry {
     @Override
     public Vector getNormal(Point point) {
         return point.subtract(center).normalize();
+    }
+
+    @Override
+    public List<Point> findIntsersections(Ray ray) {
+        return null;
     }
 }
