@@ -23,6 +23,9 @@ public class VectorTest {
         assertTrue(isZero(u.length() - 1), "normalize() result is not a unit vector");
     }
 
+    /**
+     * Test add of two vectors
+     */
     @Test
     public void addTest() {
         // ============ Equivalence Partitions Tests ==============
@@ -36,6 +39,9 @@ public class VectorTest {
         assertThrows(IllegalArgumentException.class, () -> vector2.add(new Vector(-1, -2, -3)), "add() for ZERO vector does not throw an exception");
     }
 
+    /**
+     * Test subtract of two vectors
+     */
     @Test
     public void subtractTest() {
         // ============ Equivalence Partitions Tests ==============
@@ -49,7 +55,8 @@ public class VectorTest {
     }
 
     /**
-     * Test method for {@link primitives.Vector#scale(double)}.
+     * Test method for {@link primitives.Vector#scale(double)}
+     * Test scalar multi vector
      */
     @Test
     void testScale() {
@@ -63,6 +70,9 @@ public class VectorTest {
         assertThrows(IllegalArgumentException.class, () -> v1.scale(0), "scale() for 0 does not throw an exception");
     }
 
+    /**
+     * Dot Product of two vectors
+     */
     @Test
     public void dotProductTest() {
         Vector vector1 = new Vector(1, 0, 0);
@@ -98,6 +108,9 @@ public class VectorTest {
                 "crossProduct() for parallel vectors does not throw an exception");
     }
 
+    /**
+     *Test length of vector
+     */
     @Test
     public void lengthTest() {
         Vector vector1 = new Vector(2, 2, 1);
