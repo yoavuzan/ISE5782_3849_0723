@@ -10,7 +10,9 @@ import static org.junit.jupiter.api.Assertions.*;
  * @author Yoav Uzan and Yaniv Bartov
  */
 class PointTest {
-
+/**
+ * test constructor of point
+ */
     @Test
     public void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
@@ -22,6 +24,9 @@ class PointTest {
         }
     }
 
+    /**
+     * test add of tow point
+     */
     @org.junit.jupiter.api.Test
     void addTest()
     {
@@ -34,6 +39,9 @@ class PointTest {
 
     }
 
+    /**
+     * test subtract of tow point
+     */
     @org.junit.jupiter.api.Test
     void subtractTest() {
         Point p1 = new Point(2,3,4);
@@ -44,6 +52,9 @@ class PointTest {
         assertEquals(v,p1.subtract(p2),"substract() got wrong result ");
     }
 
+    /**
+     * test distance of squared
+     */
     @org.junit.jupiter.api.Test
     void distanceSquared() {
         Point p1 = new Point(1,1,2);
@@ -54,6 +65,9 @@ class PointTest {
         assertEquals(p1.distanceSquared(p2),25d,"distanceSquared got wrong result ");
     }
 
+    /**
+     * test distance with tow point
+     */
     @org.junit.jupiter.api.Test
     void distance() {
         Point p1 = new Point(1,1,2);
