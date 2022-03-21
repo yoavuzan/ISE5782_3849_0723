@@ -5,9 +5,9 @@ import java.util.List;
 
 public interface Intersectable {
     /**
-     * find the intsersections of this ray with the geometry
+     * find the intersections of this ray with the geometry
      * @param ray
-     * @return list of intsersections
+     * @return list of intersections
      */
-    public List<Point> findIntsersections(Ray ray);
+    public List<Point> findIntersections(Ray ray);
 }
