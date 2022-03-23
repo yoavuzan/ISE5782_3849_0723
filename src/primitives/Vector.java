@@ -2,7 +2,7 @@ package primitives;
 
 
 /**
- * This class will reperesent tube
+ * This class represent vector
  *
  * @author Yoav uzan and Yaniv Bartov
  */
@@ -22,7 +22,7 @@ public class Vector extends Point {
     }
 
     /**
-     * constractor of vector with 3 kord
+     * constructor of vector with 3 kord
      * @param x kord
      * @param y kord
      * @param z kord
@@ -32,6 +32,7 @@ public class Vector extends Point {
     }
 
     /**
+     * calculate the length squared of the vector
      * @return length of Squared
      */
     public double lengthSquared() {
@@ -39,8 +40,8 @@ public class Vector extends Point {
     }
 
     /**
-     * @param other
-     * vector plus vector
+     * calculate vector plus vector
+     * @param other vector
      * @return the result of add tow vector
      */
     public Vector add(Vector other) {
@@ -59,6 +60,7 @@ public class Vector extends Point {
     }
 
     /**
+     * calculate the length of vector
      * @return length of vector
      */
     public double length() {

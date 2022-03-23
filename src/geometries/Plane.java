@@ -1,25 +1,22 @@
 package geometries;
 
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
-
+import primitives.*;
 import java.util.List;
 
 /**
- * This class will reperesent plane
+ * This class will represent plane
  *
  * @author Yoav uzan and yaniv bartov
  */
 public class Plane implements Geometry {
-    final Point point;
-    final Vector normal;
+    private final Point point;
+    private final Vector normal;
 
     /**
-     * TODO explanations here
+     * constructor of plane by point and normal
      *
      * @param point
-     * @param normal vector for the normal (will bwe normalized automatically)
+     * @param normal vector for the normal (will be normalized automatically)
      */
     public Plane(Point point, Vector normal) {
         this.point = point;
@@ -27,6 +24,8 @@ public class Plane implements Geometry {
     }
 
     /**
+     * constructor of plane by  three points
+     *
      * @param point1
      * @param point2
      * @param point3
@@ -35,18 +34,21 @@ public class Plane implements Geometry {
     public Plane(Point point1, Point point2, Point point3) {
         point = point1;
 
-        Vector U = point2.subtract(point1);
-        Vector V = point3.subtract(point1);
-        normal = U.crossProduct(V).normalize();
+        Vector u = point2.subtract(point1);
+        Vector v = point3.subtract(point1);
+        normal = u.crossProduct(v).normalize();
     }
 
+    /**
+     * getter for point
+     * @return the point
+     */
     public Point getPoint() {
         return point;
     }
 
     /**
      * getter for normal vector
-     *
      * @return the normal
      */
     public Vector getNormal() {

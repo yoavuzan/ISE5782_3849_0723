@@ -1,7 +1,7 @@
 package primitives;
 
 /**
- * This class will reperesent point
+ * This class represent point
  *
  * @author Yoav uzan and yaniv bartov
  */
@@ -50,8 +50,9 @@ public class Point {
     }
 
     /**
-     * @param other
-     * @return The distance from point to point
+     * calculate the distance squared between two points
+     * @param other point
+     * @return The distance squared from point to point
      */
     public double distanceSquared(Point other) {
         double dx = xyz.d1 - other.xyz.d1;
@@ -62,7 +63,8 @@ public class Point {
     }
 
     /**
-     * @param other
+     * calculate the distance between two points
+     * @param other point
      * @return distance = Sqrt of lengthSquare method
      */
     public double distance(Point other) {
