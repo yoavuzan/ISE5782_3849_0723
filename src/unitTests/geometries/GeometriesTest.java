@@ -13,6 +13,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Unit tests for primitives.Geometries class
+ * @author Yoav Uzan and Yaniv Bartov
+ */
 class GeometriesTest {
 
     /**

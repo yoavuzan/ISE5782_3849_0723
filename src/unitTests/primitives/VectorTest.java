@@ -4,8 +4,12 @@ import org.junit.jupiter.api.Test;
 import primitives.Vector;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static primitives.Util.isZero;
 
+/**
+ * Unit tests for primitives.Vector class
+ *
+ * @author Yoav Uzan and Yaniv Bartov
+ */
 public class VectorTest {
 
     /**
@@ -16,11 +20,9 @@ public class VectorTest {
         // ============ Equivalence Partitions Tests ==============
         Vector v = new Vector(1, 2, 3);
         Vector u = v.normalize();
-        //TC01: Test to check if the result of normalize function does create a new vector
-        assertNotEquals(u, v, "normalize() function does not create a new vector");
-
-        // TC02: Test to check if the result of vector is legal
-        assertTrue(isZero(u.length() - 1), "normalize() result is not a unit vector");
+        // TC01: Test to check if the result of vector is legal
+        assertEquals(1, u.length(), 0.0000001, "normalize() result is not a unit vector");
+        assertEquals(v.length(), v.dotProduct(u), 0.0000001, "");
     }
 
     /**
@@ -51,7 +53,7 @@ public class VectorTest {
 
         //TC01: Test that the result of add is proper
         vector1 = vector1.subtract(vector2);
-        assertEquals(vector1,vector3, "substruct() got wrong result ");
+        assertEquals(vector1, vector3, "substruct() got wrong result ");
     }
 
     /**
@@ -80,7 +82,7 @@ public class VectorTest {
         // ============ Equivalence Partitions Tests ==============
 
         //TC01: Test that the result of dot product is proper
-        assertEquals(vector1.dotProduct(vector2), 0, "dotProduct() wrong result");
+        assertEquals(0, vector1.dotProduct(vector2), 0.0000001, "dotProduct() wrong result");
     }
 
     /**
@@ -95,11 +97,11 @@ public class VectorTest {
         Vector vr = v1.crossProduct(v2);
 
         // TC01: Test that length of cross-product is proper (orthogonal vectors taken for simplicity)
-        assertEquals( v1.length() * v2.length(), vr.length(), 0.00001,"crossProduct() wrong result length");
+        assertEquals(v1.length() * v2.length(), vr.length(), 0.00001, "crossProduct() wrong result length");
 
         // TC02: Test cross-product result orthogonality to its operands
-        assertTrue( isZero(vr.dotProduct(v1)),"crossProduct() result is not orthogonal to 1st operand");
-        assertTrue( isZero(vr.dotProduct(v2)), "crossProduct() result is not orthogonal to 2nd operand");
+        assertEquals(0, vr.dotProduct(v1), 0.000001, "crossProduct() result is not orthogonal to 1st operand");
+        assertEquals(0, vr.dotProduct(v2), 0.000001, "crossProduct() result is not orthogonal to 2nd operand");
 
         // =============== Boundary Values Tests ==================
         // TC11: test zero vector from cross-productof co-lined vectors
@@ -109,7 +111,7 @@ public class VectorTest {
     }
 
     /**
-     *Test length of vector
+     * Test length of vector
      */
     @Test
     public void lengthTest() {

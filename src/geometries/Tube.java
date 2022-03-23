@@ -1,13 +1,17 @@
 package geometries;
 
-import primitives.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.List;
 
 import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * This class will reperesent tube
+ *
  * @author Yoav uzan and yaniv bartov
  */
 public class Tube implements Geometry {
@@ -16,7 +20,7 @@ public class Tube implements Geometry {
     final protected Double radius;
 
     /**
-     *  constructor new tube with axis ray and radius
+     * constructor new tube with axis ray and radius
      *
      * @param axisRay //Ray that goes through the height of tube
      * @param radius  /Radius of tube
@@ -57,16 +61,11 @@ public class Tube implements Geometry {
         //t = v∙(p − p0)
         //o = p0 + t∙v
         //n = normalize(P - o)
-        Vector p0p = point.subtract(axisRay.getPoint());
         Vector v = axisRay.getDirection();
-        double t = v.dotProduct(p0p);
-
-        //if point is on rim then dot product will return 0, in which case the normal is p0_p
-        if (t == 0) {
-            return p0p.normalize();
-        }
-        v = v.scale(t);
-        return point.subtract(axisRay.getPoint().add(v)).normalize();//op= point-(P0+v)
+        Point p0 = axisRay.getPoint();
+        double t = v.dotProduct(point.subtract(p0));
+        Point o = isZero(t) ? p0 : p0.add(v.scale(t));
+        return point.subtract(o).normalize();
     }
 
     @Override

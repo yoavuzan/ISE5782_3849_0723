@@ -9,7 +9,7 @@ import static primitives.Util.*;
  * @author Yoav uzan and Yaniv Bar-tov
  */
 
-public class Clyinder extends Tube {
+public class Cylinder extends Tube {
 
     final private double height;
 
@@ -19,7 +19,7 @@ public class Clyinder extends Tube {
      * @param radius  /Radius of tube
      * @param height  /height of tube
      */
-    public Clyinder(Ray axisRay, double radius, double height) {
+    public Cylinder(Ray axisRay, double radius, double height) {
         super(axisRay, radius);
         this.height = height;
     }
@@ -42,14 +42,17 @@ public class Clyinder extends Tube {
 
     @Override
     public Vector getNormal(Point point) {
-        // t=v*(P-P0)
-        double t = axisRay.getDirection().dotProduct(point.subtract(axisRay.getPoint()));
-        //checks if point is on base of cylinder (bottom circle)
-        if(isZero(t))
-            return axisRay.getDirection();
-        //checks if point is on the other base of cylinder (top circle)
-        if(isZero(t-height))
-            return axisRay.getDirection();
+        Vector v = axisRay.getDirection();
+        try {
+            // t=v*(P-P0)
+            double t = v.dotProduct(point.subtract(axisRay.getPoint()));
+            //checks if point is on a base of cylinder (bottom or top circle)
+            if (isZero(t) || isZero(t - height))
+                return v;
+        } catch(IllegalArgumentException ignore) {
+            return v;
+        }
+
         //if point is not on either base, call parent getNormal() to find normal of point on side of cylinder
         return super.getNormal(point);
     }

@@ -1,6 +1,5 @@
 package unitTests.primitives;
 import org.junit.jupiter.api.Test;
-import primitives.Double3;
 import primitives.Point;
 import primitives.Vector;
 
@@ -42,7 +41,7 @@ class PointTest {
     /**
      * test subtract of tow point
      */
-    @org.junit.jupiter.api.Test
+    @Test
     void subtractTest() {
         Point p1 = new Point(2,3,4);
         Point p2=new Point(1,2,3);

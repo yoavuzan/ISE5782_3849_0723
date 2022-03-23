@@ -6,8 +6,8 @@ import geometries.*;
 import primitives.*;
 
 /**
- * Testing Polygons
- * @author yoav
+ * Unit tests for primitives.Polygon class
+ * @author Yoav Uzan and Yaniv Bartov
  */
 public class PolygonTest {
     /**

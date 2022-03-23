@@ -7,7 +7,7 @@ package primitives;
  */
 public class Point {
 
- protected  final Double3 xyz;
+    protected final Double3 xyz;
 
     /**
      * primary constructor for Point
@@ -83,6 +83,7 @@ public class Point {
         return xyz.toString();
     }
 
-    public double getX() {return xyz.d1;
+    public double getX() {
+        return xyz.d1;
     }
 }
