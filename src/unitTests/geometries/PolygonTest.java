@@ -1,10 +1,7 @@
 package unitTests.geometries;
 
 import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.*;
-
-
 import geometries.*;
 import primitives.*;
 
