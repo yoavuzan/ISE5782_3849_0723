@@ -47,8 +47,10 @@ class PointTest {
         Point p2=new Point(1,2,3);
         // ============ Equivalence Partitions Tests ==============
         Vector v=new Vector(1,1,1);
-        //TC01: Test that the result of substract is proper
-        assertEquals(v,p1.subtract(p2),"substract() got wrong result ");
+        //TC01: Test that the result of subtract is proper
+        assertEquals(v,p1.subtract(p2),"subtract() got wrong result ");
+        // TC02: Test to check if throw exception
+        assertThrows(IllegalArgumentException.class, () -> p1.subtract(p1), "subtract for 0 does not throw an exception");
     }
 
     /**

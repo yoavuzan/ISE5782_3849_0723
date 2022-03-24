@@ -70,12 +70,11 @@ void TestPlane(){
         List<Point> result = plane.findIntersections(new Ray(new Point(2, 4, 0),new Vector(-3, -1, 0)));
         assertEquals( 1, result.size(),"Wrong number of points");
         assertEquals( new Point(-1.75, 2.75, 0), result.get(0),"Ray crosses plane once");
-        // my calcuate=(-0.4,3.2,0)
         // TC02: Ray does not intersect the plane(0 point)
         assertNull(
                 plane.findIntersections(new Ray( new Point(2, 4, 0),new Vector(3, 4, 0)))
                 ,"Ray's crosses the plane");
-        // my calcuate=(-1/7,8/7,0)
+        // my calcuate= (-1/7,8/7,0)
         // =============== Boundary Values Tests ==================
 
         // **** Group: Ray is parallel to the plane
