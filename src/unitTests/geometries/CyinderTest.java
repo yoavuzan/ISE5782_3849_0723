@@ -45,5 +45,10 @@ class CylinderTest {
         // BV02: test point at top center
         temp = cyl.getNormal(new Point(1, 2, 0));
         assertEquals(temp, new Vector(0, 1, 0), "getNormal() for top base is incorrect");
+
+
+
+
+
     }
 }

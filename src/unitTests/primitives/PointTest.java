@@ -49,7 +49,7 @@ class PointTest {
         Vector v=new Vector(1,1,1);
         //TC01: Test that the result of subtract is proper
         assertEquals(v,p1.subtract(p2),"subtract() got wrong result ");
-        // TC02: Test to check if throw exception
+        // TC02: Test to check if throw exception- subtract to a (0,0,0) vector
         assertThrows(IllegalArgumentException.class, () -> p1.subtract(p1), "subtract for 0 does not throw an exception");
     }
 
@@ -58,12 +58,23 @@ class PointTest {
      */
     @org.junit.jupiter.api.Test
     void distanceSquared() {
-        Point p1 = new Point(1,1,2);
-        Point p2 = new Point(1,4,6);
+        Point p1 = new Point(1,2,3);
+        Point p2 = new Point(-1,-2,-3);
 
         // ============ Equivalence Partitions Tests ==============
-        //TC01: Test that the result of substract is proper
-        assertEquals(p1.distanceSquared(p2),25d,"distanceSquared got wrong result ");
+        //TC01: Test that the result of distance is proper
+        assertEquals(p1.distanceSquared(new Point(1, 1, 1)),5d,"distanceSquared got wrong result ");
+        //TC02: Test that the result of distance is proper
+        assertEquals(p1.distanceSquared(new Point(1, 1, 1)),25d,"distanceSquared got wrong result ");
+        //TC03: Test that the result of distance is proper
+        assertEquals(p1.distanceSquared(new Point(0,0,0)),14d,"distanceSquared got wrong result ");
+        //TC04: Test that the result of distance is proper
+        assertEquals(p1.distanceSquared(new Point(0,0,0)),14d,"distanceSquared got wrong result ");
+
+        // =============== Boundary Values Tests ==================
+        // TC5: the same distance
+        // expected 0
+        assertEquals(p1.distanceSquared(p1), 0);
     }
 
     /**
@@ -73,9 +84,9 @@ class PointTest {
     void distance() {
         Point p1 = new Point(1,1,2);
         Point p2 = new Point(1,4,6);
-
         // ============ Equivalence Partitions Tests ==============
         //TC01: Test that the result of substract is proper
         assertEquals(p1.distance(p2),5d,"distance() got wrong result ");
+
     }
 }

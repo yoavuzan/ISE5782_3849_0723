@@ -77,11 +77,21 @@ public class VectorTest {
      */
     @Test
     public void dotProductTest() {
-        Vector vector1 = new Vector(1, 0, 0);
-        Vector vector2 = new Vector(0, 1, 0);
-        // ============ Equivalence Partitions Tests ==============
+// ============ Equivalence Partitions Tests ==============
+        //TC01: Test that the result of dot product is proper - sharp angle
+        Vector vector1 = new Vector(1, 2, 3);
+        Vector vector2 = new Vector(2, 0, 0);
+        assertEquals(vector1.dotProduct(vector2),2,0.000001, "dotProduct() wrong result");
 
-        //TC01: Test that the result of dot product is proper
+        //TC02: Test that the result of dot product is proper- Obtuse angle
+         vector1 = new Vector(1, 2, 3);
+         vector2 = new Vector(1, -1, -3);
+        assertEquals(vector1.dotProduct(vector2),-4,.000001, "dotProduct() wrong result");
+
+        // =============== Boundary Values Tests ==================
+        // TC3: ortogonaly expected- 0
+         vector1 = new Vector(1, 0, 0);
+         vector2 = new Vector(0, 1, 0);
         assertEquals(0, vector1.dotProduct(vector2), 0.0000001, "dotProduct() wrong result");
     }
 
