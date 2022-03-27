@@ -21,21 +21,19 @@ class CylinderTest {
      */
     @Test
     void getNormalTest() {
-        // ============ Equivalence Partitions Tests ==============
-        //test point not on base
         Cylinder cyl = new Cylinder(
                 new Ray(new Point(1, 0, 0), new Vector(0, 1, 0)), 1d,
                 2d);
-        Vector temp = cyl.getNormal(new Point(2, 1, 0));
-        assertEquals(temp, new Vector(1, 0, 0), "getNormal() for side is incorrect");
 
-        //test center of base bottom
-        Vector temp1 = cyl.getNormal(new Point(1.5, 0, 0));
-        assertEquals(temp1, new Vector(0, 1, 0), "getNormal() for side is incorrect");
+        // ============ Equivalence Partitions Tests ==============
+        Vector temp;
+        //TC1: test center of base bottom
+         temp = cyl.getNormal(new Point(1.5, 0, 0));
+        assertEquals(temp, new Vector(0, 1, 0), "getNormal() for side is incorrect");
 
-        //test center of base top
-        Vector temp2 = cyl.getNormal(new Point(1.5, 2, 0));
-        assertEquals(temp2, new Vector(0, 1, 0), "getNormal() for side is incorrect");
+        //TC2: test center of base top
+         temp = cyl.getNormal(new Point(1.5, 2, 0));
+        assertEquals(temp, new Vector(0, 1, 0), "getNormal() for side is incorrect");
 
         // =============== Boundary Values Tests ==================
         // BV01: test point at bottom center
@@ -46,7 +44,13 @@ class CylinderTest {
         temp = cyl.getNormal(new Point(1, 2, 0));
         assertEquals(temp, new Vector(0, 1, 0), "getNormal() for top base is incorrect");
 
+        //BV03: test point on the right side
+         temp = cyl.getNormal(new Point(2, 1, 0));
+        assertEquals(temp, new Vector(1, 0, 0), "getNormal() for right side right is incorrect");
 
+        //BV04: test point on the left side
+        temp = cyl.getNormal(new Point(0, 1, 0));
+        assertEquals(temp, new Vector(-1, 0, 0), "getNormal() for side is incorrect");
 
 
 
