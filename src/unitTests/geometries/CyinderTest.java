@@ -52,7 +52,5 @@ class CylinderTest {
         temp = cyl.getNormal(new Point(0, 1, 0));
         assertEquals(temp, new Vector(-1, 0, 0), "getNormal() for side is incorrect");
 
-
-
     }
 }

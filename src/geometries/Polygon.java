@@ -46,10 +46,10 @@ public class Polygon implements Geometry {
      *                                  </ul>
      */
     public Polygon(Point... vertices) {
-        if (vertices.length < 3)
+        size = vertices.length;
+        if (size < 3)
             throw new IllegalArgumentException("A polygon can't have less than 3 vertices");
         this.vertices = List.of(vertices);
-        size = vertices.length;
 
         // Generate the plane according to the first three vertices and associate the
         // polygon with this plane.

@@ -4,10 +4,10 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import static primitives.Util.*;
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * This class will represent plane
@@ -19,9 +19,9 @@ public class Plane implements Geometry {
     private final Vector normal;
 
     /**
-     * constructor of plane by point and normal
+     * constructor of plane by a point and the normal
      *
-     * @param point
+     * @param point plane reference point
      * @param normal vector for the normal (will be normalized automatically)
      */
     public Plane(Point point, Vector normal) {
@@ -46,7 +46,7 @@ public class Plane implements Geometry {
     }
 
     /**
-     * getter for point
+     * getter for plane's reference point
      *
      * @return the point
      */
@@ -70,22 +70,24 @@ public class Plane implements Geometry {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-            Point rayPoint = ray.getPoint0();
-            Vector v=ray.getDirection();
-            if (rayPoint.equals(planePoint))
-                return null;
-            double np = normal.dotProduct(planePoint.subtract(rayPoint));// np=normal* (planePoint-rayPoint)
-            double nv = normal.dotProduct(v);// nv= normal* rayDirection
-            //t= np / nv
-            // In case there are zeroes in denominator and numerator
-            if (isZero(np) || isZero(nv))
-                return null;
-            double t = alignZero(np / nv);
-            if (t < 0) // In case there is no intersection with the plane return null
-                return null;
-            List<Point> result = new LinkedList<Point>();
-            result.add(ray.getPoint(t));//𝑃 = rayPoint + 𝑡 ∙ v
-            return result;
+        Point rayPoint = ray.getPoint0();
+        Vector v = ray.getDirection();
+
+        double nv = normal.dotProduct(v);// nv= normal* rayDirection
+        //t= np / nv
+        // In case there are zeroes in denominator and numerator
+        if (isZero(nv))
+            return null;
+
+        double np;
+        try {
+            np = normal.dotProduct(planePoint.subtract(rayPoint));// np=normal* (planePoint-rayPoint)
+        } catch (IllegalArgumentException ignore) {
+            return null;
         }
+
+        double t = alignZero(np / nv);
+        return t <= 0 ? null : List.of(ray.getPoint(t));
+    }
 }
 

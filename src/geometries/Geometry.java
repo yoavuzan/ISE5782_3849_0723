@@ -9,10 +9,10 @@ import primitives.*;
  */
 public interface Geometry extends Intersectable {
     /**
-     * get normal of all geometry
+     * get normal at a point on the surface of the geometry
      *
-     * @param point
-     * @return normal
+     * @param point on the geometry
+     * @return normal vector
      */
     Vector getNormal(Point point);
 }

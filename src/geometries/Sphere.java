@@ -4,7 +4,6 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import static primitives.Util.alignZero;
@@ -17,7 +16,8 @@ import static primitives.Util.alignZero;
 public class Sphere implements Geometry {
 
     final private Point center;
-    final private Double radius;
+    final private double radius;
+    final private double radiusSqr;
 
     /**
      * constructor- build new Sphere with center and radius
@@ -30,6 +30,7 @@ public class Sphere implements Geometry {
             throw new IllegalArgumentException("radius must be bigger then zero");
         this.center = center;
         this.radius = radius;
+        this.radiusSqr = radius * radius;
     }
 
     /**
@@ -57,33 +58,29 @@ public class Sphere implements Geometry {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        List<Point> result = new LinkedList<Point>();
         // We used "alignZero" in this function to make the calculation accurate
-        Point p0 = ray.getPoint0();
         // Special case: if point p0 == center, that mean that all we need to calculate
         // is the radios multi scalar with the direction, and add p0
-        if (center.equals(p0)) {
-            result.add(ray.getPoint(radius));
-            return result;
+        Vector u;
+        try {
+            u = center.subtract(ray.getPoint0()); // u= center-p0
+        } catch (IllegalArgumentException ignore) {
+            return List.of(ray.getPoint(radius));
         }
-        Vector u = center.subtract(p0); // u= center-p0
+
         double tm = u.dotProduct(ray.getDirection());  // tm=u*v
-        double d = Math.sqrt(alignZero(u.lengthSquared() - tm * tm)); // d=sqrt{u^2-dm^2}
-        if (d >= radius) // if (d ≥ r) there are no intersections
+        double dSqr = u.lengthSquared() - tm * tm; // d^2=u^2-dm^2
+        double thSqr = radiusSqr - dSqr;
+        if (alignZero(thSqr) <= 0) // if (d ≥ r) there are no intersections
             return null;
-        double th = Math.sqrt(radius * radius - d * d);// th=sqrt{r^2-d^2}
-        double t1 = tm + th;
-        double t2 = tm - th;
+        double th = Math.sqrt(thSqr);// th=sqrt{r^2-d^2}
+
         //𝑃𝑖 = 𝑃0 + 𝑡𝑖 * 𝑣  ->  only if 𝑡𝑖 > 0
-        if (alignZero(t1) > 0) { // add p1 intersection point to the list
-            result.add(ray.getPoint(t1));
-        }
-        if (alignZero(t2) > 0) { // add p2 intersection point to the list
-            result.add(ray.getPoint(t2));
-        }
-        if (result.isEmpty())
-            return null; // In case there are no intersections points
-        return result;
+        double t2 = alignZero(tm + th);
+        if (t2 <= 0) return null;
+
+        double t1 = alignZero(tm - th);
+        return t1 <= 0 ? List.of(ray.getPoint(t2)) : List.of(ray.getPoint(t1), ray.getPoint(t2));
     }
 }
 

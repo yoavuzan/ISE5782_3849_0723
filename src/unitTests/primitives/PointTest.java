@@ -18,18 +18,14 @@ class PointTest {
     @Test
     public void testConstructor() {
         // ============ Equivalence Partitions Tests ==============
-        // TC01: Correct concave quadrangular with vertices in correct order
-        try {
-            new Point(2, 3, 3);
-        } catch (IllegalArgumentException e) {
-            fail("Failed constructing a correct Point");
-        }
+        // TC01: Basic Point constructor test
+        assertDoesNotThrow(() -> new Point(2, 3, 3), "Failed constructing a correct Point");
     }
 
     /**
      * test add of tow point
      */
-    @org.junit.jupiter.api.Test
+    @Test
     void addTest() {
         Point p1 = new Point(1, 2, 3);
         // ============ Equivalence Partitions Tests ==============
@@ -51,48 +47,49 @@ class PointTest {
         Vector v = new Vector(1, 1, 1);
         //TC01: Test that the result of subtract is proper
         assertEquals(v, p1.subtract(p2), "subtract() got wrong result ");
-        // TC02: Test to check if throw exception- subtract to a (0,0,0) vector
+        // =============== Boundary Values Tests ==================
+        // BV0: Test to check if throw exception- subtract to a (0,0,0) vector
         assertThrows(IllegalArgumentException.class, () -> p1.subtract(p1), "subtract for 0 does not throw an exception");
     }
 
     /**
      * test distance of squared
      */
-    @org.junit.jupiter.api.Test
-    void distanceSquared() {
+    @Test
+    void distanceSquaredTest() {
         Point p1 = new Point(1, 2, 3);
         Point p2 = new Point(-1, -2, -3);
 
         // ============ Equivalence Partitions Tests ==============
         //TC01: Test that the result of distance is proper
-        assertEquals(p1.distanceSquared(new Point(1, 1, 1)), 5d, "distanceSquared got wrong result ");
+        assertEquals(5d,p1.distanceSquared(new Point(1, 1, 1)),0.000001, "distanceSquared got wrong result ");
         //TC02: Test that the result of distance is proper
-        assertEquals(p2.distanceSquared(new Point(1, 1, 1)), 29d, "distanceSquared got wrong result ");
+        assertEquals(29d,p2.distanceSquared(new Point(1, 1, 1)), 0.000001,"distanceSquared got wrong result ");
         //TC03: Test that the result of distance is proper
-        assertEquals(p1.distanceSquared(new Point(0, 0, 0)), 14d, "distanceSquared got wrong result ");
+        assertEquals(14d,p1.distanceSquared(new Point(0, 0, 0)),  0.000001,"distanceSquared got wrong result ");
         //TC04: Test that the result of distance is proper
-        assertEquals(p1.distanceSquared(new Point(0, 0, 0)), 14d, "distanceSquared got wrong result ");
+        assertEquals(14d, p1.distanceSquared(new Point(0, 0, 0)),0.000001, "distanceSquared got wrong result ");
 
         // =============== Boundary Values Tests ==================
-        // TC5: the same distance
+        // BV0: the same distance
         // expected 0
-        assertEquals(p1.distanceSquared(p1), 0);
+        assertEquals(0d, p1.distanceSquared(p1), 0.000001);
     }
 
     /**
      * test distance with tow point
      */
-    @org.junit.jupiter.api.Test
-    void distance() {
+    @Test
+    void distanceTest() {
         Point p1 = new Point(1, 1, 2);
         Point p2 = new Point(1, 4, 6);
         // ============ Equivalence Partitions Tests ==============
-        //TC01: Test that the result of substract is proper
-        assertEquals(p1.distance(p2), 5d, "distance() got wrong result ");
+        //TC01: Test that the result of subtract is proper
+        assertEquals(5d, p1.distance(p2), 0.000001,  "distance() got wrong result ");
 
         // =============== Boundary Values Tests ==================
         // TC2: the same distance
         // expected 0
-        assertEquals(p1.distanceSquared(p1), 0);
+        assertEquals(0d, p1.distanceSquared(p1),  0.000001);
     }
 }

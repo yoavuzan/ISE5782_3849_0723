@@ -1,12 +1,10 @@
 package primitives;
 
-
 /**
  * This class represent vector
  *
  * @author Yoav uzan and Yaniv Bartov
  */
-
 public class Vector extends Point {
 
     /**
@@ -23,6 +21,7 @@ public class Vector extends Point {
 
     /**
      * constructor of vector with 3 kord
+     *
      * @param x kord
      * @param y kord
      * @param z kord
@@ -33,6 +32,7 @@ public class Vector extends Point {
 
     /**
      * calculate the length squared of the vector
+     *
      * @return length of Squared
      */
     public double lengthSquared() {
@@ -41,6 +41,7 @@ public class Vector extends Point {
 
     /**
      * calculate vector plus vector
+     *
      * @param other vector
      * @return the result of add tow vector
      */
@@ -61,6 +62,7 @@ public class Vector extends Point {
 
     /**
      * calculate the length of vector
+     *
      * @return length of vector
      */
     public double length() {
@@ -106,6 +108,7 @@ public class Vector extends Point {
 
     /**
      * calculate normalized vector
+     *
      * @return the normalized vector
      */
     public Vector normalize() {

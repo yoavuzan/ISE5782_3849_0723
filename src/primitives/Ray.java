@@ -14,22 +14,27 @@ public class Ray {
     /**
      * constructor new Ray
      *
-     * @param point of beginning
+     * @param point     of beginning
      * @param direction of vector
      */
     public Ray(Point point, Vector direction) {
         this.point0 = point;
         this.direction = direction.normalize();
     }
+
     /**
-     * @return get the vector of ray
+     * Getter for the direction of the ray
+     *
+     * @return the direction vector
      */
     public Vector getDirection() {
         return direction;
     }
 
     /**
-     * @return the point of ray
+     * Getter for the head point of the ray
+     *
+     * @return the head point
      */
     public Point getPoint0() {
         return point0;
@@ -37,10 +42,11 @@ public class Ray {
 
     /**
      * calculate point on the ray
+     *
      * @param t -is number
      * @return P= P0+t∙rayDirection
      */
-    public Point getPoint(double t){
+    public Point getPoint(double t) {
         return point0.add(direction.scale(t));
     }
 

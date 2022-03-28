@@ -2,8 +2,9 @@ package unitTests.geometries;
 
 import static org.junit.jupiter.api.Assertions.*;
 import geometries.*;
+import org.junit.jupiter.api.Test;
 import primitives.*;
-import static org.junit.Assert.*;
+
 /**
  * Unit tests for primitives.Geometries class
  *
@@ -20,6 +21,7 @@ class GeometriesTest {
     /**
      * Test method for {@link geometries.Geometries#findIntersections(primitives.Ray)}.
      */
+    @Test
     void findIntersectionsTest() {
         Sphere sph = new Sphere(new Point(1, 1, 1), 1);
         Plane plane = new Plane(new Point(1, 0, 0), new Point(0, 1, 0), new Point(0, 0, 2));
