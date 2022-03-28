@@ -1,8 +1,14 @@
 package geometries;
+
 import primitives.*;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class will represent collection of some geometries
+ *
+ * @author Yoav uzan and Yaniv Bar-tov
+ */
 public class Geometries implements Intersectable {
     private List<Intersectable> shapes;
 

@@ -4,7 +4,7 @@ import primitives.*;
 import static primitives.Util.*;
 
 /**
- * This class will represent tube
+ * This class will represent finite tube
  *
  * @author Yoav uzan and Yaniv Bar-tov
  */

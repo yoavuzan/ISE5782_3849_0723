@@ -12,9 +12,9 @@ public class Ray {
     private final Vector direction;
 
     /**
-     * constractor new  Ray
+     * constructor new Ray
      *
-     * @param point    of beganing
+     * @param point of beginning
      * @param direction of vector
      */
     public Ray(Point point, Vector direction) {
@@ -44,7 +44,7 @@ public class Ray {
         return point0.add(direction.scale(t));
     }
 
-
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;

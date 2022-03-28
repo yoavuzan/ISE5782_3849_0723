@@ -105,6 +105,7 @@ public class Vector extends Point {
     }
 
     /**
+     * calculate normalized vector
      * @return the normalized vector
      */
     public Vector normalize() {

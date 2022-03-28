@@ -20,7 +20,7 @@ public class Sphere implements Geometry {
     final private Double radius;
 
     /**
-     * build new Sphere with center and radius
+     * constructor- build new Sphere with center and radius
      *
      * @param center center
      * @param radius radius

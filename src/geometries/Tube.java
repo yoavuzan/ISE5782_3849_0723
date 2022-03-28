@@ -10,7 +10,7 @@ import static primitives.Util.alignZero;
 import static primitives.Util.isZero;
 
 /**
- * This class will reperesent tube
+ * This class will represent tube
  *
  * @author Yoav uzan and yaniv bartov
  */

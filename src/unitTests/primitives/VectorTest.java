@@ -86,7 +86,7 @@ public class VectorTest {
         //TC02: Test that the result of dot product is proper- Obtuse angle
          vector1 = new Vector(1, 2, 3);
          vector2 = new Vector(1, -1, -3);
-        assertEquals(vector1.dotProduct(vector2),-4,.000001, "dotProduct() wrong result");
+        assertEquals(vector1.dotProduct(vector2),-10,.000001, "dotProduct() wrong result");
 
         // =============== Boundary Values Tests ==================
         // TC3: ortogonaly expected- 0
