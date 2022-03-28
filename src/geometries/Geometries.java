@@ -1,7 +1,5 @@
 package geometries;
-
 import primitives.*;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,7 +25,7 @@ public class Geometries implements Intersectable {
     /**
      * Adds list of geometries to the current list
      *
-     * @param geometries
+     * @param list of geometries
      */
     public void add(Intersectable... geometries) {
         shapes.addAll(List.of(geometries));

@@ -7,7 +7,7 @@ import primitives.Vector;
 import java.util.LinkedList;
 import java.util.List;
 
-import static primitives.Util.isZero;
+import static primitives.Util.*;
 
 /**
  * This class will represent plane
@@ -70,23 +70,22 @@ public class Plane implements Geometry {
 
     @Override
     public List<Point> findIntersections(Ray ray) {
-        {
-            Point rayPoint = ray.getPoint();
+            Point rayPoint = ray.getPoint0();
+            Vector v=ray.getDirection();
             if (rayPoint.equals(planePoint))
                 return null;
-            double x = normal.dotProduct(planePoint.subtract(rayPoint));// x=normal* (planePoint-rayPoint)
-            double y = normal.dotProduct(ray.getDirection());// y= normal* rayDirection
-            //t= x / y
+            double np = normal.dotProduct(planePoint.subtract(rayPoint));// np=normal* (planePoint-rayPoint)
+            double nv = normal.dotProduct(v);// nv= normal* rayDirection
+            //t= np / nv
             // In case there are zeroes in denominator and numerator
-            if (isZero(x) || isZero(y))
+            if (isZero(np) || isZero(nv))
                 return null;
-            double t = (x / y);
+            double t = alignZero(np / nv);
             if (t < 0) // In case there is no intersection with the plane return null
                 return null;
             List<Point> result = new LinkedList<Point>();
-            result.add(rayPoint.add(ray.getDirection().scale(t)));//𝑃 = rayPoint + 𝑡 ∙ rayDirection
+            result.add(ray.getPoint(t));//𝑃 = rayPoint + 𝑡 ∙ v
             return result;
         }
-    }
 }
 

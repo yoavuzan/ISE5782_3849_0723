@@ -39,7 +39,7 @@ public class Triangle extends Polygon {
         List<Point> resultPoint = plane.findIntersections(ray);
         if (resultPoint == null) // In case there is no intersection with the plane return null
             return null;
-        Point rayPoint = ray.getPoint();
+        Point rayPoint = ray.getPoint0();
         Vector rayDirection = ray.getDirection();
         Vector v1 = vertices.get(0).subtract(rayPoint);
         Vector v2 = vertices.get(1).subtract(rayPoint);

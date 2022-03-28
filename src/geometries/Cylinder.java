@@ -45,7 +45,7 @@ public class Cylinder extends Tube {
         Vector v = axisRay.getDirection();
         try {
             // t=v*(P-P0)
-            double t = v.dotProduct(point.subtract(axisRay.getPoint()));
+            double t = v.dotProduct(point.subtract(axisRay.getPoint0()));
             //checks if point is on a base of cylinder (bottom or top circle)
             if (isZero(t) || isZero(t - height))
                 return v;

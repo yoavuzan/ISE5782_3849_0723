@@ -8,7 +8,7 @@ package primitives;
 
 public class Ray {
 
-    private final Point point;
+    private final Point point0;
     private final Vector direction;
 
     /**
@@ -18,17 +18,9 @@ public class Ray {
      * @param direction of vector
      */
     public Ray(Point point, Vector direction) {
-        this.point = point;
+        this.point0 = point;
         this.direction = direction.normalize();
     }
-
-    /**
-     * @return get the point of ray
-     */
-    public Point getPoint() {
-        return point;
-    }
-
     /**
      * @return get the vector of ray
      */
@@ -36,16 +28,33 @@ public class Ray {
         return direction;
     }
 
+    /**
+     * @return the point of ray
+     */
+    public Point getPoint0() {
+        return point0;
+    }
+
+    /**
+     * calculate point on the ray
+     * @param t -is number
+     * @return P= P0+t∙rayDirection
+     */
+    public Point getPoint(double t){
+        return point0.add(direction.scale(t));
+    }
+
+
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
         if (!(obj instanceof Ray)) return false;
         Ray other = (Ray) obj;
-        return point.equals(other.point) && direction.equals(other.direction);
+        return point0.equals(other.point0) && direction.equals(other.direction);
     }
 
     @Override
     public String toString() {
-        return point.toString() + " " + direction.toString();
+        return point0.toString() + " " + direction.toString();
     }
 }

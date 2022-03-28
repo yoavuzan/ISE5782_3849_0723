@@ -59,16 +59,15 @@ public class Sphere implements Geometry {
     public List<Point> findIntersections(Ray ray) {
         List<Point> result = new LinkedList<Point>();
         // We used "alignZero" in this function to make the calculation accurate
-        Vector v = ray.getDirection();
-        Point p0 = ray.getPoint();
+        Point p0 = ray.getPoint0();
         // Special case: if point p0 == center, that mean that all we need to calculate
-        // is the radios mult scalar with the direction, and add p0
+        // is the radios multi scalar with the direction, and add p0
         if (center.equals(p0)) {
-            result.add(p0.add(v.scale(radius)));
+            result.add(ray.getPoint(radius));
             return result;
         }
         Vector u = center.subtract(p0); // u= center-p0
-        double tm = u.dotProduct(v);  // tm=u*v
+        double tm = u.dotProduct(ray.getDirection());  // tm=u*v
         double d = Math.sqrt(alignZero(u.lengthSquared() - tm * tm)); // d=sqrt{u^2-dm^2}
         if (d >= radius) // if (d ≥ r) there are no intersections
             return null;
@@ -77,10 +76,10 @@ public class Sphere implements Geometry {
         double t2 = tm - th;
         //𝑃𝑖 = 𝑃0 + 𝑡𝑖 * 𝑣  ->  only if 𝑡𝑖 > 0
         if (alignZero(t1) > 0) { // add p1 intersection point to the list
-            result.add(p0.add(v.scale(t1)));
+            result.add(ray.getPoint(t1));
         }
         if (alignZero(t2) > 0) { // add p2 intersection point to the list
-            result.add(p0.add(v.scale(t2)));
+            result.add(ray.getPoint(t2));
         }
         if (result.isEmpty())
             return null; // In case there are no intersections points

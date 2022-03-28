@@ -1,7 +1,5 @@
 package geometries;
-
 import primitives.*;
-
 
 /**
  * This interface will reperesent Geometry
