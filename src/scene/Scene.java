@@ -11,21 +11,21 @@ public class Scene {
     public AmbientLight ambientLight = new AmbientLight();
     public Geometries geometries = new Geometries();
 
-    Scene(String name1) {
+    public Scene(String name1) {
         name = name;
     }
 
-    public Scene SetBackGround(Color background1) {
+    public Scene setBackground(Color background1) {
         background = background1;
         return this;
     }
 
-    public Scene SetAmbientLight(Color color, Double3 ka) {
-        ambientLight = new AmbientLight(color, ka);
+    public Scene setAmbientLight( AmbientLight color) {
+        ambientLight = color;
         return this;
     }
 
-    public Scene SetGeometries(Geometries geometries1) {
+    public Scene setGeometries(Geometries geometries1) {
         geometries = geometries1;
         return this;
     }

@@ -19,6 +19,8 @@ public class Camera {
     private double height;
     private double distance;
     private double width;
+    private ImageWriter imageWriter;
+    private RayTracerBase rayTracerBase;
 
     /**
      * constructor of camera with throw
@@ -62,6 +64,28 @@ public class Camera {
 
     public Camera setVPDistance(double distance1) {
         distance = distance1;
+        return this;
+    }
+
+    /**
+     * update the imageWriter1
+     *
+     * @param imageWriter1
+     * @return the camera with the new distance
+     */
+    public Camera setImageWriter(ImageWriter imageWriter1) {
+        imageWriter = imageWriter1;
+        return this;
+    }
+
+    /**
+     * update the RayTracerbase
+     *
+     * @param rayTracerBase1
+     * @return the camera with the new distance
+     */
+    public Camera setRayTracer(RayTracerBase rayTracerBase1) {
+        rayTracerBase = rayTracerBase1;
         return this;
     }
 
@@ -148,4 +172,19 @@ public class Camera {
         return distance;
     }
 
+    public void renderImage() {
+        if (startPoint == null || up == null || to == null || right == null || height == null || distance == null || width == null
+                || rayTracerBase == null || imageWriter == null)
+            throw new IllegalArgumentException("Missing Resources Exception");
+    }
+
+    public void printGrid(int interval, Color color) {
+        imageWriter = new ImageWriter("imageTestNew", 800, 500);
+        // The nested loop colors each pixel
+        for (int i = 0; i < 800; i++)
+            for (int j = 0; j < 500; j++)
+                if (i % interval == 0 && i != 0 || j % interval == 0 && j != 0)
+                    imageWriter.writePixel(i, j, color);
+    }
+    
 }

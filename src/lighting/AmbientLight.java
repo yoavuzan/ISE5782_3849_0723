@@ -3,7 +3,7 @@ package lighting;
 import primitives.*;
 
 public class AmbientLight {
-    Color intensity;
+    public Color intensity;
 
     public AmbientLight() {
         intensity = Color.BLACK;
