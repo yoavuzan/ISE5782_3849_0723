@@ -125,5 +125,7 @@ class SphereTest {
         // center line
         assertNull(sphere.findIntersections(new Ray(new Point(0, 1, 0), new Vector(4, 3, 0)))
                 , "Ray's line out of sphere");
+
+
     }
 }
