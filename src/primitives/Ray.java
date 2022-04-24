@@ -1,5 +1,7 @@
 package primitives;
 
+import java.util.List;
+
 /**
  * This class will reperesent Ray
  *
@@ -48,6 +50,22 @@ public class Ray {
      */
     public Point getPoint(double t) {
         return point0.add(direction.scale(t));
+    }
+
+    /**
+     * the closet point to the began of the ray
+     *
+     * @param listPoint
+     * @return the closet point to the began of the ray
+     */
+    public Point findClosestPoint(List<Point> listPoint) {
+        if (listPoint == null) return null;
+        Point closePoint = listPoint.get(0);
+        for (Point p : listPoint) {
+            if (closePoint.distance(point0) > p.distance(point0))
+                closePoint = p;
+        }
+        return closePoint;
     }
 
     @Override
