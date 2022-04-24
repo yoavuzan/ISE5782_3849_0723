@@ -2,6 +2,8 @@ package renderer;
 
 import primitives.*;
 
+import java.util.MissingResourceException;
+
 import static primitives.Util.*;
 
 /**
@@ -172,33 +174,66 @@ public class Camera {
         return distance;
     }
 
-    public void renderImage() {
-        if (startPoint == null || up == null || to == null || right == null || height == null || distance == null || width == null
-                || rayTracerBase == null || imageWriter == null)
-            throw new IllegalArgumentException("Missing Resources Exception");
 
-    }
+
 
     /**
-     * Printing a grid of lines
-     * @param interval
-     * @param color
+     * Print Grid of the image
+     * @param interval of the grid's line
+     * @param intervalColor color of grid's line
      */
-    public void printGrid(int interval, Color color) {
-        imageWriter = new ImageWriter("imageTestNew", 800, 500);
-        // The nested loop colors each pixel
-        for (int i = 0; i < 800; i++)
-            for (int j = 0; j < 500; j++)
-                if (i % interval == 0 && i != 0 || j % interval == 0 && j != 0)
-                    imageWriter.writePixel(i, j, color);
+    public void printGrid(int interval, Color intervalColor) {
+        if(imageWriter == null)
+            throw new MissingResourceException("Missing Resource", imageWriter.getClass().getName(), "");
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
+        for (int i = 0; i < nY; i++) {
+            for (int j = 0; j < nX; j++) {
+                if (i % interval == 0 || j % interval == 0) {
+                    imageWriter.writePixel(j, i, intervalColor);
+                }
+            }
+        }
     }
 
-    /**
-     * writing the image
-     */
-  public void writeToImage() {
-        if (imageWriter == null)
-            throw new IllegalArgumentException("Missing Resources Exception");
+
+    public void writeToImage() {
+        if(imageWriter == null)
+            throw new MissingResourceException("Missing Resource", imageWriter.getClass().getName(), "");
         imageWriter.writeToImage();
     }
+
+    /**
+     * Render image function that throws exception if not all arguments are passed
+     */
+    public void renderImage(){
+        try
+        {
+            if(imageWriter == null)
+                throw new MissingResourceException("Missing Resource", ImageWriter.class.getName(),"");
+            if(rayTracerBase == null)
+                throw new MissingResourceException("Missing Resource",RayTracerBase.class.getName(),"");
+            if(this.startPoint == null || this.to == null || this.right == null || this.up == null || this.width == 0 || this.height == 0)
+                throw new MissingResourceException("Missing Resource", Camera.class.getName(), "");
+
+            //rendering the image
+            int nX = imageWriter.getNx();
+            int nY = imageWriter.getNy();
+            for (int i = 0; i < nY; i++) {
+                for (int j = 0; j < nX; j++) {
+                    Ray ray = constructRay(nX, nY, j, i);
+                    imageWriter.writePixel(j, i, rayTracerBase.traceRay(ray));
+                }
+            }
+        }
+        catch (MissingResourceException e){
+            throw new UnsupportedOperationException("Render didn't receive " + e.getClassName());
+        }
+    }
+
+
+
+
+
+
 }

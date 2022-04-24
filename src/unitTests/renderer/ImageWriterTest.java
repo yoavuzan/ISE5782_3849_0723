@@ -1,17 +1,18 @@
 package unitTests.renderer;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import primitives.Color;
 import renderer.ImageWriter;
 
 public class ImageWriterTest {
 
-        /**
-         * Test method for {@link renderer.ImageWriter#writeToImage()}.
-         * Test for creating a simple image with pixel
-         */
-        @Test
-        public void testWriteToImage() {
+    /**
+     * Test method for {@link renderer.ImageWriter#writeToImage()}.
+     * Test for creating a simple image with pixel
+     */
+    @Test
+    public void testWriteToImage() {
         ImageWriter image = new ImageWriter("imageTestNew", 800, 500);
         // The nested loop colors each pixel
         for (int i = 0; i < 800; i++)

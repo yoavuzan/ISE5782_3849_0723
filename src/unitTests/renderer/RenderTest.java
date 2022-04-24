@@ -13,7 +13,7 @@ import scene.Scene;
  *
  * @author Dan
  */
-public class RenderTests {
+public class RenderTest {
 
     /**
      * Produce a scene with basic 3D model and render it into a png image with a
@@ -53,7 +53,7 @@ public class RenderTests {
         // enter XML file name and parse from XML file into scene object
         // ...
 
-        Camera camera = new Camera(Point.ZERO, new Vector(0, 0, -1), new Vector(0, 1, 0)) //
+        Camera camera = new Camera(new Point(0,0,0), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
                 .setVPDistance(100) //
                 .setVPSize(500, 500)
                 .setImageWriter(new ImageWriter("xml render test", 1000, 1000))

@@ -1,18 +1,19 @@
 package unitTests.primitives;
 
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
 import java.util.List;
 
-import static org.junit.Assert.assertNull;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class RayTest {
 
-    @Test
+@Test
     public void testFindClosestPoint() {
         Ray ray = new Ray( new Point(1, 0, 0),new Vector(-1, 1, 0));
 
@@ -26,7 +27,7 @@ class RayTest {
         // =============== Boundary Values Tests ==================
 
         // TC11: No point was found (empty list)
-        assertNull("The list should return null", ray.findClosestPoint(null));
+        assertNull(ray.findClosestPoint(null),"The list should return null");
 
         // TC12: The point that was found is in the head of the list
         assertEquals( new Point(2, 0, 0),
