@@ -176,8 +176,14 @@ public class Camera {
         if (startPoint == null || up == null || to == null || right == null || height == null || distance == null || width == null
                 || rayTracerBase == null || imageWriter == null)
             throw new IllegalArgumentException("Missing Resources Exception");
+
     }
 
+    /**
+     * Printing a grid of lines
+     * @param interval
+     * @param color
+     */
     public void printGrid(int interval, Color color) {
         imageWriter = new ImageWriter("imageTestNew", 800, 500);
         // The nested loop colors each pixel
@@ -186,5 +192,13 @@ public class Camera {
                 if (i % interval == 0 && i != 0 || j % interval == 0 && j != 0)
                     imageWriter.writePixel(i, j, color);
     }
-    
+
+    /**
+     * writing the image
+     */
+  public void writeToImage() {
+        if (imageWriter == null)
+            throw new IllegalArgumentException("Missing Resources Exception");
+        imageWriter.writeToImage();
+    }
 }
