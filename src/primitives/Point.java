@@ -11,7 +11,6 @@ public class Point {
 
     /**
      * primary constructor for Point
-     *
      * @param xyz Double3 value for x,z,z axis
      */
     Point(Double3 xyz) {
@@ -20,7 +19,6 @@ public class Point {
 
     /**
      * secondary constructor for Point
-     *
      * @param x coordinate value for X axis
      * @param y coordinate value for Y axis
      * @param z coordinate value for Z axis
@@ -31,7 +29,6 @@ public class Point {
 
     /**
      * add vector to point
-     *
      * @param vector
      * @return the new point
      */
@@ -41,7 +38,6 @@ public class Point {
 
     /**
      * subtract point from vector
-     *
      * @param point
      * @return the new vector
      */
@@ -85,6 +81,10 @@ public class Point {
         return xyz.toString();
     }
 
+    /**
+     * get the value of x of the point
+     * @return  x
+     */
     public double getX() {
         return xyz.d1;
     }

@@ -7,34 +7,27 @@ import java.util.MissingResourceException;
 import static primitives.Util.*;
 
 /**
- * Testing Camera Class
- *
- * @author Yoav Uzan and Yaniv Bar-Tov
+ * Camera class represents a camera viewing objects through a view plane
+ * @author Yoav Uzan and Yaniv BarTov
  */
 
 public class Camera {
 
-    private Point startPoint; //start of camera
-    private Vector up;
-    private Vector to;
-    private Vector right;
-    private double height;
-    private double distance;
-    private double width;
+    private final Point startPoint; //start of camera
+    private final Vector up,to,right;
+    private double height,distance,width;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracerBase;
 
     /**
-     * constructor of camera with throw
-     *
-     * @param start
-     * @param to1
-     * @param up1
+     * constructor of camera
+     * @param start- the Point of the camera position
+     * @param to1 -vector to view plane
+     * @param up1- vector up from camera
      */
     public Camera(Point start, Vector to1, Vector up1) {
         if (!isZero(up1.dotProduct(to1)))
             throw new IllegalArgumentException("The vectors is not vertical");
-
         up = up1.normalize();
         to = to1.normalize();
         right = up1.crossProduct(to1).normalize().scale(-1);
@@ -44,13 +37,11 @@ public class Camera {
     }
 
     /**
-     * update the width and height
-     *
-     * @param width1
-     * @param height1
-     * @return the camera with the new width and height
+     * setter for width height of view plane
+     * @param width1 of plane
+     * @param height1 of plane
+     * @return camera
      */
-
     public Camera setVPSize(double width1, double height1) {
         width = width1;
         height = height1;
@@ -58,22 +49,19 @@ public class Camera {
     }
 
     /**
-     * update the distance
-     *
-     * @param distance1
-     * @return the camera with the new distance
+     * setter for distance of view plane
+     * @param distance1 of plane
+     * @return camera
      */
-
     public Camera setVPDistance(double distance1) {
         distance = distance1;
         return this;
     }
 
     /**
-     * update the imageWriter1
-     *
+     * setter the imageWriter1
      * @param imageWriter1
-     * @return the camera with the new distance
+     * @return the camera
      */
     public Camera setImageWriter(ImageWriter imageWriter1) {
         imageWriter = imageWriter1;
@@ -81,10 +69,9 @@ public class Camera {
     }
 
     /**
-     * update the RayTracerbase
-     *
+     * setter the RayTracerbase
      * @param rayTracerBase1
-     * @return the camera with the new distance
+     * @return the camera
      */
     public Camera setRayTracer(RayTracerBase rayTracerBase1) {
         rayTracerBase = rayTracerBase1;
@@ -92,15 +79,14 @@ public class Camera {
     }
 
     /**
-     * create new ray for use
+     * create new ray from camera through view plane to geometries
      *
-     * @param nX
-     * @param nY
-     * @param j
-     * @param i
-     * @return new ray that come from veiw plane
+     * @param nX-Resolution of view plane x-axis
+     * @param nY-Resolution of view plane y-axis
+     * @param j-number of columns
+     * @param i- number of rows
+     * @return new ray that come from view plane
      */
-
     public Ray constructRay(int nX, int nY, int j, int i) {
 
         Point pC = startPoint.add(to.scale(distance));
@@ -126,7 +112,6 @@ public class Camera {
     /**
      * @return vector up
      */
-
     Vector GetUpVector() {
         return up;
     }
@@ -174,9 +159,6 @@ public class Camera {
         return distance;
     }
 
-
-
-
     /**
      * Print Grid of the image
      * @param interval of the grid's line
@@ -196,7 +178,9 @@ public class Camera {
         }
     }
 
-
+    /**
+     * function that activates the method that writes the image
+     */
     public void writeToImage() {
         if(imageWriter == null)
             throw new MissingResourceException("Missing Resource", imageWriter.getClass().getName(), "");

@@ -9,7 +9,7 @@ public abstract class RayTracerBase {
     protected Scene scene;
 
     /**
-     * Ctor with scene parameter
+     * Constructor with scene parameter
      * @param sc
      */
     public RayTracerBase(Scene sc) {

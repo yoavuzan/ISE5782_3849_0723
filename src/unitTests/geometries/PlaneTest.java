@@ -1,6 +1,7 @@
 package unitTests.geometries;
 
 import geometries.Plane;
+import geometries.Polygon;
 import org.junit.jupiter.api.Test;
 import primitives.Point;
 import primitives.Ray;
@@ -20,11 +21,8 @@ class PlaneTest {
     @Test
     public void TestConstructorPlane() {
         // TC01: Correct concave quadrangular with vertices in correct order
-        try {
-            new Plane(new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0));
-        } catch (IllegalArgumentException e) {
-            fail("Failed constructing a correct plane");
-        }
+        assertDoesNotThrow(() ->  new Plane(new Point(0, 0, 1), new Point(1, 0, 0), new Point(0, 1, 0)),
+                "Failed constructing a correct plane");
     }
 
     @Test
@@ -112,7 +110,6 @@ class PlaneTest {
                 "Ray's crosses the plane");
 
         // ***********
-
         // TC15: Ray is neither orthogonal nor parallel and begins at the plane
         assertNull(
                 plane.findIntersections(new Ray(new Point(1, -1, 1), new Vector(-3, -1, 0))),
@@ -124,5 +121,4 @@ class PlaneTest {
                 plane.findIntersections(new Ray(new Point(1, 0, 0), new Vector(-3, -1, 0)))
                 , "Ray's crosses the plane");
     }
-
 }

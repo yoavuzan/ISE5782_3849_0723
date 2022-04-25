@@ -12,11 +12,6 @@ import primitives.*;
  */
 class GeometriesTest {
 
-    /**
-     * Test method for {@link geometries.Geometries#add(geometries.Intersectable[])}.
-     */
-    void addTest() {
-    }
 
     /**
      * Test method for {@link geometries.Geometries#findIntersections(primitives.Ray)}.

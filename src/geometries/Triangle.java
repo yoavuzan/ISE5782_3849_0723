@@ -19,7 +19,7 @@ public class Triangle extends Polygon {
     /**
      * constructor new triangle with vertices
      *
-     * @param vertices
+     * @param vertices (three points)
      */
     public Triangle(Point... vertices) {
         super(vertices);

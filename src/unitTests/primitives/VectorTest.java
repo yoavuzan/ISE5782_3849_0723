@@ -27,6 +27,7 @@ public class VectorTest {
     }
 
     /**
+     * Test method for {@link primitives.Vector#add(Vector)}.
      * Test add of two vectors
      */
     @Test
@@ -77,7 +78,8 @@ public class VectorTest {
     }
 
     /**
-     * Dot Product of two vectors
+     * Test method for {@link primitives.Vector#dotProduct(Vector)}
+     * Test dot Product of two vectors
      */
     @Test
     public void dotProductTest() {
@@ -93,7 +95,7 @@ public class VectorTest {
         assertEquals(vector1.dotProduct(vector2), -10, .000001, "dotProduct() wrong result");
 
         // =============== Boundary Values Tests ==================
-        // TC3: ortogonaly expected- 0
+        // TC3: orthogonal expected- 0
         vector1 = new Vector(1, 0, 0);
         vector2 = new Vector(0, 1, 0);
         assertEquals(0, vector1.dotProduct(vector2), 0.000001, "dotProduct() wrong result");

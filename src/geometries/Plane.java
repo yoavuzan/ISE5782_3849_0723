@@ -30,7 +30,7 @@ public class Plane implements Geometry {
     }
 
     /**
-     * constructor of plane by  three points
+     * constructor of plane by three points
      *
      * @param point1
      * @param point2
@@ -39,7 +39,6 @@ public class Plane implements Geometry {
      */
     public Plane(Point point1, Point point2, Point point3) {
         planePoint = point1;
-
         Vector u = point2.subtract(point1);
         Vector v = point3.subtract(point1);
         normal = u.crossProduct(v).normalize();
