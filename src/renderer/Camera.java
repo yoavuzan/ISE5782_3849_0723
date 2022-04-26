@@ -15,8 +15,12 @@ import static primitives.Util.*;
 public class Camera {
 
     private final Point startPoint; //start of camera
-    private final Vector up, to, right;
-    private double height, distance, width;
+    private final Vector up;
+    private final Vector to;
+    private final Vector right;
+    private double height;
+    private double distance;
+    private double width;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracerBase;
 
@@ -34,8 +38,6 @@ public class Camera {
         to = to1.normalize();
         right = up1.crossProduct(to1).normalize().scale(-1);
         startPoint = start;
-
-
     }
 
     /**
@@ -65,7 +67,7 @@ public class Camera {
     /**
      * setter the imageWriter1
      *
-     * @param imageWriter1
+     * @param imageWriter1 -
      * @return the camera
      */
     public Camera setImageWriter(ImageWriter imageWriter1) {
@@ -76,7 +78,7 @@ public class Camera {
     /**
      * setter the RayTracerbase
      *
-     * @param rayTracerBase1
+     * @param rayTracerBase1 -
      * @return the camera
      */
     public Camera setRayTracer(RayTracerBase rayTracerBase1) {
@@ -89,71 +91,84 @@ public class Camera {
      *
      * @param nX-Resolution of view plane x-axis
      * @param nY-Resolution of view plane y-axis
-     * @param j-number      of columns
-     * @param i-            number of rows
+     * @param j-number of columns
+     * @param i- number of rows
      * @return new ray that come from view plane
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
         double rY = height / nY;
         double rX = width / nX;
 
-        Point Pij = startPoint.add(to.scale(distance)); // The center of the View Plane
+        Point pIJ = startPoint.add(to.scale(distance)); // The center of the View Plane
 
-        double Yi = -(i - (nY - 1d) / 2) * rY;
-        double Xj = (j - (nX - 1d) / 2) * rX;
-        if (Yi != 0) Pij = Pij.add(up.scale(Yi));
-        if (Xj != 0) Pij = Pij.add(right.scale(Xj));
+        double yI = -(i - (nY - 1d) / 2) * rY;
+        double xJ = (j - (nX - 1d) / 2) * rX;
+        if (yI != 0) pIJ = pIJ.add(up.scale(yI));
+        if (xJ != 0) pIJ = pIJ.add(right.scale(xJ));
 
-        return new Ray(startPoint, Pij.subtract(startPoint));
+        return new Ray(startPoint, pIJ.subtract(startPoint));
     }
 
     /**
+     * getter for the vector of the
+     *
      * @return vector up
      */
-    Vector GetUpVector() {
+    public Vector getUpVector() {
         return up;
     }
 
     /**
+     * getter for the vector of the
+     *
      * @return vector to
      */
-    Vector GetToVector() {
+    public Vector getToVector() {
         return to;
     }
 
     /**
+     * getter for the vector of the
+     *
      * @return vector right
      */
-    Vector GetRightVector() {
+    public Vector getRightVector() {
         return right;
     }
 
     /**
+     * getter for the point of the camera position
+     *
      * @return start point (position)
      */
-    Point GetStartPoint() {
+    public Point getStartPoint() {
         return startPoint;
     }
 
     /**
+     * getter of the height
+     *
      * @return height
      */
-
-    double GetHeight() {
+    public double getHeight() {
         return height;
     }
 
     /**
+     * getter of the width
+     *
      * @return width
      */
-    double GetWidth() {
+    public double getWidth() {
         return width;
     }
 
     /**
+     * getter of the distance
+     *
      * @return distance
      */
-    double GetDistance() {
+    public double getDistance() {
         return distance;
     }
 
@@ -211,6 +226,4 @@ public class Camera {
             throw new UnsupportedOperationException("Render didn't receive " + e.getClassName());
         }
     }
-
-
 }
