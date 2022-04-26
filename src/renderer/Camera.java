@@ -8,22 +8,24 @@ import static primitives.Util.*;
 
 /**
  * Camera class represents a camera viewing objects through a view plane
+ *
  * @author Yoav Uzan and Yaniv BarTov
  */
 
 public class Camera {
 
     private final Point startPoint; //start of camera
-    private final Vector up,to,right;
-    private double height,distance,width;
+    private final Vector up, to, right;
+    private double height, distance, width;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracerBase;
 
     /**
      * constructor of camera
+     *
      * @param start- the Point of the camera position
-     * @param to1 -vector to view plane
-     * @param up1- vector up from camera
+     * @param to1    -vector to view plane
+     * @param up1-   vector up from camera
      */
     public Camera(Point start, Vector to1, Vector up1) {
         if (!isZero(up1.dotProduct(to1)))
@@ -38,7 +40,8 @@ public class Camera {
 
     /**
      * setter for width height of view plane
-     * @param width1 of plane
+     *
+     * @param width1  of plane
      * @param height1 of plane
      * @return camera
      */
@@ -50,6 +53,7 @@ public class Camera {
 
     /**
      * setter for distance of view plane
+     *
      * @param distance1 of plane
      * @return camera
      */
@@ -60,6 +64,7 @@ public class Camera {
 
     /**
      * setter the imageWriter1
+     *
      * @param imageWriter1
      * @return the camera
      */
@@ -70,6 +75,7 @@ public class Camera {
 
     /**
      * setter the RayTracerbase
+     *
      * @param rayTracerBase1
      * @return the camera
      */
@@ -83,30 +89,22 @@ public class Camera {
      *
      * @param nX-Resolution of view plane x-axis
      * @param nY-Resolution of view plane y-axis
-     * @param j-number of columns
-     * @param i- number of rows
+     * @param j-number      of columns
+     * @param i-            number of rows
      * @return new ray that come from view plane
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
-
-        Point pC = startPoint.add(to.scale(distance));
-
         double rY = height / nY;
         double rX = width / nX;
 
+        Point Pij = startPoint.add(to.scale(distance)); // The center of the View Plane
+
         double Yi = -(i - (nY - 1d) / 2) * rY;
         double Xj = (j - (nX - 1d) / 2) * rX;
-        Point Pij = pC;
-
         if (Yi != 0) Pij = Pij.add(up.scale(Yi));
         if (Xj != 0) Pij = Pij.add(right.scale(Xj));
 
-
-        try {
-            return new Ray(startPoint, Pij.subtract(startPoint));
-        } catch (Exception e) {
-            throw e;
-        }
+        return new Ray(startPoint, Pij.subtract(startPoint));
     }
 
     /**
@@ -161,11 +159,12 @@ public class Camera {
 
     /**
      * Print Grid of the image
-     * @param interval of the grid's line
+     *
+     * @param interval      of the grid's line
      * @param intervalColor color of grid's line
      */
     public void printGrid(int interval, Color intervalColor) {
-        if(imageWriter == null)
+        if (imageWriter == null)
             throw new MissingResourceException("Missing Resource", imageWriter.getClass().getName(), "");
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
@@ -182,7 +181,7 @@ public class Camera {
      * function that activates the method that writes the image
      */
     public void writeToImage() {
-        if(imageWriter == null)
+        if (imageWriter == null)
             throw new MissingResourceException("Missing Resource", imageWriter.getClass().getName(), "");
         imageWriter.writeToImage();
     }
@@ -190,14 +189,13 @@ public class Camera {
     /**
      * Render image function that throws exception if not all arguments are passed
      */
-    public void renderImage(){
-        try
-        {
-            if(imageWriter == null)
-                throw new MissingResourceException("Missing Resource", ImageWriter.class.getName(),"");
-            if(rayTracerBase == null)
-                throw new MissingResourceException("Missing Resource",RayTracerBase.class.getName(),"");
-            if(this.startPoint == null || this.to == null || this.right == null || this.up == null || this.width == 0 || this.height == 0)
+    public void renderImage() {
+        try {
+            if (imageWriter == null)
+                throw new MissingResourceException("Missing Resource", ImageWriter.class.getName(), "");
+            if (rayTracerBase == null)
+                throw new MissingResourceException("Missing Resource", RayTracerBase.class.getName(), "");
+            if (this.startPoint == null || this.to == null || this.right == null || this.up == null || this.width == 0 || this.height == 0)
                 throw new MissingResourceException("Missing Resource", Camera.class.getName(), "");
 
             //rendering the image
@@ -209,15 +207,10 @@ public class Camera {
                     imageWriter.writePixel(j, i, rayTracerBase.traceRay(ray));
                 }
             }
-        }
-        catch (MissingResourceException e){
+        } catch (MissingResourceException e) {
             throw new UnsupportedOperationException("Render didn't receive " + e.getClassName());
         }
     }
-
-
-
-
 
 
 }

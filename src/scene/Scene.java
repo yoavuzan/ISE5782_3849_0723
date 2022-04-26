@@ -3,25 +3,26 @@ package scene;
 import geometries.Geometries;
 import lighting.AmbientLight;
 import primitives.Color;
-import primitives.Double3;
+
 /**
- * Scene repreasent view of scene. it combines Collection of geometries and the background color
+ * Scene represent view of scene. it combines Collection of geometries and the background color
  * and the Ambient Light
  *
  * @author Yoav and Yaniv
  */
 public class Scene {
-    public String name;
+    public final String name;
     public Color background = Color.BLACK;
     public AmbientLight ambientLight = new AmbientLight();
     public Geometries geometries = new Geometries();
+
     /**
      * Scene constructor accepting Scene name,
      * the background default is black
      * @param name1 the name of jpeg file
      */
     public Scene(String name1) {
-        name = name;
+        name = name1;
     }
 
     /**

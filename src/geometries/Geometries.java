@@ -14,12 +14,6 @@ public class Geometries implements Intersectable {
     private final List<Intersectable> shapes = new LinkedList<>();
 
     /**
-     * Empty default constructor
-     */
-    public Geometries() {
-    }
-
-    /**
      * constructor with list of geometries
      *
      * @param geometries list of geometries
@@ -34,7 +28,7 @@ public class Geometries implements Intersectable {
      * @param geometries list of geometries
      */
     public void add(Intersectable... geometries) {
-        shapes.addAll(List.of(geometries));
+        if (geometries.length != 0) shapes.addAll(List.of(geometries));
     }
 
     @Override
@@ -47,8 +41,9 @@ public class Geometries implements Intersectable {
 
             if (points != null) {
                 if (result == null)
-                    result = new LinkedList<>();
-                result.addAll(points);
+                    result = new LinkedList<>(points);
+                else
+                    result.addAll(points);
             }
         }
         return result;

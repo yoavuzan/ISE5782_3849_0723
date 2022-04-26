@@ -8,7 +8,7 @@ import primitives.*;
  * @author Yoav Uzan and Yaniv Bar-tov
  */
 public class AmbientLight {
-    public Color intensity;
+    private final Color intensity;
 
     /**
      * default constructor
@@ -31,7 +31,7 @@ public class AmbientLight {
     /**
      * @return The ambient light intensity
      */
-    Color GetIntensity() {
+    public Color getIntensity() {
         return intensity;
     }
 }

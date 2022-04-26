@@ -71,8 +71,7 @@ public class Point {
     public boolean equals(Object obj) {
         if (this == obj) return true;
         if (obj == null) return false;
-        if (!(obj instanceof Point)) return false;
-        Point other = (Point) obj;
+        if (!(obj instanceof Point other)) return false;
         return xyz.equals(other.xyz);
     }
 
@@ -82,7 +81,7 @@ public class Point {
     }
 
     /**
-     * get the value of x of the point
+     * get the value of x coordinate of the point
      * @return  x
      */
     public double getX() {

@@ -9,8 +9,8 @@ import scene.Scene;
 import java.util.List;
 
 /**
- * @author Yoav and Yaniv
  * RayTracerBasic class inheritance from RayTracerBase class
+ * @author Yoav and Yaniv
  */
 public class RayTracerBasic extends RayTracerBase {
 
@@ -40,6 +40,6 @@ public class RayTracerBasic extends RayTracerBase {
      * @return The ambient light of the scene
      */
     public Color calcColor(Point point) {
-        return scene.ambientLight.intensity;
+        return scene.ambientLight.getIntensity();
     }
 }
