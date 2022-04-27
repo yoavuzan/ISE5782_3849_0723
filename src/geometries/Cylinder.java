@@ -1,7 +1,14 @@
 package geometries;
 
-import primitives.*;
-import static primitives.Util.*;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * This class will represent finite tube
@@ -14,7 +21,8 @@ public class Cylinder extends Tube {
     final private double height;
 
     /**
-     * constaractor
+     * constructor
+     *
      * @param axisRay //Ray that goes through the height of tube
      * @param radius  /Radius of tube
      * @param height  /height of tube
@@ -49,11 +57,27 @@ public class Cylinder extends Tube {
             //checks if point is on a base of cylinder (bottom or top circle)
             if (isZero(t) || isZero(t - height))
                 return v;
-        } catch(IllegalArgumentException ignore) {
+        } catch (IllegalArgumentException ignore) {
             return v;
         }
 
         //if point is not on either base, call parent getNormal() to find normal of point on side of cylinder
         return super.getNormal(point);
+    }
+
+    @Override
+    public List<Point> findIntersections(Ray ray) {
+        List<Point> res = new ArrayList<>();
+        List<Point> lst = super.findIntersections(ray);
+        if (lst != null)
+            for (Point point : lst) {
+                double distance = alignZero(point.subtract(axisRay.getPoint0()).dotProduct(axisRay.getDirection()));
+                if (distance > 0 && distance <= height)
+                    res.add(point);
+            }
+
+        if (res.size() == 0)
+            return null;
+        return res;
     }
 }

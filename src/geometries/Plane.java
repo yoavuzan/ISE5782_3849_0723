@@ -14,14 +14,14 @@ import static primitives.Util.isZero;
  *
  * @author Yoav uzan and yaniv bartov
  */
-public class Plane implements Geometry {
+public class Plane extends Geometry {
     private final Point planePoint;
     private final Vector normal;
 
     /**
      * constructor of plane by a point and the normal
      *
-     * @param point plane reference point
+     * @param point  plane reference point
      * @param normal vector for the normal (will be normalized automatically)
      */
     public Plane(Point point, Vector normal) {
@@ -68,7 +68,7 @@ public class Plane implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Point rayPoint = ray.getPoint0();
         Vector v = ray.getDirection();
 
@@ -86,7 +86,8 @@ public class Plane implements Geometry {
         }
 
         double t = alignZero(np / nv);
-        return t <= 0 ? null : List.of(ray.getPoint(t));
+        return t <= 0 ? null : List.of(new GeoPoint(this, ray.getPoint(t)));
     }
+
 }
 

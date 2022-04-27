@@ -1,10 +1,14 @@
 package geometries;
 
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
+
+import java.util.LinkedList;
 import java.util.List;
 
-import primitives.*;
-
-import static primitives.Util.*;
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 /**
  * Polygon class represents two-dimensional polygon in 3D Cartesian coordinate
@@ -12,7 +16,7 @@ import static primitives.Util.*;
  *
  * @author Dan
  */
-public class Polygon implements Geometry {
+public class Polygon extends Geometry {
     /**
      * List of polygon's vertices
      */
@@ -92,8 +96,42 @@ public class Polygon implements Geometry {
         return plane.getNormal();
     }
 
-    @Override
-    public List<Point> findIntersections(Ray ray) {
+
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+        Vector v1;
+        Vector v2;
+        Vector n;
+        double t;
+        List<GeoPoint> resultPoints = plane.findGeoIntersections(ray);
+        if (resultPoints == null) // In case there is no intersection with the plane return null
+            return null;
+        boolean positive = true;
+        boolean negtive = true;
+        for (int i = 0; i < vertices.size(); i++) {
+            if (i == vertices.size() - 1) {
+                v1 = vertices.get(i).subtract(ray.getPoint0());
+                v2 = vertices.get(0).subtract(ray.getPoint0());
+                n = v1.crossProduct(v2).normalize();
+                t = alignZero(n.dotProduct(ray.getDirection()));
+            } else {
+                v1 = vertices.get(i).subtract(ray.getPoint0());
+                v2 = vertices.get(i + 1).subtract(ray.getPoint0());
+                n = v1.crossProduct(v2).normalize();
+                t = alignZero(n.dotProduct(ray.getDirection()));
+            }
+            if (t == 0)
+                return null;
+            if (t * 1 < 0)
+                positive = false;
+            else if (t * -1 < 0)
+                negtive = false;
+        }
+        if (negtive || positive) {
+            LinkedList<GeoPoint> result = new LinkedList<GeoPoint>();
+            result.add(new GeoPoint(this, resultPoints.get(0).point));
+            return result;
+        }
         return null;
     }
+
 }

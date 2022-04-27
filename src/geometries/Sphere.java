@@ -13,7 +13,7 @@ import static primitives.Util.alignZero;
  *
  * @author Yoav uzan and yaniv bartov
  */
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
 
     final private Point center;
     final private double radius;
@@ -57,7 +57,7 @@ public class Sphere implements Geometry {
     }
 
     @Override
-    public List<Point> findIntersections(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         // We used "alignZero" in this function to make the calculation accurate
         // Special case: if point p0 == center, that mean that all we need to calculate
         // is the radios multi scalar with the direction, and add p0
@@ -65,7 +65,7 @@ public class Sphere implements Geometry {
         try {
             u = center.subtract(ray.getPoint0()); // u= center-p0
         } catch (IllegalArgumentException ignore) {
-            return List.of(ray.getPoint(radius));
+            return List.of(new GeoPoint(this,ray.getPoint(radius)));
         }
 
         double tm = u.dotProduct(ray.getDirection());  // tm=u*v
@@ -80,7 +80,8 @@ public class Sphere implements Geometry {
         if (t2 <= 0) return null;
 
         double t1 = alignZero(tm - th);
-        return t1 <= 0 ? List.of(ray.getPoint(t2)) : List.of(ray.getPoint(t1), ray.getPoint(t2));
+        return t1 <= 0 ? List.of(new GeoPoint(this,ray.getPoint(t2))) : List.of(new GeoPoint(this,ray.getPoint(t1)), new GeoPoint(this,ray.getPoint(t2)));
     }
+
 }
 
