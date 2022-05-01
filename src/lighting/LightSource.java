@@ -13,16 +13,16 @@ public interface LightSource {
 
     /**
      * Calculate the intensity of each light
-     * @param p
+     * @param p- point
      * @return The intensity
      */
-    public Color getIntensity(Point p);
+    Color getIntensity(Point p);
 
     /**
-     *
-     * @param p
+     *find the Vector between point p to point position
+     * @param p- a point
      * @return The Vector between point p to point position
      */
-    public Vector getL(Point p);
+     Vector getL(Point p);
 
 }

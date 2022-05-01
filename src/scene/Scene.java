@@ -1,8 +1,11 @@
 package scene;
 
 import geometries.Geometries;
-import lighting.AmbientLight;
+import lighting.*;
 import primitives.Color;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Scene represent view of scene. it combines Collection of geometries and the background color
@@ -15,6 +18,7 @@ public class Scene {
     public Color background = Color.BLACK;
     public AmbientLight ambientLight = new AmbientLight();
     public Geometries geometries = new Geometries();
+    List<LightSource> lights=new LinkedList<LightSource>();
 
     /**
      * Scene constructor accepting Scene name,
@@ -47,11 +51,21 @@ public class Scene {
 
     /**
      * setter for the geometries
-     * @param geometries1 -collection of geometries
+     * @param geometries -collection of geometries
      * @return the scene with the update geometries collection
      */
-    public Scene setGeometries(Geometries geometries1) {
-        geometries = geometries1;
+    public Scene setGeometries(Geometries geometries) {
+        this.geometries = geometries;
+        return this;
+    }
+
+    /**
+     * setter for the lights
+     * @param lights -list of light sources
+     * @return the scene with the update lights collection
+     */
+    public Scene setLights(List<LightSource> lights) {
+        this.lights = lights;
         return this;
     }
 }
