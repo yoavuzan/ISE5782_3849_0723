@@ -4,7 +4,6 @@ import primitives.Point;
 import primitives.Ray;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This abstract class used to calculate intersections with different geometries
@@ -13,7 +12,7 @@ import java.util.stream.Collectors;
  */
 public abstract class Intersectable {
     /**
-     * static class represent geometry and its point
+     * static class represent geometry and  point of intersection
      */
     public static class GeoPoint {
         public Geometry geometry;
@@ -21,13 +20,15 @@ public abstract class Intersectable {
 
         /**
          * constructor of geoPoint
-         * @param geometry
-         * @param point
+         *
+         * @param geometry- the geometry
+         * @param point-    point of ray of intersection
          */
-        public GeoPoint(Geometry geometry,Point point) {
+        public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;
-            this.point=point;
+            this.point = point;
         }
+
         @Override
         public boolean equals(Object obj) {
             if (this == obj)
@@ -54,14 +55,15 @@ public abstract class Intersectable {
                 : geoList.stream().map(gp -> gp.point).toList();
     }
 
-        /**
-         * find the  geoPoints which intersections of this ray with the geometry
-         *
-         * @param ray to intersect with the geometry
-         * @return list of Geo points
-         */
+    /**
+     * find the  geoPoints which intersections of this ray with the geometry
+     *
+     * @param ray to intersect with the geometry
+     * @return list of Geo points
+     */
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         return findGeoIntersectionsHelper(ray);
     }
-    protected abstract List<GeoPoint> findGeoIntersectionsHelper (Ray ray);
+
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
 }

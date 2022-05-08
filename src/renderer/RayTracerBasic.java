@@ -17,7 +17,7 @@ import java.util.List;
 public class RayTracerBasic extends RayTracerBase {
 
     /**
-     * @param sc Ctor using super class constructor
+     * @param sc Constructor using super class constructor
      */
     public RayTracerBasic(Scene sc) {
         super(sc);
@@ -38,10 +38,10 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * Calculate the color of a certain point
      *
-     * @param point
+     * @param point-specific point
      * @return The ambient light of the scene
      */
     public Color calcColor(GeoPoint point) {
-        return scene.ambientLight.getIntensity();
+        return scene.ambientLight.getIntensity().add(point.geometry.getEmission());
     }
 }

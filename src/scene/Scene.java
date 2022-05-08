@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Scene represent view of scene. it combines Collection of geometries and the background color
- * and the Ambient Light
+ * Scene represent view of scene. It combines Collection of geometries, the background color
+ * ,the Ambient Light and the light sources.
  *
  * @author Yoav and Yaniv
  */

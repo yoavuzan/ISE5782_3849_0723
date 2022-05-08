@@ -34,8 +34,8 @@ public class Triangle extends Polygon {
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
-        List<GeoPoint> result = plane.findGeoIntersectionsHelper(ray);
-        result.set(0,new GeoPoint(this,result.get(0).point));
+        var result = plane.findGeoIntersections(ray);
+        //result.set(0,new GeoPoint(this,result.get(0).point));
         if (result == null) // In case there is no intersection with the plane return null
             return null;
 
@@ -56,6 +56,6 @@ public class Triangle extends Polygon {
         double t3 = alignZero(n3.dotProduct(rayDirection));
         if (t1 * t3 <= 0) return null;
 
-        return result;
+        return List.of(new GeoPoint(this, result.get(0).point));
     }
 }
