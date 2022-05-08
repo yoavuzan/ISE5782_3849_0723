@@ -70,9 +70,9 @@ class CameraTest {
      * Test intersections of camara with sphere ,plane and triangle
      * change a few time the camera parameter
      */
+
     @Test
-    void intersectionsTest()
-    {
+    void intersectionsTest() {
 
         //  3X3 with tow instruction
         camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, 1, 0)).setVPDistance(1).setVPSize(3, 3);
@@ -127,15 +127,13 @@ class CameraTest {
     }
 
 
-
-
     /**
      * Calculates the number of intersections
      *
-     * @param nx param of view plane
-     * @param ny param of view plane
+     * @param nx         param of view plane
+     * @param ny         param of view plane
      * @param geometries we use
-     * @param camera position in the space.
+     * @param camera     position in the space.
      * @return the number of intersections
      */
     private int numberOfIntersections(int nx, int ny, Geometries geometries, Camera camera) {

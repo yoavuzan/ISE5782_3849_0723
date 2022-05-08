@@ -11,7 +11,8 @@ import java.util.stream.Collectors;
  *
  * @author Yoav Uzan and Yaniv Bartov
  */
-public abstract class Intersectable {
+public abstract class Intersectable
+{
     /**
      * static class represent geometry and its point
      */
