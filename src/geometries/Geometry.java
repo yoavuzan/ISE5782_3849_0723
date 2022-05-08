@@ -8,25 +8,25 @@ import primitives.Vector;
 /**
  * This abstract class will represent Geometry
  *
- * @author Yoav uzan and yaniv bartov
+ * @author Yoav Uzan and Yaniv Bartov
  */
 public abstract class Geometry extends Intersectable {
     protected Color emission = Color.BLACK;
     private Material material = new Material();
 
     /**
-     * getter for material
+     * getter for emission color
      *
-     * @return material
+     * @return emission
      */
     public Color getEmission() {
         return emission;
     }
 
     /**
-     * getter for emission color
+     * getter for material
      *
-     * @return emission
+     * @return material
      */
     public Material getMaterial() {
         return material;

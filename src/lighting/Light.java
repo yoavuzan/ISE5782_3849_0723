@@ -4,8 +4,9 @@ package lighting;
 import primitives.Color;
 
 /**
+ * Abstract class for all source light
+ *
  * @author Yaniv and Yoav
- * Abstract class for light
  */
 abstract class Light {
 
@@ -13,7 +14,8 @@ abstract class Light {
 
     /**
      * Protected constructor for intensity
-     * @param intensity
+     *
+     * @param intensity- color intensity
      */
     protected Light(Color intensity) {
         this.intensity = intensity;
@@ -21,6 +23,7 @@ abstract class Light {
 
     /**
      * getter for intensity of the light
+     *
      * @return The intensity of the light
      */
     public Color getIntensity() {

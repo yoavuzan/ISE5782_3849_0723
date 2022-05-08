@@ -96,7 +96,6 @@ public class Polygon extends Geometry {
         return plane.getNormal();
     }
 
-
     protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
         Vector v1;
         Vector v2;
@@ -133,5 +132,4 @@ public class Polygon extends Geometry {
         }
         return null;
     }
-
 }

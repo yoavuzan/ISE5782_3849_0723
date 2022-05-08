@@ -32,9 +32,9 @@ public class Plane extends Geometry {
     /**
      * constructor of plane by three points
      *
-     * @param point1
-     * @param point2
-     * @param point3
+     * @param point1- one of three points to represent the plane
+     * @param point2-one of three points to represent the plane
+     * @param point3-one of three points to represent the plane
      * @throws IllegalArgumentException when all three points are co-lined
      */
     public Plane(Point point1, Point point2, Point point3) {
@@ -88,6 +88,5 @@ public class Plane extends Geometry {
         double t = alignZero(np / nv);
         return t <= 0 ? null : List.of(new GeoPoint(this, ray.getPoint(t)));
     }
-
 }
 

@@ -12,7 +12,6 @@ import java.util.stream.Collectors;
  * @author Yoav Uzan and Yaniv Bartov
  */
 public abstract class Intersectable {
-
     /**
      * static class represent geometry and its point
      */
@@ -29,7 +28,6 @@ public abstract class Intersectable {
             this.geometry = geometry;
             this.point=point;
         }
-
         @Override
         public boolean equals(Object obj) {
             if (this == obj)
@@ -41,8 +39,6 @@ public abstract class Intersectable {
             GeoPoint other = (GeoPoint) obj;
             return other.point.equals(this.point) && other.geometry == this.geometry; // Checking geometry by reference
         }
-        @Override
-        public String toString(){ return  "geometry:"+geometry+"point:"+point;}
     }
 
     /**
