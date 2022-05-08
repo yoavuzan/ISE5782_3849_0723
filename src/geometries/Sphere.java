@@ -82,6 +82,5 @@ public class Sphere extends Geometry {
         double t1 = alignZero(tm - th);
         return t1 <= 0 ? List.of(new GeoPoint(this,ray.getPoint(t2))) : List.of(new GeoPoint(this,ray.getPoint(t1)), new GeoPoint(this,ray.getPoint(t2)));
     }
-
 }
 

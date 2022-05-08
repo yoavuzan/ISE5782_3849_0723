@@ -4,22 +4,23 @@ package lighting;
 import primitives.*;
 
 /**
- * @author 97253
- *
+ * class that represent Models of omni directional point light source (such as a bulb)
+ * include-• Intensity (color) • Position (Point) • Factors (kc, kl, kq) for attenuation with distance (d)
+ * @author Yaniv and Yoav
  */
 public class PointLight extends Light implements LightSource {
-
     private Point position;
     private double kC = 1;
     private double kL=0;
     private double kQ=0;
 
     /**
-     * @param intensity
-     * @param position
-     * @param c
-     * @param l
-     * @param q
+     * constructor for pointLight
+     * @param intensity- color intensity
+     * @param position- the position of the light point
+     * @param c-attenuation Factor
+     * @param l-attenuation Factor
+     * @param q-attenuation Factor
      */
     public PointLight(Color intensity, Point position, double c, double l, double q) {
         super(intensity);
@@ -30,21 +31,47 @@ public class PointLight extends Light implements LightSource {
     }
 
     /**
-     * @param intensity
+     * constructor for pointLight
+     * @param intensity- color intensity
+     * @param position- the position of the light point
+     */
+    public PointLight(Color intensity, Point position) {
+        super(intensity);
+        this.position = position;
+    }
+
+    /**
+     * default constructor- initialize attenuation factors to: kC = 1, kL=0, kQ=0;
+     * @param intensity- intensity color
      */
     public PointLight(Color intensity) {
         super(intensity);
     }
+    /**
+     * setter attenuation factor kC
+     * @param kC
+     * @return  the object pointLight
+     */
 
-    public PointLight setKC(double kC){
+    public PointLight setKc(double kC){
         this.kC=kC;
         return this;
     }
-    public PointLight setKL(double kL){
+    /**
+     * setter attenuation factor kL
+     * @param kL
+     * @return  the object pointLight
+     */
+    public PointLight setKl(double kL){
         this.kL=kL;
         return this;
     }
-    public PointLight setKQ(double kQ){
+    /**
+     * setter attenuation factor kQ
+     * @param kQ
+     * @return the object pointLight
+     */
+    public PointLight setKq(double kQ){
         this.kQ=kQ;
         return this;
     }

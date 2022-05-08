@@ -1,10 +1,13 @@
 package renderer;
 
-import primitives.*;
+import primitives.Color;
+import primitives.Point;
+import primitives.Ray;
+import primitives.Vector;
 
 import java.util.MissingResourceException;
 
-import static primitives.Util.*;
+import static primitives.Util.isZero;
 
 /**
  * Camera class represents a camera viewing objects through a view plane
@@ -22,7 +25,7 @@ public class Camera {
     private double distance;
     private double width;
     private ImageWriter imageWriter;
-    private RayTracerBase rayTracerBase;
+    private RayTracerBase rayTracer;
 
     /**
      * constructor of camera
@@ -82,7 +85,7 @@ public class Camera {
      * @return the camera
      */
     public Camera setRayTracer(RayTracerBase rayTracerBase1) {
-        rayTracerBase = rayTracerBase1;
+        rayTracer = rayTracerBase1;
         return this;
     }
 
@@ -91,8 +94,8 @@ public class Camera {
      *
      * @param nX-Resolution of view plane x-axis
      * @param nY-Resolution of view plane y-axis
-     * @param j-number of columns
-     * @param i- number of rows
+     * @param j-number      of columns
+     * @param i-            number of rows
      * @return new ray that come from view plane
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
@@ -201,29 +204,40 @@ public class Camera {
         imageWriter.writeToImage();
     }
 
+
     /**
      * Render image function that throws exception if not all arguments are passed
      */
-    public void renderImage() {
+    public Camera renderImage() {
         try {
             if (imageWriter == null)
                 throw new MissingResourceException("Missing Resource", ImageWriter.class.getName(), "");
-            if (rayTracerBase == null)
+            if (rayTracer == null)
                 throw new MissingResourceException("Missing Resource", RayTracerBase.class.getName(), "");
             if (this.startPoint == null || this.to == null || this.right == null || this.up == null || this.width == 0 || this.height == 0)
                 throw new MissingResourceException("Missing Resource", Camera.class.getName(), "");
 
-            //rendering the image
-            int nX = imageWriter.getNx();
-            int nY = imageWriter.getNy();
-            for (int i = 0; i < nY; i++) {
-                for (int j = 0; j < nX; j++) {
-                    Ray ray = constructRay(nX, nY, j, i);
-                    imageWriter.writePixel(j, i, rayTracerBase.traceRay(ray));
+            // will go over all the pixals and color etch pixal
+            for (int i = 0; i < imageWriter.getNx(); i++) {
+                for (int j = 0; j < imageWriter.getNy(); j++) {
+                    imageWriter.writePixel(j, i, this.castRay(imageWriter.getNx(), imageWriter.getNy(), i, j));
                 }
             }
+            return this;
         } catch (MissingResourceException e) {
             throw new UnsupportedOperationException("Render didn't receive " + e.getClassName());
         }
+    }
+
+    /**
+     * @param nX
+     * @param nY
+     * @param i
+     * @param j
+     * @return a ray to thatpoint
+     */
+    private Color castRay(int nX, int nY, int i, int j) {
+        // create the Ray and return the color of the ray
+        return rayTracer.traceRay(constructRay(nX, nY, j, i));
     }
 }

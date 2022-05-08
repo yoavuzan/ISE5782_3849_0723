@@ -39,6 +39,7 @@ public abstract class Intersectable {
             GeoPoint other = (GeoPoint) obj;
             return other.point.equals(this.point) && other.geometry == this.geometry; // Checking geometry by reference
         }
+
     }
 
     /**

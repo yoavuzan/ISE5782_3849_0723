@@ -7,6 +7,8 @@ import primitives.Vector;
 import static primitives.Util.alignZero;
 
 /**
+ * this class represent models point light source with direction (such as a luxo lamp)
+ * include-  Intensity  • Position  •Direction dir (Vector) - normalized • Attenuation factors
  * @author Yaniv and Yoav
  */
 public class SpotLight extends PointLight {
@@ -14,15 +16,27 @@ public class SpotLight extends PointLight {
     private Vector direction;
 
     /**
-     * @param intensity
-     * @param position
-     * @param dir
-     * @param c
-     * @param l
-     * @param q
+     * constructor for pointLight
+     * @param intensity- color intensity
+     * @param position- the position of the spot light
+     * @param dir- the direction of the spot light
+     * @param kC-attenuation Factor
+     * @param kL-attenuation Factor
+     * @param kQ-attenuation Factor
      */
-    public SpotLight(Color intensity, Point position, Vector dir, double c, double l, double q) {
-        super(intensity, position, c, l, q);
+    public SpotLight(Color intensity, Point position, Vector dir, double kC, double kL, double kQ) {
+        super(intensity, position, kC, kL, kQ);
+        direction = dir.normalize();
+    }
+
+    /**
+     * constructor for pointLight
+     * @param intensity- color intensity
+     * @param position- the position of the spot light
+     * @param dir- the direction of the spot light
+     */
+    public SpotLight(Color intensity, Point position, Vector dir) {
+        super(intensity, position);
         direction = dir.normalize();
     }
 

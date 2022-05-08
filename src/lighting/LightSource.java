@@ -6,8 +6,8 @@ import primitives.Point;
 import primitives.Vector;
 
 /**
- * @author Yaniv and Yoav
  * interface for light source
+ * @author Yaniv and Yoav
  */
 public interface LightSource {
 
