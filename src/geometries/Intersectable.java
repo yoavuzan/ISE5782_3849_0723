@@ -11,10 +11,9 @@ import java.util.stream.Collectors;
  *
  * @author Yoav Uzan and Yaniv Bartov
  */
-public abstract class Intersectable
-{
+public abstract class Intersectable {
     /**
-     * static class represent geometry and its point
+     * static class represent geometry and  point of intersection
      */
     public static class GeoPoint {
         public Geometry geometry;
@@ -22,8 +21,8 @@ public abstract class Intersectable
 
         /**
          * constructor of geoPoint
-         * @param  geometry view like sphere plane tube
-         * @param point in geometry
+         * @param geometry
+         * @param point
          */
         public GeoPoint(Geometry geometry,Point point) {
             this.geometry = geometry;
@@ -40,6 +39,7 @@ public abstract class Intersectable
             GeoPoint other = (GeoPoint) obj;
             return other.point.equals(this.point) && other.geometry == this.geometry; // Checking geometry by reference
         }
+
     }
 
     /**
@@ -58,7 +58,7 @@ public abstract class Intersectable
          * find the  geoPoints which intersections of this ray with the geometry
          *
          * @param ray to intersect with the geometry
-         * @return list of Geo points from func findGeoIntersectionsHelper
+         * @return list of Geo points
          */
     public List<GeoPoint> findGeoIntersections(Ray ray) {
         return findGeoIntersectionsHelper(ray);

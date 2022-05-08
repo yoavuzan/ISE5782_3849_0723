@@ -113,6 +113,19 @@ public class Camera {
     }
 
     /**
+     * create the Ray and return the color of the ray
+     *
+     * @param nX-Resolution of view plane x-axis
+     * @param nY-Resolution of view plane y-axis
+     * @param j-number      of columns
+     * @param i-            number of rows
+     * @return the color of the ray to that point
+     */
+    private Color castRay(int nX, int nY, int i, int j) {
+        return rayTracer.traceRay(constructRay(nX, nY, j, i));
+    }
+
+    /**
      * getter for the vector of the
      *
      * @return vector up
@@ -213,7 +226,6 @@ public class Camera {
             if (this.startPoint == null || this.to == null || this.right == null || this.up == null || this.width == 0 || this.height == 0)
                 throw new MissingResourceException("Missing Resource", Camera.class.getName(), "");
 
-            // will go over all the pixals and color etch pixal
             for (int i = 0; i < imageWriter.getNx(); i++) {
                 for (int j = 0; j < imageWriter.getNy(); j++) {
                     imageWriter.writePixel(j, i, this.castRay(imageWriter.getNx(), imageWriter.getNy(), i, j));
@@ -223,17 +235,5 @@ public class Camera {
         } catch (MissingResourceException e) {
             throw new UnsupportedOperationException("Render didn't receive " + e.getClassName());
         }
-    }
-
-    /**
-     * @param nX
-     * @param nY
-     * @param i
-     * @param j
-     * @return a ray to thatpoint
-     */
-    private Color castRay(int nX, int nY, int i, int j) {
-        // create the Ray and return the color of the ray
-        return rayTracer.traceRay(constructRay(nX, nY, j, i));
     }
 }
