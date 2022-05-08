@@ -147,7 +147,6 @@ public class Camera {
 
     /**
      * getter of the height
-     *
      * @return height
      */
     public double getHeight() {
@@ -156,7 +155,6 @@ public class Camera {
 
     /**
      * getter of the width
-     *
      * @return width
      */
     public double getWidth() {
@@ -165,7 +163,6 @@ public class Camera {
 
     /**
      * getter of the distance
-     *
      * @return distance
      */
     public double getDistance() {
@@ -174,7 +171,6 @@ public class Camera {
 
     /**
      * Print Grid of the image
-     *
      * @param interval      of the grid's line
      * @param intervalColor color of grid's line
      */

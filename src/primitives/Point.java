@@ -6,7 +6,7 @@ package primitives;
  * @author Yoav uzan and yaniv bartov
  */
 public class Point {
-
+final  public static Point ZERO=new Point(0,0,0);
     protected final Double3 xyz;
 
     /**

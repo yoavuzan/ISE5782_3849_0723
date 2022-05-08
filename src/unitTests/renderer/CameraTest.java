@@ -18,14 +18,18 @@ import java.util.List;
 class CameraTest {
     static final Point ZERO_POINT = new Point(0, 0, 0);
 
-    /**
-     * Test method for work
-     */
 
+    private Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(10);
+    private String badRay = "Bad ray";
+    private String wrongInter = "wrong intersection";
+
+    /**
+     * Boundary Values Tests and Equivalence Partitions Tests
+     * test if the constructRay work right
+     */
     @Test
     void testConstructRay() {
-        Camera camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, -1, 0)).setVPDistance(10);
-        String badRay = "Bad ray";
+
 
         // ============ Equivalence Partitions Tests ==============
 
@@ -59,7 +63,17 @@ class CameraTest {
         assertEquals(new Ray(ZERO_POINT, new Vector(1, -3, -10)),
                 camera.setVPSize(8, 8).constructRay(4, 4, 1, 0), badRay);
 
-        String wrongInter = "wrong intersection";
+
+    }
+
+    /**
+     * Test intersections of camara with sphere ,plane and triangle
+     * change a few time the camera parameter
+     */
+    @Test
+    void intersectionsTest()
+    {
+
         //  3X3 with tow instruction
         camera = new Camera(ZERO_POINT, new Vector(0, 0, -1), new Vector(0, 1, 0)).setVPDistance(1).setVPSize(3, 3);
 
@@ -97,6 +111,7 @@ class CameraTest {
         assertEquals(6,
                 numberOfIntersections(3, 3, new Geometries(new Plane(new Point(0, 0, 0), new Vector(0, 4, 1))), camera), wrongInter);
 
+
         //*********** triangle test***********
 
         //one intersection with triangle
@@ -111,13 +126,16 @@ class CameraTest {
 
     }
 
+
+
+
     /**
      * Calculates the number of intersections
      *
-     * @param nx
-     * @param ny
-     * @param geometries
-     * @param camera
+     * @param nx param of view plane
+     * @param ny param of view plane
+     * @param geometries we use
+     * @param camera position in the space.
      * @return the number of intersections
      */
     private int numberOfIntersections(int nx, int ny, Geometries geometries, Camera camera) {

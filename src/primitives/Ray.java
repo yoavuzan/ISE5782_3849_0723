@@ -55,7 +55,7 @@ public class Ray {
     /**
      * the closet point to the began of the ray
      *
-     * @param points
+     * @param points of all ray
      * @return the closet point to the began of the ray
      */
     public Point findClosestPoint(List<Point> points) {
@@ -66,7 +66,7 @@ public class Ray {
     /**
      * the closet geoPoint to the began of the ray
      *
-     * @param geoPoints-
+     * @param geoPoints-of all ray
      * @return the closet point to the began of the ray
      */
     public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints) {
