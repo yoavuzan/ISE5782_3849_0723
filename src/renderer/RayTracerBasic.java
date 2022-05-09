@@ -38,7 +38,7 @@ public class RayTracerBasic extends RayTracerBase {
     /**
      * Calculate the color of a certain point
      *
-     * @param point
+     * @param point we go to paint
      * @return The ambient light of the scene
      */
     public Color calcColor(GeoPoint point) {
