@@ -27,9 +27,6 @@ public class RayTracerBasic extends RayTracerBase {
         super(sc);
     }
 
-    /**
-     * Implementation for the abstract method traceRay
-     */
     @Override
     public Color traceRay(Ray ray) {
         List<GeoPoint> intersectionsPoints = scene.geometries.findGeoIntersections(ray);
@@ -41,7 +38,7 @@ public class RayTracerBasic extends RayTracerBase {
      * Calculate the effects of lights
      *
      * @param intersection- the point the ray intersect the object
-     * @param ray- the ray that intersect the object
+     * @param ray-          the ray that intersect the object
      * @return The color resulted by local effects calculation
      */
     private Color calcLocalEffects(GeoPoint intersection, Ray ray) {
@@ -106,6 +103,7 @@ public class RayTracerBasic extends RayTracerBase {
      * @return The ambient light of the scene
      */
     public Color calcColor(GeoPoint point, Ray ray) {
-        return scene.ambientLight.getIntensity().add(point.geometry.getEmission()).add(calcLocalEffects(point, ray));
+        return scene.ambientLight.getIntensity()
+                .add(point.geometry.getEmission()).add(calcLocalEffects(point, ray));
     }
 }
