@@ -8,8 +8,8 @@ package primitives;
  */
 public class Material {
 
-    public Double3 kD = new Double3(0);
-    public Double3 kS = new Double3(0);
+    public Double3 kD = Double3.ZERO;
+    public Double3 kS = Double3.ZERO;
     public int nShininess = 0;
 
     /**
@@ -66,27 +66,4 @@ public class Material {
         this.nShininess = nShininess;
         return this;
     }
-
-    /**
-     * @return The kD
-     */
-    public Double3 getkD() {
-        return kD;
-    }
-
-    /**
-     * @return The kS
-     */
-    public Double3 getkS() {
-        return kS;
-    }
-
-    /**
-     * @return The nShininess
-     */
-    public int getShininess() {
-        return nShininess;
-    }
-
-
 }

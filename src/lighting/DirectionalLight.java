@@ -9,7 +9,7 @@ import primitives.*;
  */
 public class DirectionalLight extends Light implements LightSource{
 
-    private Vector direction;
+    private final Vector direction;
 
     /**
      * constructor for the directional light
@@ -23,7 +23,7 @@ public class DirectionalLight extends Light implements LightSource{
 
     @Override
     public Color getIntensity(Point p) {
-        return getIntensity();
+        return intensity;
     }
 
     @Override

@@ -13,27 +13,13 @@ import static primitives.Util.alignZero;
  */
 public class SpotLight extends PointLight {
 
-    private Vector direction;
+    private final Vector direction;
 
     /**
      * constructor for pointLight
      * @param intensity- color intensity
-     * @param position- the position of the spot light
-     * @param dir- the direction of the spot light
-     * @param kC-attenuation Factor
-     * @param kL-attenuation Factor
-     * @param kQ-attenuation Factor
-     */
-    public SpotLight(Color intensity, Point position, Vector dir, double kC, double kL, double kQ) {
-        super(intensity, position, kC, kL, kQ);
-        direction = dir.normalize();
-    }
-
-    /**
-     * constructor for pointLight
-     * @param intensity- color intensity
-     * @param position- the position of the spot light
-     * @param dir- the direction of the spot light
+     * @param position- the position of the spotlight
+     * @param dir- the direction of the spotlight
      */
     public SpotLight(Color intensity, Point position, Vector dir) {
         super(intensity, position);
@@ -42,18 +28,7 @@ public class SpotLight extends PointLight {
 
     @Override
     public Color getIntensity(Point p) {
-
-        Vector l = super.getL(p);
-
-        if (alignZero(direction.dotProduct(l)) <= 0) //In case the dir * l return zero or negative number
-            return Color.BLACK;
-
-        return super.getIntensity(p).scale(direction.dotProduct(l));
+        double factor = alignZero(direction.dotProduct(getL(p)));
+        return factor <= 0 ? Color.BLACK :super.getIntensity(p).scale(factor);
     }
-
-    @Override
-    public Vector getL(Point p) {
-        return super.getL(p);
-    }
-
 }

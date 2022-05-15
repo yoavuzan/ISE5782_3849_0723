@@ -39,7 +39,7 @@ public class Camera {
             throw new IllegalArgumentException("The vectors is not vertical");
         up = up1.normalize();
         to = to1.normalize();
-        right = up1.crossProduct(to1).normalize().scale(-1);
+        right = to1.crossProduct(up1).normalize();
         startPoint = start;
     }
 
