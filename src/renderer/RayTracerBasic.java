@@ -1,12 +1,16 @@
 package renderer;
 
-import static geometries.Intersectable.GeoPoint;
-import primitives.*;
+import geometries.Intersectable.GeoPoint;
+import lighting.LightSource;
+import primitives.Color;
+import primitives.Double3;
+import primitives.Ray;
+import primitives.Vector;
 import scene.Scene;
 
 import java.util.List;
 
-import static primitives.Util.*;
+import static primitives.Util.alignZero;
 
 /**
  * RayTracerBasic class inheritance from RayTracerBase class
@@ -43,22 +47,15 @@ public class RayTracerBasic extends RayTracerBase {
         double nv = alignZero(n.dotProduct(v));
         Color color = intersection.geometry.getEmission();
         if (nv == 0) return color;
-        Material material = intersection.geometry.getMaterial();
-        for (var lightSource : scene.lights) {
-        if (nv == 0) return Color.BLACK;
         int nShininess = intersection.geometry.getMaterial().getShininess();
 
         var kd = intersection.geometry.getMaterial().kD;
         var ks = intersection.geometry.getMaterial().kS;
-        Color color = Color.BLACK;
         for (LightSource lightSource : scene.lights) {
             Vector l = lightSource.getL(intersection.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // checks if nl == nv
-                Color lightIntensity = lightSource.getIntensity(intersection.point);
-                color = color.add(calcDiffusive(material.kD, l, n, lightIntensity),
-                        calcSpecular(material.kS, l, n, v, material.nShininess, lightIntensity));
-                if (unshaded(lightSource, l,n, intersection)) {
+                if (unshaded(lightSource, l, n, intersection)) {
                     Color lightIntensity = lightSource.getIntensity(intersection.point);
                     color = color.add(calcDiffusive(kd, l, n, lightIntensity),
                             calcSpecular(ks, l, n, v, nShininess, lightIntensity));
@@ -118,3 +115,4 @@ public class RayTracerBasic extends RayTracerBase {
         return intersections == null || intersections.isEmpty() || geoPoint.geometry.getMaterial().kT != Double3.ZERO;
     }
 }
+
