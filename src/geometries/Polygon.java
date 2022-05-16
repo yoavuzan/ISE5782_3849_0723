@@ -96,12 +96,12 @@ public class Polygon extends Geometry {
         return plane.getNormal();
     }
 
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
         Vector v1;
         Vector v2;
         Vector n;
         double t;
-        List<GeoPoint> resultPoints = plane.findGeoIntersections(ray);
+        List<GeoPoint> resultPoints = plane.findGeoIntersections(ray,maxDistance);
         if (resultPoints == null) // In case there is no intersection with the plane return null
             return null;
         boolean positive = true;

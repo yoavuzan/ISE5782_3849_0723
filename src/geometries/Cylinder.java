@@ -66,9 +66,9 @@ public class Cylinder extends Tube {
     }
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
         List<GeoPoint> res=new LinkedList<>() ;
-        var lst = super.findGeoIntersectionsHelper(ray);
+        var lst = super.findGeoIntersectionsHelper(ray, maxDistance);
         if (lst != null)
             for (GeoPoint point : lst) {
                 double distance = alignZero(point.point.subtract(axisRay.getPoint0()).dotProduct(axisRay.getDirection()));

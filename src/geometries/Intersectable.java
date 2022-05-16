@@ -56,14 +56,25 @@ public abstract class Intersectable {
     }
 
     /**
-     * find the  geoPoints which intersections of this ray with the geometry
+     * find the geoPoints which intersections of this ray with the geometry
      *
      * @param ray to intersect with the geometry
      * @return list of Geo points
      */
-    public List<GeoPoint> findGeoIntersections(Ray ray) {
-        return findGeoIntersectionsHelper(ray);
+    public final List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }
 
-    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray);
+    /**
+     * find the geoPoints which intersections of this ray with the geometry
+     *
+     * @param ray to intersect with the geometry
+     * @param maxDistance- the max distance of the ray of light source to light
+     * @return list of Geo points
+     */
+    public final List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+        return findGeoIntersectionsHelper(ray, maxDistance);
+    }
+
+    protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
 }

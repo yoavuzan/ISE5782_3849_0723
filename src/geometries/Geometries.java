@@ -32,12 +32,12 @@ public class Geometries extends Intersectable {
     }
 
     @Override
-    protected  List<GeoPoint> findGeoIntersectionsHelper (Ray ray){
+    protected  List<GeoPoint> findGeoIntersectionsHelper (Ray ray,double maxDistance){
         List<GeoPoint> result = null;
 
         for (Intersectable geom : shapes)    // The loop find Intersections for each shape
         {
-            List<GeoPoint> points = geom.findGeoIntersectionsHelper(ray);
+            List<GeoPoint> points = geom.findGeoIntersectionsHelper(ray, maxDistance);
 
             if (points != null) {
                 if (result == null)

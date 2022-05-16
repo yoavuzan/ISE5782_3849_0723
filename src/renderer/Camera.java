@@ -217,7 +217,6 @@ public class Camera {
         imageWriter.writeToImage();
     }
 
-
     /**
      * Render image function that throws exception if not all arguments are passed
      */
@@ -230,9 +229,11 @@ public class Camera {
             if (this.startPoint == null || this.to == null || this.right == null || this.up == null || this.width == 0 || this.height == 0)
                 throw new MissingResourceException("Missing Resource", Camera.class.getName(), "");
 
-            for (int i = 0; i < imageWriter.getNx(); i++) {
-                for (int j = 0; j < imageWriter.getNy(); j++) {
-                    imageWriter.writePixel(j, i, this.castRay(imageWriter.getNx(), imageWriter.getNy(), i, j));
+            int nX = imageWriter.getNx();
+            int nY = imageWriter.getNy();
+            for (int i = 0; i < nX; i++) {
+                for (int j = 0; j < nY; j++) {
+                    imageWriter.writePixel(j, i, this.castRay(nX, nY, i, j));
                 }
             }
             return this;

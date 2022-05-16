@@ -32,7 +32,7 @@ public class Plane extends Geometry {
     /**
      * constructor of plane by three points
      *
-     * @param point1- one of three points to represent the plane
+     * @param point1-    one of three points to represent the plane
      * @param point2-one of three points to represent the plane
      * @param point3-one of three points to represent the plane
      * @throws IllegalArgumentException when all three points are co-lined
@@ -68,7 +68,7 @@ public class Plane extends Geometry {
     }
 
     @Override
-    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray) {
+    protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
         Point rayPoint = ray.getPoint0();
         Vector v = ray.getDirection();
 
@@ -86,7 +86,9 @@ public class Plane extends Geometry {
         }
 
         double t = alignZero(np / nv);
-        return t <= 0 ? null : List.of(new GeoPoint(this, ray.getPoint(t)));
+        if (t > 0 && alignZero(t - maxDistance) <= 0)
+            return List.of(new GeoPoint(this, ray.getPoint(t)));
+        return null;
     }
 }
 

@@ -69,7 +69,7 @@ public class Tube extends Geometry {
         return point.subtract(o).normalize();
     }
     @Override
-    protected  List<GeoPoint> findGeoIntersectionsHelper (Ray ray){
+    protected  List<GeoPoint> findGeoIntersectionsHelper (Ray ray,double maxDistance){
         Vector dir = ray.getDirection();
         Vector v = axisRay.getDirection();
         double dirV = dir.dotProduct(v);

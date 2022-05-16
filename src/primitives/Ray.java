@@ -9,7 +9,7 @@ import java.util.List;
  */
 
 public class Ray {
-
+    private static final double DELTA = 0.1;
     private final Point point0;
     private final Vector direction;
 
@@ -22,6 +22,12 @@ public class Ray {
     public Ray(Point point, Vector direction) {
         this.point0 = point;
         this.direction = direction.normalize();
+    }
+
+    public Ray(Point p0, Vector dir, Vector normal) {
+        Vector delta = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : - DELTA);
+        this.point0 = p0.add(delta);
+        this.direction = dir;
     }
 
     /**
