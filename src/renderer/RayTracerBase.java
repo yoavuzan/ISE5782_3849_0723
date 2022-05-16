@@ -4,6 +4,10 @@ import primitives.Color;
 import primitives.Ray;
 import scene.Scene;
 
+/**
+ * abstract class for trace Ray
+ * @author Yoav Uzan and Yaniv Bar-Tov
+ */
 public abstract class RayTracerBase {
     protected final Scene scene;
 
@@ -20,5 +24,6 @@ public abstract class RayTracerBase {
      * @param ray to trace
      * @return Color
      */
+
     public abstract Color traceRay(Ray ray);	//abstract method for trace ray
 }

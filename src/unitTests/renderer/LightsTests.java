@@ -1,5 +1,4 @@
 package unitTests.renderer;
-
 import geometries.Geometry;
 import geometries.Sphere;
 import geometries.Triangle;

@@ -4,6 +4,7 @@ import primitives.Point;
 import primitives.Ray;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This abstract class used to calculate intersections with different geometries

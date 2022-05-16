@@ -39,7 +39,7 @@ public class Camera {
             throw new IllegalArgumentException("The vectors is not vertical");
         up = up1.normalize();
         to = to1.normalize();
-        right = up1.crossProduct(to1).normalize().scale(-1);
+        right = to1.crossProduct(up1).normalize();
         startPoint = start;
     }
 
@@ -163,7 +163,6 @@ public class Camera {
 
     /**
      * getter of the height
-     *
      * @return height
      */
     public double getHeight() {
@@ -172,7 +171,6 @@ public class Camera {
 
     /**
      * getter of the width
-     *
      * @return width
      */
     public double getWidth() {
@@ -181,7 +179,6 @@ public class Camera {
 
     /**
      * getter of the distance
-     *
      * @return distance
      */
     public double getDistance() {
@@ -190,7 +187,6 @@ public class Camera {
 
     /**
      * Print Grid of the image
-     *
      * @param interval      of the grid's line
      * @param intervalColor color of grid's line
      */

@@ -1,17 +1,12 @@
 package renderer;
 
-
-import geometries.Intersectable.GeoPoint;
-import lighting.LightSource;
-import primitives.Color;
-import primitives.Double3;
-import primitives.Ray;
-import primitives.Vector;
+import static geometries.Intersectable.GeoPoint;
+import primitives.*;
 import scene.Scene;
 
 import java.util.List;
 
-import static primitives.Util.alignZero;
+import static primitives.Util.*;
 
 /**
  * RayTracerBasic class inheritance from RayTracerBase class
@@ -46,6 +41,10 @@ public class RayTracerBasic extends RayTracerBase {
         Vector v = ray.getDirection();
         Vector n = intersection.geometry.getNormal(intersection.point);
         double nv = alignZero(n.dotProduct(v));
+        Color color = intersection.geometry.getEmission();
+        if (nv == 0) return color;
+        Material material = intersection.geometry.getMaterial();
+        for (var lightSource : scene.lights) {
         if (nv == 0) return Color.BLACK;
         int nShininess = intersection.geometry.getMaterial().getShininess();
 
@@ -56,6 +55,9 @@ public class RayTracerBasic extends RayTracerBase {
             Vector l = lightSource.getL(intersection.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // checks if nl == nv
+                Color lightIntensity = lightSource.getIntensity(intersection.point);
+                color = color.add(calcDiffusive(material.kD, l, n, lightIntensity),
+                        calcSpecular(material.kS, l, n, v, material.nShininess, lightIntensity));
                 if (unshaded(lightSource, l,n, intersection)) {
                     Color lightIntensity = lightSource.getIntensity(intersection.point);
                     color = color.add(calcDiffusive(kd, l, n, lightIntensity),
@@ -77,8 +79,7 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private Color calcDiffusive(Double3 kd, Vector l, Vector n, Color lightIntensity) {
         double ln = alignZero(l.dotProduct(n));
-        if (ln < 0) ln = ln * -1;
-        return lightIntensity.scale(kd).scale(ln);
+        return lightIntensity.scale(kd).scale(ln < 0 ? -ln : ln);
     }
 
     /**
@@ -94,21 +95,18 @@ public class RayTracerBasic extends RayTracerBase {
      */
     private Color calcSpecular(Double3 ks, Vector l, Vector n, Vector v, int nShininess, Color lightIntensity) {
         Vector r = l.subtract(n.scale(l.dotProduct(n) * 2));
-        double vr = alignZero(v.scale(-1).dotProduct(r));
-        if (vr < 0) vr = 0;
-        vr = Math.pow(vr, nShininess);
-        return lightIntensity.scale(ks).scale(vr);
+        double minusVR = alignZero(-v.dotProduct(r));
+        return minusVR <= 0 ? Color.BLACK : lightIntensity.scale(ks).scale(Math.pow(minusVR, nShininess));
     }
 
     /**
      * Calculate the color of a certain point
      *
-     * @param point-specific point
+     * @param point we go to paint
      * @return The ambient light of the scene
      */
     public Color calcColor(GeoPoint point, Ray ray) {
-        return scene.ambientLight.getIntensity()
-                .add(point.geometry.getEmission()).add(calcLocalEffects(point, ray));
+        return scene.ambientLight.getIntensity().add(calcLocalEffects(point, ray));
     }
 
 

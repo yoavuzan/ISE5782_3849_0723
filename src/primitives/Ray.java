@@ -3,7 +3,7 @@ import geometries.Intersectable.GeoPoint;
 import java.util.List;
 
 /**
- * This class will reperesent Ray
+ * This class will represent Ray
  *
  * @author Yoav uzan and yaniv bartov
  */
@@ -61,7 +61,7 @@ public class Ray {
     /**
      * the closet point to the began of the ray
      *
-     * @param points
+     * @param points of all ray
      * @return the closet point to the began of the ray
      */
     public Point findClosestPoint(List<Point> points) {
@@ -72,17 +72,21 @@ public class Ray {
     /**
      * the closet geoPoint to the began of the ray
      *
-     * @param geoPoints-
+     * @param geoPoints-of all ray
      * @return the closet point to the began of the ray
      */
     public GeoPoint findClosestGeoPoint(List<GeoPoint> geoPoints) {
 
         if (geoPoints == null) //In case of an empty list
             return null;
-        GeoPoint closePoint = geoPoints.get(0);	//Save the first point in the list
+        GeoPoint closePoint = null;
+        double minDistance = Double.POSITIVE_INFINITY;
         for (GeoPoint p : geoPoints) {
-            if (closePoint.point.distance(point0) > p.point.distance(point0))	//In case the distance of closes point is bigger than the p point
+            double dist = p.point.distance(point0);
+            if (dist < minDistance) { //In case the distance of closes point is bigger than the p point
                 closePoint = p;
+                minDistance = dist;
+            }
         }
         return closePoint;
     }
@@ -90,14 +94,12 @@ public class Ray {
     @Override
     public boolean equals(Object obj) {
         if (this == obj) return true;
-        if (obj == null) return false;
-        if (!(obj instanceof Ray)) return false;
-        Ray other = (Ray) obj;
+        if (!(obj instanceof Ray other)) return false;
         return point0.equals(other.point0) && direction.equals(other.direction);
     }
 
     @Override
     public String toString() {
-        return point0.toString() + " " + direction.toString();
+        return point0 + " " + direction;
     }
 }
