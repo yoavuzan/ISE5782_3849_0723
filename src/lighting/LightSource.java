@@ -25,5 +25,10 @@ public interface LightSource {
      */
      Vector getL(Point p);
 
+    /**
+     * calculate the distance between the light source to this point
+     * @param point which the light ray shine on it
+     * @return the distance
+     */
     double getDistance(Point point);
 }

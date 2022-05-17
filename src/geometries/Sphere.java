@@ -77,8 +77,7 @@ public class Sphere extends Geometry {
 
         //𝑃𝑖 = 𝑃0 + 𝑡𝑖 * 𝑣  ->  only if 𝑡𝑖 > 0
         double t2 = alignZero(tm + th);
-        if ((t2 <= 0)|| (alignZero(t2 - maxDistance) > 0)) return null;
-
+        if ((t2 <= 0)||(alignZero(t2 - maxDistance) > 0)) return null;
         double t1 = alignZero(tm - th);
         if (t1 > 0 && alignZero(t1 - maxDistance) <= 0)
                 return List.of(new GeoPoint(this,ray.getPoint(t1)), new GeoPoint(this,ray.getPoint(t2)));

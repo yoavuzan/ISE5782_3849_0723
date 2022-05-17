@@ -8,14 +8,14 @@ package primitives;
  */
 public class Material {
 
-    public Double3 kD =  Double3.ZERO;
-    public Double3 kS = Double3.ZERO;
-    public Double3 kT= Double3.ZERO;
-    public Double3 kR= Double3.ZERO;
+    public Double3 kD = Double3.ZERO; //diffuse factor
+    public Double3 kS = Double3.ZERO; //Specular factor
+    public Double3 kT = Double3.ZERO; // transparency factor
+    public Double3 kR = Double3.ZERO;//reflection factor
     public int nShininess = 0;
 
     /**
-     * setter for kD
+     * setter for kD-diffuse factor
      *
      * @param kD- kD is Double3
      * @return The object material (this)
@@ -26,7 +26,7 @@ public class Material {
     }
 
     /**
-     * setter for kD
+     * setter for kD-diffuse factor
      *
      * @param kD- is double
      * @return The object material (this)
@@ -37,7 +37,7 @@ public class Material {
     }
 
     /**
-     * setter for kS
+     * setter for kS-Specular factor
      *
      * @param kS-is double
      * @return The object material (this)
@@ -46,8 +46,9 @@ public class Material {
         this.kS = new Double3(kS);
         return this;
     }
+
     /**
-     * setter for kS
+     * setter for kS-Specular factor
      *
      * @param kS-is Double3
      * @return The object material (this)
@@ -58,7 +59,7 @@ public class Material {
     }
 
     /**
-     * setter for kT
+     * setter for kT- transparency factor
      *
      * @param kT-is double
      * @return The object material (this)
@@ -67,8 +68,9 @@ public class Material {
         this.kT = new Double3(kT);
         return this;
     }
+
     /**
-     * setter for kt
+     * setter for kt-transparency factor
      *
      * @param kT-is Double3
      * @return The object material (this)
@@ -79,7 +81,7 @@ public class Material {
     }
 
     /**
-     * setter for kr
+     * setter for kr-reflection factor
      *
      * @param kR-is double
      * @return The object material (this)
@@ -88,8 +90,9 @@ public class Material {
         this.kR = new Double3(kR);
         return this;
     }
+
     /**
-     * setter for kr
+     * setter for kr-reflection factor
      *
      * @param kR-is Double3
      * @return The object material (this)
@@ -98,8 +101,6 @@ public class Material {
         this.kR = kR;
         return this;
     }
-
-
 
     /**
      * setter for nShininess
