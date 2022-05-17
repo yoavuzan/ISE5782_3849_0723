@@ -192,7 +192,7 @@ public class Camera {
      */
     public void printGrid(int interval, Color intervalColor) {
         if (imageWriter == null)
-            throw new MissingResourceException("Missing Resource", imageWriter.getClass().getName(), "");
+            throw new MissingResourceException("Missing Resource", "imageWriter equal to null", "");
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
         for (int i = 0; i < nY; i++) {
@@ -214,16 +214,17 @@ public class Camera {
     }
 
     /**
-     * Render image function that throws exception if not all arguments are passed
+     *
+     * @return new camera after render
      */
     public Camera renderImage() {
         try {
             if (imageWriter == null)
-                throw new MissingResourceException("Missing Resource", ImageWriter.class.getName(), "");
+                throw new MissingResourceException("Missing Resource", "ImageWriter equal to null", "");
             if (rayTracer == null)
-                throw new MissingResourceException("Missing Resource", RayTracerBase.class.getName(), "");
+                throw new MissingResourceException("Missing Resource", "RayTracerBase equal to null", "");
             if (this.startPoint == null || this.to == null || this.right == null || this.up == null || this.width == 0 || this.height == 0)
-                throw new MissingResourceException("Missing Resource", Camera.class.getName(), "");
+                throw new MissingResourceException("Missing Resource", "Camera equal to null", "");
 
             int nX = imageWriter.getNx();
             int nY = imageWriter.getNy();

@@ -77,5 +77,11 @@ public abstract class Intersectable {
         return findGeoIntersectionsHelper(ray, maxDistance);
     }
 
+    /**
+     *
+     * @param ray to intersect with the geometry
+     * @param maxDistance- the max distance of the ray of light source to light
+     * @return list of Geo points
+     */
     protected abstract List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance);
 }

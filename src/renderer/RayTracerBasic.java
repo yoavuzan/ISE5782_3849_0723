@@ -21,6 +21,21 @@ public class RayTracerBasic extends RayTracerBase {
 
 
     /**
+     * Max level recursion for global effects
+     */
+    private static final int MAX_CALC_COLOR_LEVEL = 10;
+    /**
+     * min level attenuation factor in recursion
+     */
+    private static final double MIN_CALC_COLOR_K = 0.001;
+
+    /**
+     * Initial K for calcColor recursion
+     */
+    private static final Double3 INITIAL_K = Double3.ONE;
+
+
+    /**
      * @param sc Constructor using super class constructor
      */
     public RayTracerBasic(Scene sc) {
@@ -69,8 +84,8 @@ public class RayTracerBasic extends RayTracerBase {
      * Calculates diffusive light
      *
      * @param kd              -Double3-factor of diffusive in the material
-     * @param l-              vector
-     * @param n-              vector
+     * @param l-              vector for use dot Product(l*n)
+     * @param n-              vector for use dot Product(l*n)
      * @param lightIntensity- Intensity of the light source
      * @return The color of diffusive effects
      */
@@ -83,9 +98,9 @@ public class RayTracerBasic extends RayTracerBase {
      * Calculate specular light
      *
      * @param ks-Double3-              factor of specular in the material
-     * @param l-                       vector
-     * @param n-                       vector
-     * @param v-                       vector
+     * @param l-                        normalized from light source
+     * @param n-                        normal to the intersected geometry surface at the point
+     * @param v-                       direction of the ray
      * @param nShininess-              Shininess of the material
      * @param lightIntensity-Intensity of the light source
      * @return The color of specular reflection
