@@ -34,7 +34,7 @@ public class Triangle extends Polygon {
 
     @Override
     public List<GeoPoint> findGeoIntersectionsHelper(Ray ray,double maxDistance) {
-        var result = plane.findGeoIntersections(ray);
+        var result = plane.findGeoIntersections(ray,maxDistance);
         if (result == null) // In case there is no intersection with the plane return null
             return null;
 
