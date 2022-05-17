@@ -15,9 +15,7 @@ import static primitives.Util.alignZero;
  * @author Yoav and Yaniv
  */
 public class RayTracerBasic extends RayTracerBase {
-    private static final int MAX_CALC_COLOR_LEVEL = 10;
-    private static final double MIN_CALC_COLOR_K = 0.001;
-    private static final Double3 INITIAL_K = new Double3(1.0);
+
 
     /**
      * Max level recursion for global effects
@@ -52,7 +50,7 @@ public class RayTracerBasic extends RayTracerBase {
      *
      * @param intersection- the point the ray intersect the object
      * @param ray-          the ray that intersect the object
-     * @param k
+     * @param k for calcColor
      * @return The color resulted by local effects calculation
      */
     private Color calcLocalEffects(GeoPoint intersection, Ray ray, Double3 k) {
