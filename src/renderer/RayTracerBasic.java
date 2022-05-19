@@ -50,7 +50,7 @@ public class RayTracerBasic extends RayTracerBase {
      *
      * @param intersection- the point the ray intersect the object
      * @param ray-          the ray that intersect the object
-     * @param k for calcColor
+     * @param k             for calcColor
      * @return The color resulted by local effects calculation
      */
     private Color calcLocalEffects(GeoPoint intersection, Ray ray, Double3 k) {
@@ -66,13 +66,12 @@ public class RayTracerBasic extends RayTracerBase {
             Vector l = lightSource.getL(intersection.point);
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // checks if nl == nv
-                if (unshaded(lightSource, l, n, intersection)) {
-                    Double3 ktr = transparency(intersection, lightSource, l, n);
-                    if (!(ktr.product(k).lowerThan(MIN_CALC_COLOR_K))) {
-                        Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
-                        color = color.add(calcDiffusive(kd, l, n, lightIntensity),
-                                calcSpecular(ks, l, n, v, nShininess, lightIntensity));
-                    }
+                Double3 ktr = transparency(intersection, lightSource, l, n);
+                if (!(ktr.product(k).lowerThan(MIN_CALC_COLOR_K))) {
+                    Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
+                    color = color.add(calcDiffusive(kd, l, n, lightIntensity),
+                            calcSpecular(ks, l, n, v, nShininess, lightIntensity));
+
                 }
             }
         }
@@ -97,8 +96,8 @@ public class RayTracerBasic extends RayTracerBase {
      * Calculate specular light
      *
      * @param ks-Double3-              factor of specular in the material
-     * @param l-                        normalized from light source
-     * @param n-                        normal to the intersected geometry surface at the point
+     * @param l-                       normalized from light source
+     * @param n-                       normal to the intersected geometry surface at the point
      * @param v-                       direction of the ray
      * @param nShininess-              Shininess of the material
      * @param lightIntensity-Intensity of the light source
@@ -114,13 +113,13 @@ public class RayTracerBasic extends RayTracerBase {
      * Calculate the color of a certain point
      *
      * @param point point of intersection
-     * @param ray of intersection
+     * @param ray   of intersection
      * @param level stop condition
-     * @param k factor of color
+     * @param k     factor of color
      * @return The final color of the point by Phong model
      */
     public Color calcColor(GeoPoint point, Ray ray, int level, Double3 k) {
-        Color color = calcLocalEffects(point, ray,k);
+        Color color = calcLocalEffects(point, ray, k);
         return 1 == level ? color : color.add(calcGlobalEffects(point, ray.getDirection(), level, k));
     }
 
@@ -204,10 +203,11 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * calculate the  light global effects on the point (reflected and refracted rays )
-     * @param gp- the point to calculate its color
-     * @param v- direction of light ray
+     *
+     * @param gp-    the point to calculate its color
+     * @param v-     direction of light ray
      * @param level- stop conditions
-     * @param k- factor of color
+     * @param k-     factor of color
      * @return color the influence of reflection and refraction
      */
     private Color calcGlobalEffects(GeoPoint gp, Vector v, int level, Double3 k) {
@@ -226,15 +226,16 @@ public class RayTracerBasic extends RayTracerBase {
 
     /**
      * recursive method that calculate global effect of reflected/refracted ray on the color
-     * @param ray- the reflected/refracted ray
+     *
+     * @param ray-   the reflected/refracted ray
      * @param level- stop conditions
-     * @param kx- factor of reflection/refraction
-     * @param kkx- k* factor of reflection/refraction
+     * @param kx-    factor of reflection/refraction
+     * @param kkx-   k* factor of reflection/refraction
      * @return the effect of this reflected/refracted ray on the color
      */
     private Color calcGlobalEffect(Ray ray, int level, Double3 kx, Double3 kkx) {
         GeoPoint gp = findClosestIntersection(ray);
-        return (gp == null ? scene.background : calcColor(gp, ray, level-1, kkx)).scale(kx);
+        return (gp == null ? scene.background : calcColor(gp, ray, level - 1, kkx)).scale(kx);
     }
 
     private Color calcColor(GeoPoint gp, Ray ray) {
