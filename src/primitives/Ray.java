@@ -1,5 +1,7 @@
 package primitives;
+
 import geometries.Intersectable.GeoPoint;
+
 import java.util.List;
 
 /**
@@ -24,8 +26,15 @@ public class Ray {
         this.direction = direction.normalize();
     }
 
+    /**
+     * constructor of ray with a shift point.  (According to an original point, the direction of the ray, the normal vector)
+     *
+     * @param p0      point of beginning
+     * @param dir     direction of vector
+     * @param normal- the normal on which the straight one defines should be moved the point of the head of the ray
+     */
     public Ray(Point p0, Vector dir, Vector normal) {
-        Vector delta = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : - DELTA);
+        Vector delta = normal.scale(normal.dotProduct(dir) > 0 ? DELTA : -DELTA);
         this.point0 = p0.add(delta);
         this.direction = dir;
     }

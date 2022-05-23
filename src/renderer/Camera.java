@@ -5,6 +5,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.MissingResourceException;
 
 import static primitives.Util.isZero;
@@ -113,11 +115,39 @@ public class Camera {
     }
 
     /**
-     * create the Ray and return the color of the ray
+     * create new ray from camera through view plane to geometries
      *
      * @param nX-Resolution of view plane x-axis
      * @param nY-Resolution of view plane y-axis
      * @param j-number      of columns
+     * @param i-            number of rows
+     * @return new ray that come from view plane
+     */
+    public List<Ray> constructRays(int nX, int nY, int j, int i) {
+        List<Ray> rays = new LinkedList<Ray>();
+        double rY = height / nY;
+        double rX = width / nX;
+        Point pIJ = startPoint.add(to.scale(distance)); // The center of the View Plane
+
+        for (int row = 0; row < 8; row++) {
+            for (int col = 0; col < 8; col++) {
+
+                double yI = -(i - (nY - 1d) / 2) * rY + (col + 0.5) / 8;
+                double xJ = (j - (nX - 1d) / 2) * rX + (row + 0.5) / 8;
+                if (yI != 0) pIJ = pIJ.add(up.scale(yI));
+                if (xJ != 0) pIJ = pIJ.add(right.scale(xJ));
+                rays.add(new Ray(startPoint, pIJ.subtract(startPoint)));
+            }
+        }
+        return rays;
+    }
+
+    /**
+     * create the Ray and return the color of the ray
+     *
+     * @param nX-Resolution of view plane x-axis
+     * @param nY-Resolution of view plane y-axis
+     * @param j-            number of columns
      * @param i-            number of rows
      * @return the color of the ray to that point
      */
@@ -163,6 +193,7 @@ public class Camera {
 
     /**
      * getter of the height
+     *
      * @return height
      */
     public double getHeight() {
@@ -171,6 +202,7 @@ public class Camera {
 
     /**
      * getter of the width
+     *
      * @return width
      */
     public double getWidth() {
@@ -179,6 +211,7 @@ public class Camera {
 
     /**
      * getter of the distance
+     *
      * @return distance
      */
     public double getDistance() {
@@ -187,6 +220,7 @@ public class Camera {
 
     /**
      * Print Grid of the image
+     *
      * @param interval      of the grid's line
      * @param intervalColor color of grid's line
      */
@@ -214,28 +248,25 @@ public class Camera {
     }
 
     /**
+     * create a new image with rays
      *
      * @return new camera after render
      */
     public Camera renderImage() {
-        try {
-            if (imageWriter == null)
-                throw new MissingResourceException("Missing Resource", "ImageWriter equal to null", "");
-            if (rayTracer == null)
-                throw new MissingResourceException("Missing Resource", "RayTracerBase equal to null", "");
-            if (this.startPoint == null || this.to == null || this.right == null || this.up == null || this.width == 0 || this.height == 0)
-                throw new MissingResourceException("Missing Resource", "Camera equal to null", "");
+        if (imageWriter == null)
+            throw new MissingResourceException("Missing Resource", "ImageWriter equal to null", "");
+        if (rayTracer == null)
+            throw new MissingResourceException("Missing Resource", "RayTracerBase equal to null", "");
+        if (this.startPoint == null || this.to == null || this.right == null || this.up == null || this.width == 0 || this.height == 0)
+            throw new MissingResourceException("Missing Resource", "Camera equal to null", "");
 
-            int nX = imageWriter.getNx();
-            int nY = imageWriter.getNy();
-            for (int i = 0; i < nX; i++) {
-                for (int j = 0; j < nY; j++) {
-                    imageWriter.writePixel(j, i, this.castRay(nX, nY, i, j));
-                }
+        int nX = imageWriter.getNx();
+        int nY = imageWriter.getNy();
+        for (int i = 0; i < nX; i++) {
+            for (int j = 0; j < nY; j++) {
+                imageWriter.writePixel(j, i, this.castRay(nX, nY, i, j));
             }
-            return this;
-        } catch (MissingResourceException e) {
-            throw new UnsupportedOperationException("Render didn't receive " + e.getClassName());
         }
+        return this;
     }
 }

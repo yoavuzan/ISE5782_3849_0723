@@ -86,9 +86,8 @@ public class Plane extends Geometry {
         }
 
         double t = alignZero(np / nv);
-        if (t > 0 && alignZero(t - maxDistance) <= 0)
-            return List.of(new GeoPoint(this, ray.getPoint(t)));
-        return null;
+        return t <= 0 && alignZero(t - maxDistance) <0 ? null
+                : List.of(new GeoPoint(this, ray.getPoint(t)));
     }
 }
 

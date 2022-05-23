@@ -4,7 +4,6 @@ import primitives.Point;
 import primitives.Ray;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * This abstract class used to calculate intersections with different geometries
@@ -32,14 +31,9 @@ public abstract class Intersectable {
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
-                return true;
-            if (obj == null)
-                return false;
-            if (!(obj instanceof GeoPoint))
-                return false;
-            GeoPoint other = (GeoPoint) obj;
-            return other.point.equals(this.point) && other.geometry == this.geometry; // Checking geometry by reference
+            if (this == obj)  return true;
+            if (!(obj instanceof GeoPoint other)) return false;
+            return other.geometry == this.geometry && other.point.equals(this.point); // Checking geometry by reference
         }
 
     }
@@ -78,6 +72,7 @@ public abstract class Intersectable {
     }
 
     /**
+     * find the geoPoints which intersections of this ray with the geometry
      *
      * @param ray to intersect with the geometry
      * @param maxDistance- the max distance of the ray of light source to light

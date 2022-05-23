@@ -55,6 +55,7 @@ public class Triangle extends Polygon {
         double t3 = alignZero(n3.dotProduct(rayDirection));
         if (t1 * t3 <= 0) return null;
 
-        return List.of(new GeoPoint(this, result.get(0).point));
+        result.get(0).geometry = this;
+        return result;
     }
 }

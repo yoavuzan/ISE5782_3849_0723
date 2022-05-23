@@ -4,6 +4,8 @@ import primitives.Color;
 import primitives.Ray;
 import scene.Scene;
 
+import java.util.List;
+
 /**
  * abstract class for trace Ray
  * @author Yoav Uzan and Yaniv Bar-Tov
@@ -26,4 +28,6 @@ public abstract class RayTracerBase {
      */
 
     public abstract Color traceRay(Ray ray);	//abstract method for trace ray
+
+    public abstract Color traceRays(List<Ray> ray);	//abstract method for trace ray
 }

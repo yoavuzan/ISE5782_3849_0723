@@ -9,6 +9,7 @@ import static primitives.Util.alignZero;
 /**
  * this class represent models point light source with direction (such as a luxo lamp)
  * include-  Intensity  • Position  •Direction dir (Vector) - normalized • Attenuation factors
+ *
  * @author Yaniv and Yoav
  */
 public class SpotLight extends PointLight {
@@ -17,9 +18,10 @@ public class SpotLight extends PointLight {
 
     /**
      * constructor for pointLight
+     *
      * @param intensity- color intensity
-     * @param position- the position of the spotlight
-     * @param dir- the direction of the spotlight
+     * @param position-  the position of the spotlight
+     * @param dir-       the direction of the spotlight
      */
     public SpotLight(Color intensity, Point position, Vector dir) {
         super(intensity, position);
@@ -29,6 +31,6 @@ public class SpotLight extends PointLight {
     @Override
     public Color getIntensity(Point p) {
         double factor = alignZero(direction.dotProduct(getL(p)));
-        return factor <= 0 ? Color.BLACK :super.getIntensity(p).scale(factor);
+        return factor <= 0 ? Color.BLACK : super.getIntensity(p).scale(factor);
     }
 }

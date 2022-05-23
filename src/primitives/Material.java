@@ -8,10 +8,22 @@ package primitives;
  */
 public class Material {
 
-    public Double3 kD = Double3.ZERO; //diffuse factor
-    public Double3 kS = Double3.ZERO; //Specular factor
-    public Double3 kT = Double3.ZERO; // transparency factor
-    public Double3 kR = Double3.ZERO;//reflection factor
+    /**
+     * Diffuse factor for Phong Reflection Model
+     */
+    public Double3 kD = Double3.ZERO;
+    /**
+     * Specular factor for Phong Reflection Model
+     */
+    public Double3 kS = Double3.ZERO;
+    /**
+     * transparency factor for Phong Reflection Model
+     */
+    public Double3 kT = Double3.ZERO;
+    /**
+     * reflection factor for Phong Reflection Model
+     */
+    public Double3 kR = Double3.ZERO;
     public int nShininess = 0;
 
     /**
@@ -112,13 +124,4 @@ public class Material {
         this.nShininess = nShininess;
         return this;
     }
-
-    /**
-     * @return The nShininess
-     */
-    public int getShininess() {
-        return nShininess;
-    }
-
-
 }
