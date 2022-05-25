@@ -47,13 +47,13 @@ public class Camera {
     }
 
     /**
-     * setter for antiAnanlize
+     * setter for antiAliasing
      *
-     * @param antiAnanlize- the number of pixels in row/col of every pixel
+     * @param antiAliasing- the number of pixels in row/col of every pixel
      * @return camera
      */
-    public Camera setAntiAnanlize(int antiAnanlize) {
-        this.antiAliasing = antiAnanlize;
+    public Camera setAntiAliasing(int antiAliasing) {
+        this.antiAliasing = antiAliasing;
         return this;
     }
 
@@ -123,7 +123,7 @@ public class Camera {
      * @param nY- Resolution of view plane y-axis
      * @param j-  number of columns of the pixel to intersect
      * @param i-  number of rows of the pixel to intersect
-     * @return
+     * @return the point the ray intersect on the view plan
      */
     private Point getPixelLocation(int nX, int nY, int j, int i) {
         double rY = height / nY;
@@ -172,8 +172,8 @@ public class Camera {
     /**
      * create the Ray and return the color of the ray
      *
-     * @param nX-Resolution of view plane x-axis
-     * @param nY-Resolution of view plane y-axis
+     * @param nX- Resolution of view plane x-axis
+     * @param nY- Resolution of view plane y-axis
      * @param j-            number of columns
      * @param i-            number of rows
      * @return the color of the ray to that point
@@ -270,7 +270,7 @@ public class Camera {
      */
     public void writeToImage() {
         if (imageWriter == null)
-            throw new MissingResourceException("Missing Resource", imageWriter.getClass().getName(), "");
+            throw new MissingResourceException("Missing Resource-","imageWriter=null" , "");
         imageWriter.writeToImage();
     }
 
