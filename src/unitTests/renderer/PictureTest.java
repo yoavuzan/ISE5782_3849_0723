@@ -108,5 +108,11 @@ public class PictureTest {
                 .setRayTracer(new RayTracerBasic(scene)) //
                 .renderImage() //
                 .writeToImage();
+        camera.setIsAntiAliasing(true);
+         imageWriter = new ImageWriter("ourPicture-with AntiAliasing", 600, 600);
+        camera.setImageWriter(imageWriter) //
+                .setRayTracer(new RayTracerBasic(scene)) //
+                .renderImage() //
+                .writeToImage();
     }
 }

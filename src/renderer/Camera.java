@@ -29,6 +29,7 @@ public class Camera {
     private int antiAliasing = 8;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
+    private boolean useAntiAliasing=false;
 
     /**
      * constructor of camera
@@ -54,6 +55,17 @@ public class Camera {
      */
     public Camera setAntiAliasing(int antiAliasing) {
         this.antiAliasing = antiAliasing;
+        return this;
+    }
+
+    /**
+     * setter for antiAliasing
+     *
+     * @param isAntiAliasing- condition if use AntiAliasing
+     * @return camera
+     */
+    public Camera setIsAntiAliasing(boolean isAntiAliasing) {
+        this.useAntiAliasing = isAntiAliasing;
         return this;
     }
 
@@ -113,7 +125,7 @@ public class Camera {
      * @return new ray that come from view plane
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
-        return new Ray(startPoint, getPixelLocation(nX,nY,j,i).subtract(startPoint));
+        return new Ray(startPoint, getPixelLocation(nX, nY, j, i).subtract(startPoint));
     }
 
     /**
@@ -143,8 +155,8 @@ public class Camera {
      *
      * @param nX- Resolution of view plane x-axis
      * @param nY- Resolution of view plane y-axis
-     * @param j-            number of columns of the pixel to intersect
-     * @param i-            number of rows of the pixel to intersect
+     * @param j-  number of columns of the pixel to intersect
+     * @param i-  number of rows of the pixel to intersect
      * @return new ray that come from view plane
      */
     public List<Ray> constructRays(int nX, int nY, int j, int i) {
@@ -172,12 +184,15 @@ public class Camera {
      *
      * @param nX- Resolution of view plane x-axis
      * @param nY- Resolution of view plane y-axis
-     * @param j-            number of columns
-     * @param i-            number of rows
+     * @param j-  number of columns
+     * @param i-  number of rows
      * @return the color of the ray to that point
      */
     private Color castRay(int nX, int nY, int i, int j) {
-        return rayTracer.traceRays(constructRays(nX, nY, j, i));
+        if (useAntiAliasing == true)
+            return rayTracer.traceRays(constructRays(nX, nY, j, i));
+        else
+            return rayTracer.traceRay(constructRay(nX, nY, j, i));
     }
 
     /**
@@ -268,7 +283,7 @@ public class Camera {
      */
     public void writeToImage() {
         if (imageWriter == null)
-            throw new MissingResourceException("Missing Resource-","imageWriter=null" , "");
+            throw new MissingResourceException("Missing Resource-", "imageWriter=null", "");
         imageWriter.writeToImage();
     }
 
