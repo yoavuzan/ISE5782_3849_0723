@@ -42,15 +42,21 @@ public class RayTracerBasic extends RayTracerBase {
     @Override
     public Color traceRay(Ray ray) {
         GeoPoint closestPoint = findClosestIntersection(ray);
-        return closestPoint == null ? scene.background : calcColor(closestPoint, ray);
+      //  return closestPoint == null ? scene.background : calcColor(closestPoint, ray);
+        if (closestPoint==null)
+            return scene.background;
+        else
+           return calcColor(closestPoint, ray);
     }
 
     public Color traceRays(List<Ray> rays) {
-        Color color = scene.background;
+        Color color =new Color(0,0,100);
         for (Ray ray : rays) {
             GeoPoint closestPoint = findClosestIntersection(ray);
+            if(closestPoint!=null)
+                color.add(calcColor(closestPoint, ray));
         }
-        return color.scale(1 / 64);
+        return color.reduce(rays.size());
     }
 
     /**

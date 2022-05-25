@@ -28,8 +28,16 @@ public class PictureTest {
         scene.setAmbientLight(new AmbientLight(new Color(java.awt.Color.WHITE), new Double3(0.15)));
         scene.background = new Color(40, 40, 80);
         scene.geometries.add( //
-                new Sphere(new Point(100, -100, -600), 50).setEmission(new Color(250, 100, 0)) //
+                new Sphere(new Point(110, -110, -600), 50).setEmission(new Color(250, 100, 0)) //
                         .setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(1000).setKt(0).setKr(1)),
+
+                new Triangle(new Point(0, -110, -600),new Point(10, -110, -600),new Point(5, -103, -600))
+                        .setEmission(new Color(192, 192, 195)) //
+                        .setMaterial(new Material().setKd(0).setKs(0.9).setShininess(100).setKt(0).setKr(1)),
+                new Triangle(new Point(0, -106, -600),new Point(10, -106, -600),new Point(5, -113, -600))
+                        .setEmission(new Color(192, 192, 195)) //
+                        .setMaterial(new Material().setKd(0).setKs(0.9).setShininess(100).setKt(0).setKr(1)),
+
 
                 new Polygon(new Point(20, 15, 10), new Point(-30, 15, 10), new Point(-30, 15, -70), new Point(20, 15, -70))
                         .setEmission(new Color(15, 100, 15)) //
@@ -73,16 +81,18 @@ public class PictureTest {
                 new Triangle(new Point(-5, 5, -60), new Point(-5, 5, -50), new Point(-10, -5, -55))
                         .setEmission(new Color(200, 0, 0))
                         .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(1000).setKt(0).setKr(0)));
-
-        for (int x = -16; x <= 16; x=x+4) {
-            scene.geometries.add(new Cylinder(new Ray(new Point(x, 15, -62), new Vector(0, -1, 0)), 0.4, 7)
+        //the gader
+        double z = 0;
+        for (int x = -16; x <= 16; x = x + 4) {
+            z = z + 0.5;
+            scene.geometries.add(new Cylinder(new Ray(new Point(x, 15, -64 + z), new Vector(0, -1, 0)), 0.4, 7)
                     .setEmission(new Color(200, 100, 0))
                     .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(1000).setKt(0).setKr(0)));
         }
-        scene.geometries.add(new Cylinder(new Ray(new Point(-17, 12, -62), new Vector(1, 0, 0)), 0.4, 34)
-                .setEmission(new Color(200, 100, 0))
-                .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(1000).setKt(0).setKr(0)),
-                new Cylinder(new Ray(new Point(-17, 9, -62), new Vector(1, 0, 0)), 0.4, 34)
+        scene.geometries.add(new Cylinder(new Ray(new Point(-17, 12, -64), new Vector(1, 0, 0.1)), 0.4, 34)
+                        .setEmission(new Color(200, 100, 0))
+                        .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(1000).setKt(0).setKr(0)),
+                new Cylinder(new Ray(new Point(-17, 9, -64), new Vector(1, 0, 0.1)), 0.4, 34)
                         .setEmission(new Color(200, 100, 0))
                         .setMaterial(new Material().setKd(0.1).setKs(0.1).setShininess(1000).setKt(0).setKr(0)));
 

@@ -26,6 +26,7 @@ public class Camera {
     private double height;
     private double distance;
     private double width;
+    private int antiAliasing = 4;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
 
@@ -43,6 +44,17 @@ public class Camera {
         to = to1.normalize();
         right = to1.crossProduct(up1).normalize();
         startPoint = start;
+    }
+
+    /**
+     * setter for antiAnanlize
+     *
+     * @param antiAnanlize- the number of pixels in row/col of every pixel
+     * @return camera
+     */
+    public Camera setAntiAnanlize(int antiAnanlize) {
+        this.antiAliasing = antiAnanlize;
+        return this;
     }
 
     /**
@@ -115,27 +127,51 @@ public class Camera {
     }
 
     /**
+     * calauate the point the ray intersect on the view plan
+     * @param nX
+     * @param nY
+     * @param j
+     * @param i
+     * @return
+     */
+    private Point getPixelLocation(int nX, int nY, int j, int i) {
+        double rY = height / nY;
+        double rX = width / nX;
+
+        Point pIJ = startPoint.add(to.scale(distance)); // The center of the View Plane
+
+        double yI = -(i - (nY - 1d) / 2) * rY;
+        double xJ = (j - (nX - 1d) / 2) * rX;
+        if (yI != 0) pIJ = pIJ.add(up.scale(yI));
+        if (xJ != 0) pIJ = pIJ.add(right.scale(xJ));
+        return pIJ;
+    }
+
+    /**
      * create new ray from camera through view plane to geometries
      *
      * @param nX-Resolution of view plane x-axis
      * @param nY-Resolution of view plane y-axis
-     * @param j-number      of columns
-     * @param i-            number of rows
+     * @param j-            number of columns of the pixel to intersect
+     * @param i-            number of rows of the pixel to intersect
      * @return new ray that come from view plane
      */
     public List<Ray> constructRays(int nX, int nY, int j, int i) {
-        List<Ray> rays = new LinkedList<Ray>();
-        double rY = height / nY;
-        double rX = width / nX;
-        Point pIJ = startPoint.add(to.scale(distance)); // The center of the View Plane
+        List<Ray> rays = new LinkedList<>();
 
-        for (int row = 0; row < 8; row++) {
-            for (int col = 0; col < 8; col++) {
+        Point centerPixel = getPixelLocation(nX,nY,j,i);
 
-                double yI = -(i - (nY - 1d) / 2) * rY + (col + 0.5) / 8;
-                double xJ = (j - (nX - 1d) / 2) * rX + (row + 0.5) / 8;
-                if (yI != 0) pIJ = pIJ.add(up.scale(yI));
-                if (xJ != 0) pIJ = pIJ.add(right.scale(xJ));
+        double  rY = height/ nY/ antiAliasing;
+        double rX = width / nX/ antiAliasing;
+        double x, y;
+
+        for (int row = 0; row < antiAliasing; row++) {
+            for (int col = 0; col < antiAliasing; col++) {
+                y = -(row - (antiAliasing - 1d) / 2) * rY;
+                x = (col - (antiAliasing - 1d) / 2) * rX;
+                Point pIJ = centerPixel;
+                if (y != 0) pIJ = pIJ.add(up.scale(y));
+                if (x != 0) pIJ = pIJ.add(right.scale(x));
                 rays.add(new Ray(startPoint, pIJ.subtract(startPoint)));
             }
         }
@@ -152,7 +188,7 @@ public class Camera {
      * @return the color of the ray to that point
      */
     private Color castRay(int nX, int nY, int i, int j) {
-        return rayTracer.traceRay(constructRay(nX, nY, j, i));
+        return rayTracer.traceRays(constructRays(nX, nY, j, i));
     }
 
     /**
