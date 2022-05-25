@@ -45,6 +45,7 @@ public class RayTracerBasic extends RayTracerBase {
         return closestPoint == null ? scene.background : calcColor(closestPoint, ray);
     }
 
+    @Override
     public Color traceRays(List<Ray> rays) {
         Color color = new Color(0, 0, 0);
         int size = rays.size();

@@ -149,9 +149,7 @@ public class Camera {
      */
     public List<Ray> constructRays(int nX, int nY, int j, int i) {
         List<Ray> rays = new LinkedList<>();
-
         Point centerPixel = getPixelLocation(nX, nY, j, i);
-
         double rY = height / nY / antiAliasing;
         double rX = width / nX / antiAliasing;
         double x, y;

@@ -29,5 +29,11 @@ public abstract class RayTracerBase {
 
     public abstract Color traceRay(Ray ray);	//abstract method for trace ray
 
-    public abstract Color traceRays(List<Ray> ray);	//abstract method for trace ray
+    /**
+     * abstract method for trace ray by antiAliasing method.
+     * get list of rays to pixel and calculate the average color of this pixel
+     * @param rays- list of rays to certain pixel
+     * @return the average color of this pixel
+     */
+    public abstract Color traceRays(List<Ray> rays);
 }
