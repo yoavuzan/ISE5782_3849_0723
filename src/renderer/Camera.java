@@ -26,7 +26,7 @@ public class Camera {
     private double height;
     private double distance;
     private double width;
-    private int antiAliasing = 4;
+    private int antiAliasing = 8;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
 
@@ -106,32 +106,23 @@ public class Camera {
     /**
      * create new ray from camera through view plane to geometries
      *
-     * @param nX-Resolution of view plane x-axis
-     * @param nY-Resolution of view plane y-axis
-     * @param j-number      of columns
-     * @param i-            number of rows
+     * @param nX- Resolution of view plane x-axis
+     * @param nY- Resolution of view plane y-axis
+     * @param j-  number of columns of the pixel to intersect
+     * @param i-  number of rows of the pixel to intersect
      * @return new ray that come from view plane
      */
     public Ray constructRay(int nX, int nY, int j, int i) {
-        double rY = height / nY;
-        double rX = width / nX;
-
-        Point pIJ = startPoint.add(to.scale(distance)); // The center of the View Plane
-
-        double yI = -(i - (nY - 1d) / 2) * rY;
-        double xJ = (j - (nX - 1d) / 2) * rX;
-        if (yI != 0) pIJ = pIJ.add(up.scale(yI));
-        if (xJ != 0) pIJ = pIJ.add(right.scale(xJ));
-
-        return new Ray(startPoint, pIJ.subtract(startPoint));
+        return new Ray(startPoint, getPixelLocation(nX,nY,j,i).subtract(startPoint));
     }
 
     /**
-     * calauate the point the ray intersect on the view plan
-     * @param nX
-     * @param nY
-     * @param j
-     * @param i
+     * calculate the point the ray intersect on the view plan
+     *
+     * @param nX- Resolution of view plane x-axis
+     * @param nY- Resolution of view plane y-axis
+     * @param j-  number of columns of the pixel to intersect
+     * @param i-  number of rows of the pixel to intersect
      * @return
      */
     private Point getPixelLocation(int nX, int nY, int j, int i) {
@@ -150,8 +141,8 @@ public class Camera {
     /**
      * create new ray from camera through view plane to geometries
      *
-     * @param nX-Resolution of view plane x-axis
-     * @param nY-Resolution of view plane y-axis
+     * @param nX- Resolution of view plane x-axis
+     * @param nY- Resolution of view plane y-axis
      * @param j-            number of columns of the pixel to intersect
      * @param i-            number of rows of the pixel to intersect
      * @return new ray that come from view plane
@@ -159,10 +150,10 @@ public class Camera {
     public List<Ray> constructRays(int nX, int nY, int j, int i) {
         List<Ray> rays = new LinkedList<>();
 
-        Point centerPixel = getPixelLocation(nX,nY,j,i);
+        Point centerPixel = getPixelLocation(nX, nY, j, i);
 
-        double  rY = height/ nY/ antiAliasing;
-        double rX = width / nX/ antiAliasing;
+        double rY = height / nY / antiAliasing;
+        double rX = width / nX / antiAliasing;
         double x, y;
 
         for (int row = 0; row < antiAliasing; row++) {
