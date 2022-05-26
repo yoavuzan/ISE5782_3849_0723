@@ -26,10 +26,9 @@ public class Camera {
     private double height;
     private double distance;
     private double width;
-    private int antiAliasing = 8;
+    private int antiAliasing = 1;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
-    private boolean useAntiAliasing=false;
 
     /**
      * constructor of camera
@@ -55,17 +54,6 @@ public class Camera {
      */
     public Camera setAntiAliasing(int antiAliasing) {
         this.antiAliasing = antiAliasing;
-        return this;
-    }
-
-    /**
-     * setter for antiAliasing
-     *
-     * @param isAntiAliasing- condition if use AntiAliasing
-     * @return camera
-     */
-    public Camera setIsAntiAliasing(boolean isAntiAliasing) {
-        this.useAntiAliasing = isAntiAliasing;
         return this;
     }
 
@@ -116,19 +104,6 @@ public class Camera {
     }
 
     /**
-     * create new ray from camera through view plane to geometries
-     *
-     * @param nX- Resolution of view plane x-axis
-     * @param nY- Resolution of view plane y-axis
-     * @param j-  number of columns of the pixel to intersect
-     * @param i-  number of rows of the pixel to intersect
-     * @return new ray that come from view plane
-     */
-    public Ray constructRay(int nX, int nY, int j, int i) {
-        return new Ray(startPoint, getPixelLocation(nX, nY, j, i).subtract(startPoint));
-    }
-
-    /**
      * calculate the point the ray intersect on the view plan
      *
      * @param nX- Resolution of view plane x-axis
@@ -148,6 +123,19 @@ public class Camera {
         if (yI != 0) pIJ = pIJ.add(up.scale(yI));
         if (xJ != 0) pIJ = pIJ.add(right.scale(xJ));
         return pIJ;
+    }
+
+    /**
+     * create new ray from camera through view plane to geometries
+     *
+     * @param nX- Resolution of view plane x-axis
+     * @param nY- Resolution of view plane y-axis
+     * @param j-  number of columns of the pixel to intersect
+     * @param i-  number of rows of the pixel to intersect
+     * @return new ray that come from view plane
+     */
+    public Ray constructRay(int nX, int nY, int j, int i) {
+        return new Ray(startPoint, getPixelLocation(nX, nY, j, i).subtract(startPoint));
     }
 
     /**
@@ -189,10 +177,10 @@ public class Camera {
      * @return the color of the ray to that point
      */
     private Color castRay(int nX, int nY, int i, int j) {
-        if (useAntiAliasing == true)
-            return rayTracer.traceRays(constructRays(nX, nY, j, i));
-        else
+        if (antiAliasing == 1)
             return rayTracer.traceRay(constructRay(nX, nY, j, i));
+        else
+            return rayTracer.traceRays(constructRays(nX, nY, j, i));
     }
 
     /**

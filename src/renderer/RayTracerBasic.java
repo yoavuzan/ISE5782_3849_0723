@@ -77,12 +77,12 @@ public class RayTracerBasic extends RayTracerBase {
             double nl = alignZero(n.dotProduct(l));
             if (nl * nv > 0) { // checks if nl == nv
                 Double3 ktr = transparency(intersection, lightSource, l, n);
-                if (!(ktr.product(k).lowerThan(MIN_CALC_COLOR_K))) {
+                // if (!(ktr.product(k).lowerThan(MIN_CALC_COLOR_K))) {
                     Color lightIntensity = lightSource.getIntensity(intersection.point).scale(ktr);
                     color = color.add(calcDiffusive(kd, l, n, lightIntensity),
                             calcSpecular(ks, l, n, v, nShininess, lightIntensity));
 
-                }
+               // }
             }
         }
         return color;
