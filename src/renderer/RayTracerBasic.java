@@ -47,12 +47,10 @@ public class RayTracerBasic extends RayTracerBase {
 
     @Override
     public Color traceRays(List<Ray> rays) {
-        Color color = new Color(0, 0, 0);
-        int size = rays.size();
-        for (Ray ray : rays) {
-            color = color.add(traceRay(ray).reduce(size));
-        }
-        return color;
+        Color color = Color.BLACK;
+        for (Ray ray : rays)
+            color = color.add(traceRay(ray));
+        return color.reduce(rays.size());
     }
 
     /**

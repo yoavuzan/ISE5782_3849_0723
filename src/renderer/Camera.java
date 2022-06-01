@@ -8,6 +8,7 @@ import primitives.Vector;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.MissingResourceException;
+import java.util.stream.IntStream;
 
 import static primitives.Util.isZero;
 
@@ -29,6 +30,7 @@ public class Camera {
     private int antiAliasing = 1;
     private ImageWriter imageWriter;
     private RayTracerBase rayTracer;
+    private int MAX_ADAPTIVE_LEVEL = 3;
 
     /**
      * constructor of camera
@@ -50,7 +52,7 @@ public class Camera {
      * setter for antiAliasing
      *
      * @param antiAliasing- the number of pixels in row/col of every pixel
-     * @return camera
+     * @return camera with antiAliasing
      */
     public Camera setAntiAliasing(int antiAliasing) {
         this.antiAliasing = antiAliasing;
@@ -104,12 +106,12 @@ public class Camera {
     }
 
     /**
-     * calculate the point the ray intersect on the view plan
+     * calculate the point the ray intersect on the view plan- the center of pixel
      *
      * @param nX- Resolution of view plane x-axis
      * @param nY- Resolution of view plane y-axis
-     * @param j-  number of columns of the pixel to intersect
-     * @param i-  number of rows of the pixel to intersect
+     * @param j-  number of columns of the pixel
+     * @param i-  number of rows of the pixel
      * @return the point the ray intersect on the view plan
      */
     private Point getPixelLocation(int nX, int nY, int j, int i) {
@@ -180,7 +182,55 @@ public class Camera {
         if (antiAliasing == 1)
             return rayTracer.traceRay(constructRay(nX, nY, j, i));
         else
-            return rayTracer.traceRays(constructRays(nX, nY, j, i));
+            return adaptiveHelper(getPixelLocation(nX, nY, j, i), nX, nY);
+        // return rayTracer.traceRays(constructRays(nX, nY, j, i));
+    }
+
+    /**
+     * return the color of this point
+     *
+     * @param p
+     * @return
+     */
+    private Color calcPointColor(Point p) {
+        return rayTracer.traceRay(new Ray(startPoint, p.subtract(startPoint)));
+    }
+
+    private Color adaptiveHelper(Point pIJ, double nY, double nX) {
+        double rY = height / nY / 2;
+        double rX = width / nX / 2;
+        Color upRight = calcPointColor(pIJ.add(up.scale(rY)).add(right.scale(rX)));
+        Color upLeft = calcPointColor(pIJ.add(up.scale(rY)).add(right.scale(-rX)));
+        Color downRight = calcPointColor(pIJ.add(up.scale(-rY)).add(right.scale(rX)));
+        Color downLeft = calcPointColor(pIJ.add(up.scale(-rY)).add(right.scale(-rX)));
+
+        return adaptive(1, pIJ, rX, rY, upLeft, upRight, downLeft, downRight);
+    }
+
+    private Color adaptive(int max,
+                           Point center, double rX, double rY,
+                           Color upLeftCol, Color upRightCol, Color downLeftCol, Color downRightCol) {
+        if (max == MAX_ADAPTIVE_LEVEL) {
+            return downRightCol.add(upLeftCol).add(upRightCol).add(downLeftCol).reduce(4);
+        }
+        if (upRightCol.equals(upLeftCol) && downRightCol.equals(downLeftCol) && downLeftCol.equals(upLeftCol))
+            return upRightCol;
+        else {
+            Color rightPCol = calcPointColor(center.add(right.scale(rX)));
+            Color leftPCol = calcPointColor(center.add(right.scale(-rX)));
+            Color upPCol = calcPointColor(center.add(up.scale(rY)));
+            Color downPCol = calcPointColor(center.add(up.scale(-rY)));
+
+            Color centerCol = calcPointColor(center);
+            rX = rX / 2;
+            rY = rY / 2;
+            upLeftCol = adaptive(max + 1, center.add(up.scale(rY / 2)).add(right.scale(-rX / 2)), rX, rY, upLeftCol, upPCol, leftPCol, centerCol);
+            upRightCol = adaptive(max + 1, center.add(up.scale(rY / 2)).add(right.scale(rX / 2)), rX, rY, upPCol, upRightCol, centerCol, leftPCol);
+            downLeftCol = adaptive(max + 1, center.add(up.scale(-rY / 2)).add(right.scale(-rX / 2)), rX, rY, leftPCol, centerCol, downLeftCol, downPCol);
+            downRightCol = adaptive(max + 1, center.add(up.scale(-rY / 2)).add(right.scale(rX / 2)), rX, rY, centerCol, rightPCol, downPCol, downRightCol);
+            Color color = downRightCol.add(upLeftCol).add(upRightCol).add(downLeftCol);
+            return color.reduce(4);
+        }
     }
 
     /**
@@ -290,11 +340,11 @@ public class Camera {
 
         int nX = imageWriter.getNx();
         int nY = imageWriter.getNy();
-        for (int i = 0; i < nX; i++) {
-            for (int j = 0; j < nY; j++) {
+        IntStream.range(0, nY).parallel().forEach(i -> {
+            IntStream.range(0, nX).parallel().forEach(j -> {
                 imageWriter.writePixel(j, i, this.castRay(nX, nY, i, j));
-            }
-        }
+            });
+        });
         return this;
     }
 }
