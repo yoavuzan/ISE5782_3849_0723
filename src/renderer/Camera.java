@@ -84,9 +84,9 @@ public class Camera {
     }
 
     /**
-     * setter the imageWriter1
+     * setter the imageWriter
      *
-     * @param imageWriter1 -
+     * @param imageWriter1 - imageWriter
      * @return the camera
      */
     public Camera setImageWriter(ImageWriter imageWriter1) {
@@ -182,8 +182,8 @@ public class Camera {
         if (antiAliasing == 1)
             return rayTracer.traceRay(constructRay(nX, nY, j, i));
         else
-            return adaptiveHelper(getPixelLocation(nX, nY, j, i), nX, nY);
-        // return rayTracer.traceRays(constructRays(nX, nY, j, i));
+           return adaptiveHelper(getPixelLocation(nX, nY, j, i), nX, nY);
+        //return rayTracer.traceRays(constructRays(nX, nY, j, i));
     }
 
     /**
@@ -197,37 +197,36 @@ public class Camera {
     }
 
     /**
-     *
-     * @param pIJ
-     * @param nY
-     * @param nX
-     * @return
+     * calculate average color of the pixel by using adaptive Super-sampling
+     * @param center- the center of the pixel
+     * @param nY- number of pixels to width
+     * @param nX- number of pixels to length
+     * @return- the average color of the pixel
      */
-    private Color adaptiveHelper(Point pIJ, double nY, double nX) {
+    private Color adaptiveHelper(Point center, double nY, double nX) {
         double rY = height / nY / 2;
         double rX = width / nX / 2;
-        Color upRight = calcPointColor(pIJ.add(up.scale(rY)).add(right.scale(rX)));
-        Color upLeft = calcPointColor(pIJ.add(up.scale(rY)).add(right.scale(-rX)));
-        Color downRight = calcPointColor(pIJ.add(up.scale(-rY)).add(right.scale(rX)));
-        Color downLeft = calcPointColor(pIJ.add(up.scale(-rY)).add(right.scale(-rX)));
+        Color upRight = calcPointColor(center.add(up.scale(rY)).add(right.scale(rX)));
+        Color upLeft = calcPointColor(center.add(up.scale(rY)).add(right.scale(-rX)));
+        Color downRight = calcPointColor(center.add(up.scale(-rY)).add(right.scale(rX)));
+        Color downLeft = calcPointColor(center.add(up.scale(-rY)).add(right.scale(-rX)));
 
-        return adaptive(1, pIJ, rX, rY, upLeft, upRight, downLeft, downRight);
+        return adaptive(1, center, rX, rY, upLeft, upRight, downLeft, downRight);
     }
 
     /**
-     * recursive method that return the average color of the pixel- by checking the color of the
-     * @param max-the depth of the recursiv
-     * @param center
-     * @param rX
-     * @param rY
-     * @param upLeftCol
-     * @param upRightCol
-     * @param downLeftCol
-     * @param downRightCol
-     * @return
+     * recursive method that return the average color of the pixel- by checking the color of the four corners
+     * @param max- the depth of the recursion
+     * @param center- the center of the pixel
+     * @param rX- the width of the pixel
+     * @param rY- the height of the pixel
+     * @param upLeftCol- the color of the up left corner
+     * @param upRightCol- the color of the up right corner
+     * @param downLeftCol- the color of the down left corner
+     * @param downRightCol - the color of the down right corner
+     * @return the average color of the pixel
      */
-    private Color adaptive(int max,
-                           Point center, double rX, double rY,
+    private Color adaptive(int max, Point center, double rX, double rY,
                            Color upLeftCol, Color upRightCol, Color downLeftCol, Color downRightCol) {
         if (max == MAX_ADAPTIVE_LEVEL) {
             return downRightCol.add(upLeftCol).add(upRightCol).add(downLeftCol).reduce(4);
