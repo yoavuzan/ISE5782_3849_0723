@@ -187,15 +187,22 @@ public class Camera {
     }
 
     /**
-     * return the color of this point
+     * get the point and return the color of the ray to this point
      *
-     * @param p
-     * @return
+     * @param p- point on the view plane
+     * @return color of this point
      */
     private Color calcPointColor(Point p) {
         return rayTracer.traceRay(new Ray(startPoint, p.subtract(startPoint)));
     }
 
+    /**
+     *
+     * @param pIJ
+     * @param nY
+     * @param nX
+     * @return
+     */
     private Color adaptiveHelper(Point pIJ, double nY, double nX) {
         double rY = height / nY / 2;
         double rX = width / nX / 2;
@@ -207,6 +214,18 @@ public class Camera {
         return adaptive(1, pIJ, rX, rY, upLeft, upRight, downLeft, downRight);
     }
 
+    /**
+     * recursive method that return the average color of the pixel- by checking the color of the
+     * @param max-the depth of the recursiv
+     * @param center
+     * @param rX
+     * @param rY
+     * @param upLeftCol
+     * @param upRightCol
+     * @param downLeftCol
+     * @param downRightCol
+     * @return
+     */
     private Color adaptive(int max,
                            Point center, double rX, double rY,
                            Color upLeftCol, Color upRightCol, Color downLeftCol, Color downRightCol) {
