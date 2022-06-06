@@ -32,7 +32,7 @@ public class Camera {
     private RayTracerBase rayTracer;
     private int antiAliasing = 1;
     private int maxAdaptiveLevel = 3;
-    private boolean useAdaptive=false;
+    private boolean useAdaptive = false;
 
     /**
      * constructor of camera
@@ -59,6 +59,7 @@ public class Camera {
         this.antiAliasing = antiAliasing;
         return this;
     }
+
     /**
      * setter for UseAdaptive
      *
@@ -198,11 +199,12 @@ public class Camera {
      * @return the color of the ray to that point
      */
     private Color castRay(int nX, int nY, int i, int j) {
-        if (antiAliasing == 1)
+        if (useAdaptive)
+            return adaptiveHelper(getPixelLocation(nX, nY, j, i), nX, nY);
+        else if (antiAliasing == 1)
             return rayTracer.traceRay(constructRay(nX, nY, j, i));
         else
-            return adaptiveHelper(getPixelLocation(nX, nY, j, i), nX, nY);
-        // return rayTracer.traceRays(constructRays(nX, nY, j, i));
+            return rayTracer.traceRays(constructRays(nX, nY, j, i));
     }
 
     /**
@@ -278,7 +280,8 @@ public class Camera {
 
     /**
      * check if this point exist in the HashTable return his color otherwise calculate the color and save it
-     * @param point- certain point in the pixel
+     *
+     * @param point-           certain point in the pixel
      * @param pointColorTable- dictionary that save points and their color
      * @return the color of the point
      */
